@@ -1696,7 +1696,11 @@ mjx-container[jax="CHTML"] {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: url("img/lockscreen-bg.jpg") no-repeat center center / cover, radial-gradient(circle at center, #008080 0%, #002b2b 100%);
+    background-color: #004d4d;
+    background-image: url("img/lockscreen-bg.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
     z-index: 99999;
     display: flex;
     align-items: center;
