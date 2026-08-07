@@ -1696,12 +1696,24 @@ mjx-container[jax="CHTML"] {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: url("img/lockscreen-bg.jpg") no-repeat center center / cover, radial-gradient(circle at center, #008080 0%, #002b2b 100%);
+    background-color: #002b2b;
     z-index: 99999;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
     transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.lock-screen-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 1;
 }
 
 .lock-screen-overlay.unlock-fade {
@@ -1711,13 +1723,15 @@ mjx-container[jax="CHTML"] {
 }
 
 .lock-screen-box {
+    position: relative;
+    z-index: 10;
     width: 480px;
     background: var(--win-gray);
     border-top: 2px solid var(--win-light);
     border-left: 2px solid var(--win-light);
     border-right: 2px solid var(--win-darkest);
     border-bottom: 2px solid var(--win-darkest);
-    box-shadow: 8px 8px 24px rgba(0,0,0,0.6);
+    box-shadow: 8px 8px 32px rgba(0,0,0,0.75);
     font-family: var(--font-sans);
 }
 
