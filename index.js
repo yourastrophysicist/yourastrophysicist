@@ -18,11 +18,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     rebuildTaskbarTabs();
     
-    // Global mousedown listener to handle window focus activation
+    // Global mousedown/touchstart listeners to handle window focus activation
     document.querySelectorAll('.window').forEach(win => {
-        win.addEventListener('mousedown', () => {
-            focusWindow(win.id);
-        });
+        win.addEventListener('mousedown', () => focusWindow(win.id));
+        win.addEventListener('touchstart', () => focusWindow(win.id), { passive: true });
+    });
+
+    // Touch listeners for titlebars on mobile
+    document.querySelectorAll('.title-bar').forEach(tb => {
+        const parentWin = tb.closest('.window');
+        if (parentWin) {
+            tb.addEventListener('touchstart', (e) => dragStart(e, parentWin.id), { passive: false });
+        }
     });
 
     // Close Start Menu when clicking outside
@@ -76,7 +83,7 @@ function updateLockClock() {
     el.textContent = `${hours}:${minutes} ${ampm}`;
 }
 
-/* Window Dragging Handlers */
+/* Window Dragging Handlers (Mouse & Touch Support for Mobile) */
 function dragStart(e, windowId) {
     const win = document.getElementById(windowId);
     if (!win || win.classList.contains('maximized-window')) return;
@@ -85,40 +92,51 @@ function dragStart(e, windowId) {
     focusWindow(windowId);
     
     activeDragWindow = win;
-    dragOffsetX = e.clientX - win.offsetLeft;
-    dragOffsetY = e.clientY - win.offsetTop;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    
+    dragOffsetX = clientX - win.offsetLeft;
+    dragOffsetY = clientY - win.offsetTop;
     
     document.addEventListener('mousemove', dragMove);
     document.addEventListener('mouseup', dragEnd);
-    
-    // Prevent selection during dragging
-    e.preventDefault();
+    document.addEventListener('touchmove', dragMove, { passive: false });
+    document.addEventListener('touchend', dragEnd);
 }
 
 function dragMove(e) {
     if (!activeDragWindow) return;
     
-    let left = e.clientX - dragOffsetX;
-    let top = e.clientY - dragOffsetY;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    
+    let left = clientX - dragOffsetX;
+    let top = clientY - dragOffsetY;
     
     // Constrain within desktop boundary
     const desktop = document.getElementById('desktop');
-    const maxLeft = desktop.clientWidth - activeDragWindow.clientWidth;
-    const maxTop = desktop.clientHeight - activeDragWindow.clientHeight;
-    
-    if (left < 0) left = 0;
-    if (top < 0) top = 0;
-    if (left > maxLeft) left = maxLeft;
-    if (top > maxTop) top = maxTop;
+    if (desktop) {
+        const maxLeft = Math.max(0, desktop.clientWidth - activeDragWindow.clientWidth);
+        const maxTop = Math.max(0, desktop.clientHeight - activeDragWindow.clientHeight);
+        
+        if (left < 0) left = 0;
+        if (top < 0) top = 0;
+        if (left > maxLeft) left = maxLeft;
+        if (top > maxTop) top = maxTop;
+    }
     
     activeDragWindow.style.left = left + 'px';
     activeDragWindow.style.top = top + 'px';
+    
+    if (e.touches) e.preventDefault();
 }
 
 function dragEnd() {
+    activeDragWindow = null;
     document.removeEventListener('mousemove', dragMove);
     document.removeEventListener('mouseup', dragEnd);
-    activeDragWindow = null;
+    document.removeEventListener('touchmove', dragMove);
+    document.removeEventListener('touchend', dragEnd);
 }
 
 /* Window Control Actions */
