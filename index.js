@@ -551,15 +551,21 @@ function initSoundCloudWidget() {
                 if (sounds && sounds.length) {
                     winampPlaylist.length = 0;
                     sounds.forEach((snd, i) => {
-                        const mins = Math.floor((snd.duration / 1000) / 60);
-                        const secs = String(Math.floor((snd.duration / 1000) % 60)).padStart(2, '0');
+                        const durMs = snd.duration || 204000;
+                        const mins = Math.floor((durMs / 1000) / 60);
+                        const secs = String(Math.floor((durMs / 1000) % 60)).padStart(2, '0');
+                        
+                        const trackName = (snd && snd.title && snd.title !== 'undefined') ? snd.title : 'I Love My Computer';
+                        const artistName = (snd && snd.user && snd.user.username && snd.user.username !== 'undefined') ? snd.user.username : 'Ninajirachi';
+                        
                         winampPlaylist.push({
-                            title: `${i + 1}. ${snd.user ? snd.user.username : 'Ninajirachi'} - ${snd.title}`,
-                            duration: Math.floor(snd.duration / 1000),
+                            title: `${i + 1}. ${artistName} - ${trackName}`,
+                            duration: Math.floor(durMs / 1000),
                             strDur: `${mins}:${secs}`
                         });
                     });
                     renderPlaylistUI();
+                    updateWinampUI();
                 }
             });
         });
@@ -728,11 +734,15 @@ function updateWinampTimeDisplay() {
 }
 
 function updateWinampUI() {
-    const track = winampPlaylist[winampCurrentTrack];
+    const defaultTrack = { title: "1. Ninajirachi - I Love My Computer", duration: 204, strDur: "3:24" };
+    const track = winampPlaylist[winampCurrentTrack] || winampPlaylist[0] || defaultTrack;
     const tickerEl = document.getElementById('winamp-ticker');
     if (tickerEl) {
+        let trackTitle = (track && track.title) ? track.title : "1. Ninajirachi - I Love My Computer";
+        trackTitle = trackTitle.replace(/undefined/g, "Ninajirachi");
+        const trackDur = (track && track.strDur) ? track.strDur : "3:24";
         const state = winampIsPaused ? '[PAUSED] ' : (winampIsPlaying ? '▶ PLAYING: ' : '■ STOPPED: ');
-        tickerEl.textContent = `${state} ${track.title} (${track.strDur}) *** WINAMP v2.91 ***`;
+        tickerEl.textContent = `${state} ${trackTitle} (${trackDur}) *** WINAMP v2.91 ***`;
     }
     
     updateWinampTimeDisplay();
