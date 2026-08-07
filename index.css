@@ -1870,4 +1870,209 @@ mjx-container[jax="CHTML"] {
     align-items: center;
 }
 
+/* ==========================================================================
+   MOBILE & TOUCH-FRIENDLY RESPONSIVE STYLES (iOS, Android, Mobile Viewports)
+   ========================================================================== */
+
+@media screen and (max-width: 768px) {
+    /* 1. Body & Desktop Container */
+    body {
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .desktop {
+        height: auto;
+        min-height: calc(100vh - 40px);
+        padding: 10px 10px 60px 10px;
+    }
+
+    /* 2. Desktop Icon Grid Layout on Mobile */
+    .desktop-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px 8px;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .desktop-icon {
+        width: 100%;
+        padding: 6px 4px;
+        touch-action: manipulation;
+    }
+
+    .icon-svg {
+        width: 36px;
+        height: 36px;
+    }
+
+    .icon-label {
+        font-size: 11px;
+        word-break: break-word;
+    }
+
+    /* 3. Ambient ASCII Banner */
+    .desktop-ascii-banner {
+        width: 100%;
+        font-size: 8px;
+        overflow-x: hidden;
+        padding: 8px;
+    }
+
+    .ascii-art {
+        font-size: 7px;
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+
+    /* 4. Mobile Window Behavior & Positioning */
+    .window {
+        width: calc(100vw - 16px) !important;
+        max-width: 100vw !important;
+        max-height: calc(85vh - 50px) !important;
+        left: 8px !important;
+        top: 25px !important;
+        margin: 0 auto;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .window-body {
+        max-height: calc(85vh - 90px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .title-bar {
+        padding: 6px 8px;
+        touch-action: none;
+    }
+
+    .title-bar-text {
+        font-size: 12px;
+    }
+
+    .tbtn {
+        width: 22px;
+        height: 22px;
+        font-size: 11px;
+        line-height: 20px;
+    }
+
+    /* 5. Mobile Lock Screen Box */
+    .lock-screen-box {
+        width: calc(100vw - 24px) !important;
+        max-width: 440px;
+        margin: 0 12px;
+    }
+
+    .lock-screen-body {
+        flex-direction: column;
+        align-items: center;
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .lock-user-avatar {
+        width: 70px;
+        height: 70px;
+    }
+
+    .lock-form-area {
+        width: 100%;
+    }
+
+    .lock-input-group label {
+        width: 65px;
+        font-size: 10.5px;
+    }
+
+    .lock-btn-row {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .lock-btn {
+        flex: 1;
+        padding: 8px 4px;
+        font-size: 11px;
+        touch-action: manipulation;
+    }
+
+    .lock-screen-footer {
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
+        font-size: 9px;
+    }
+
+    /* 6. Mobile Taskbar & Start Menu */
+    .taskbar {
+        height: 42px;
+        padding: 0 4px;
+    }
+
+    .start-btn {
+        height: 32px;
+        padding: 0 10px;
+        font-size: 12px;
+        touch-action: manipulation;
+    }
+
+    .taskbar-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .taskbar-tab {
+        min-width: 80px;
+        max-width: 120px;
+        height: 30px;
+        font-size: 10px;
+    }
+
+    .system-tray {
+        padding: 0 6px;
+        font-size: 10px;
+    }
+
+    .start-menu {
+        width: 240px;
+        bottom: 42px;
+        left: 2px;
+    }
+
+    /* 7. Mobile Winamp Rack */
+    .winamp-window {
+        width: calc(100vw - 16px) !important;
+    }
+
+    .winamp-lcd {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .wa-btn {
+        min-width: 32px;
+        height: 30px;
+        font-size: 12px;
+    }
+
+    /* 8. Mobile Research & PDF Viewer Layout */
+    .paper-figure-container div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    .pdf-toolbar {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .pdf-toolbar-btn {
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+}
+
 
