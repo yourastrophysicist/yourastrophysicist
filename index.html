@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jessica Syafaq Muthmaina | Retro Space Desktop</title>
+    <link rel="stylesheet" href="index.css">
+    
+    <!-- Google Fonts for retro pixel art and monospace styling -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Silkscreen&family=Share+Tech+Mono&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax configuration for inline and display TeX math rendering -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <!-- Retro Scanline Overlay for Y2K CRT look -->
+    <div class="crt-overlay"></div>
+
+    <!-- Windows Classic / Y2K Lock Screen Overlay -->
+    <div id="lock-screen" class="lock-screen-overlay">
+        <div class="lock-screen-box">
+            <div class="lock-screen-header">
+                <div class="lock-screen-logo">
+                    <svg viewBox="0 0 32 32" class="lock-logo-svg">
+                        <rect x="2" y="2" width="13" height="13" fill="#ff007f"/>
+                        <rect x="17" y="2" width="13" height="13" fill="#00ffcc"/>
+                        <rect x="2" y="17" width="13" height="13" fill="#0066ff"/>
+                        <rect x="17" y="17" width="13" height="13" fill="#ffcc00"/>
+                    </svg>
+                    <div class="lock-brand-text">
+                        <span class="brand-title">Windows 98</span>
+                        <span class="brand-sub">Scientific Workstation Edition</span>
+                    </div>
+                </div>
+            </div>
+            <div class="lock-screen-body">
+                <div class="lock-user-avatar">
+                    <img src="img/jessica-dandelion.jpg" alt="Jessica Syafaq Muthmaina" class="lock-avatar-img">
+                </div>
+                <div class="lock-form-area">
+                    <p class="lock-welcome-txt">Welcome to <strong>Jessica Syafaq Muthmaina</strong>'s Portfolio Workstation.</p>
+                    <p class="lock-instruction-txt">Type password or click <strong>Log On</strong> to enter.</p>
+                    
+                    <div class="lock-input-group">
+                        <label>User name:</label>
+                        <input type="text" value="Jessica Syafaq Muthmaina" readonly class="lock-input">
+                    </div>
+                    <div class="lock-input-group">
+                        <label>Password:</label>
+                        <input type="password" id="lock-pass-input" value="astrophysics123" class="lock-input" onkeydown="if(event.key==='Enter') unlockDesktop()">
+                    </div>
+                    <div class="lock-input-group">
+                        <label>Domain:</label>
+                        <input type="text" value="UNIPD-ASTROPHYSICS" readonly class="lock-input">
+                    </div>
+
+                    <div class="lock-btn-row">
+                        <button class="win-btn-default lock-btn" onclick="unlockDesktop()">Log On</button>
+                        <button class="lock-btn" onclick="unlockDesktop()">Cancel</button>
+                        <button class="lock-btn" onclick="alert('System Hint: Click Log On to access the desktop environment.')">Help</button>
+                    </div>
+                </div>
+            </div>
+            <div class="lock-screen-footer">
+                <span>Università degli Studi di Padova (UNIPD) & UGM Astrophysics Lab</span>
+                <span id="lock-screen-clock">--:-- --</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- The main Windows 98 Desktop area -->
+    <div class="desktop" id="desktop">
+        
+        <!-- Desktop Grid of Icons -->
+        <div class="desktop-grid">
+            <div class="desktop-icon" onclick="openWindow('win-sys')">
+                <svg class="icon-svg" viewBox="0 0 32 32">
+                    <rect x="4" y="6" width="24" height="16" fill="#c0c0c0" stroke="#000000" stroke-width="2"/>
+                    <rect x="6" y="8" width="20" height="12" fill="#000080"/>
+                    <path d="M 8 22 L 24 22 L 26 26 L 6 26 Z" fill="#808080" stroke="#000000" stroke-width="2"/>
+                    <rect x="12" y="26" width="8" height="2" fill="#000000"/>
+                </svg>
+                <div class="icon-label">System.sys</div>
+            </div>
+
+            <div class="desktop-icon" onclick="openWindow('win-about')">
+                <svg class="icon-svg" viewBox="0 0 32 32">
+                    <path d="M 6 4 L 20 4 L 26 10 L 26 28 L 6 28 Z" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+                    <path d="M 20 4 L 20 10 L 26 10 Z" fill="#c0c0c0" stroke="#000000" stroke-width="2"/>
+                    <line x1="10" y1="14" x2="22" y2="14" stroke="#000000" stroke-width="2"/>
+                    <line x1="10" y1="18" x2="22" y2="18" stroke="#000000" stroke-width="2"/>
+                    <line x1="10" y1="22" x2="18" y2="22" stroke="#000000" stroke-width="2"/>
+                </svg>
+                <div class="icon-label">AboutMe.txt</div>
+            </div>
+
+            <div class="desktop-icon" onclick="openWindow('win-research')">
+                <svg class="icon-svg" viewBox="0 0 32 32">
+                    <path d="M 6 4 L 20 4 L 26 10 L 26 28 L 6 28 Z" fill="#e8d9ff" stroke="#000000" stroke-width="2"/>
+                    <path d="M 20 4 L 20 10 L 26 10 Z" fill="#b8c4d8" stroke="#000000" stroke-width="2"/>
+                    <circle cx="16" cy="18" r="4" fill="none" stroke="#8b0000" stroke-width="2"/>
+                    <line x1="16" y1="10" x2="16" y2="14" stroke="#8b0000" stroke-width="2"/>
+                    <line x1="16" y1="22" x2="16" y2="26" stroke="#8b0000" stroke-width="2"/>
+                </svg>
+                <div class="icon-label">Quasar.doc</div>
+            </div>
+
+
+
+            <div class="desktop-icon" onclick="openWindow('win-media')">
+                <svg class="icon-svg" viewBox="0 0 32 32">
+                    <circle cx="16" cy="16" r="12" fill="#d7f0ff" stroke="#000000" stroke-width="2"/>
+                    <path d="M 6 16 L 26 16" stroke="#000000" stroke-width="2"/>
+                    <path d="M 16 6 A 10 10 0 0 0 16 26" fill="none" stroke="#000000" stroke-width="2"/>
+                    <path d="M 16 6 A 10 10 0 0 1 16 26" fill="none" stroke="#000000" stroke-width="2"/>
+                </svg>
+                <div class="icon-label">Outreach.url</div>
+            </div>
+
+            <div class="desktop-icon" onclick="openWindow('win-cv')">
+                <svg class="icon-svg" viewBox="0 0 32 32">
+                    <rect x="6" y="4" width="20" height="24" fill="#ffccee" stroke="#000000" stroke-width="2"/>
+                    <line x1="10" y1="10" x2="22" y2="10" stroke="#202030" stroke-width="2"/>
+                    <line x1="10" y1="14" x2="22" y2="14" stroke="#202030" stroke-width="2"/>
+                    <line x1="10" y1="18" x2="22" y2="18" stroke="#202030" stroke-width="2"/>
+                    <line x1="10" y1="22" x2="16" y2="22" stroke="#202030" stroke-width="2"/>
+                </svg>
+                <div class="icon-label">hi.txt</div>
+            </div>
+
+            <div class="desktop-icon" onclick="openWindow('win-values')">
+                <svg class="icon-svg" viewBox="0 0 32 32">
+                    <rect x="6" y="4" width="20" height="24" fill="#e6f7ff" stroke="#000000" stroke-width="2"/>
+                    <polygon points="16,8 18.5,13 24,14 20,18 21,23.5 16,21 11,23.5 12,18 8,14 13.5,13" fill="#ffcc00" stroke="#000000" stroke-width="1"/>
+                </svg>
+                <div class="icon-label">Values.txt</div>
+            </div>
+
+            <div class="desktop-icon" onclick="openWindow('win-pdf')">
+                <svg class="icon-svg" viewBox="0 0 32 32">
+                    <path d="M 6 4 L 20 4 L 26 10 L 26 28 L 6 28 Z" fill="#cc0000" stroke="#000000" stroke-width="2"/>
+                    <path d="M 20 4 L 20 10 L 26 10 Z" fill="#ff6666" stroke="#000000" stroke-width="2"/>
+                    <rect x="8" y="14" width="16" height="10" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+                    <text x="16" y="22" font-size="7" font-weight="bold" fill="#cc0000" text-anchor="middle" font-family="sans-serif">PDF</text>
+                </svg>
+                <div class="icon-label">CV_LaTeX.pdf</div>
+            </div>
+
+            <div class="desktop-icon" onclick="openWindow('win-winamp')">
+                <svg class="icon-svg" viewBox="0 0 32 32">
+                    <rect x="4" y="4" width="24" height="24" fill="#202020" stroke="#000000" stroke-width="2"/>
+                    <path d="M 18 6 L 10 17 L 16 17 L 13 26 L 23 13 L 16 13 Z" fill="#ffcc00" stroke="#ffaa00" stroke-width="1"/>
+                </svg>
+                <div class="icon-label">Winamp.exe</div>
+            </div>
+        </div>
+
+        <!-- Ambient Cosmic ASCII Header Widget in Desktop -->
+        <div class="desktop-ascii-banner">
+            <pre class="ascii-art">
+        .  *  °  .  ✦  .  *  °  .  ★  .  *  °  .  ✧  .  *  °  .  ✦  .  *
+     . ⁺ ₊ ⋆ ˚ ₊ ‧ ⁺ ₊ ⋆ . ✦ . ⋆ ⁺ ₊ ⋆ ˚ ₊ ‧ ⁺ ₊ ⋆ . ✦ . ⋆ ⁺ ₊ ⋆ ˚ ₊ ‧ ⁺ ₊ ⋆ .
+      ★  .  *  °  .  ✧  .  *  °  .  ✦  .  *  °  .  ★  .  *  °  .  ✧  .  *
+     ⋆.ೃ࿔*:･  .  *  .  ✦  .  *  .  ★  .  *  .  ✧  .  *  .  ⋆.ೃ࿔*:･
+            </pre>
+            <div class="ascii-sub">OBSERVATIONAL ASTROPHYSICS AND COSMOLOGY</div>
+        </div>
+
+        <!-- 1. SYSTEM PROPERTIES WINDOW (System info & Tech stack) -->
+        <div class="window" id="win-sys" style="display: none; top: 8%; left: 15%; width: 460px; z-index: 101;">
+            <div class="title-bar" onmousedown="dragStart(event, 'win-sys')">
+                <div class="title-bar-text">System Properties - Jessica Info</div>
+                <div class="title-bar-controls">
+                    <button class="tbtn" onclick="minimizeWindow('win-sys')">_</button>
+                    <button class="tbtn" onclick="maximizeWindow('win-sys')">口</button>
+                    <button class="tbtn" onclick="closeWindow('win-sys')">X</button>
+                </div>
+            </div>
+            <div class="window-body">
+                <div class="sys-layout">
+                    <div class="sys-image-container">
+                        <img src="img/jessica-illustration.jpg" alt="Jessica portrait illustration" class="sys-image">
+                    </div>
+                    <div class="sys-details">
+                        <h3 class="pixel-heading">System info</h3>
+                        <p class="sys-item"><strong>User</strong> Jessica Syafaq Muthmaina</p>
+                        <p class="sys-item"><strong>Focus</strong> astrophysics and cosmology</p>
+                        <p class="sys-item"><strong>Host</strong> M.Sc. UNIPD (Padova, Italy)</p>
+                        <p class="sys-item"><strong>Base</strong> B.Sc. UGM (Yogyakarta, Indonesia)</p>
+                    </div>
+                </div>
+                <fieldset class="sys-fieldset">
+                    <legend>Computational Workspace</legend>
+                    <ul class="tech-list">
+                        <li>Python - Astropy, SciPy, NumPy, Matplotlib, Polars, Scikit-learn</li>
+                        <li>LaTeX - Scientific manuscript generation and paper typesetting</li>
+                        <li>Workflow - I love my computer! Used for VLBI data analysis, cosmic simulation & observational research</li>
+                        <li>Knowledge - Obsidian Zettelkasten research systems</li>
+                    </ul>
+                </fieldset>
+                <div class="window-footer">
+                    <button class="win-btn-default" onclick="closeWindow('win-sys')">OK</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. ABOUT ME TEXT READER WINDOW -->
+        <div class="window" id="win-about" style="display: none; top: 15%; left: 35%; width: 500px; z-index: 100;">
+            <div class="title-bar" onmousedown="dragStart(event, 'win-about')">
+                <div class="title-bar-text">AboutMe.txt - Notepad</div>
+                <div class="title-bar-controls">
+                    <button class="tbtn" onclick="minimizeWindow('win-about')">_</button>
+                    <button class="tbtn" onclick="maximizeWindow('win-about')">口</button>
+                    <button class="tbtn" onclick="closeWindow('win-about')">X</button>
+                </div>
+            </div>
+            <div class="window-body text-body">
+                <div class="notepad-menu">
+                    <span>File</span><span>Edit</span><span>Search</span><span>Help</span>
+                </div>
+                <div class="notepad-textarea">
+                    <img src="img/jessica-dandelion.jpg" alt="Jessica in dandelion field" class="notepad-image">
+                    <p class="notepad-text">
+                        Welcome to my personal digital space! I am Jessica Syafaq Muthmaina, an astrophysicist and researcher currently pursuing my Master of Science (M.Sc.) in Astrophysics and Cosmology at Universita degli Studi di Padova (UNIPD), Padova, Italy.
+                    </p>
+                    <p class="notepad-text">
+                        I previously earned my Bachelor of Science (B.Sc.) in Physics from Universitas Gadjah Mada (UGM) in Yogyakarta, Indonesia, concentrating on theoretical, computational physics, and observational astronomy.
+                    </p>
+                    <p class="notepad-text">
+                        My scientific research focuses on observational astrophysics, quasars, active galactic nuclei (AGN), positional stability analysis using VLBI time series, and frequency stability metrics via Allan standard deviation.
+                    </p>
+                    <p class="notepad-text">
+                        I love my computer! I use it for astronomical data processing, reduction, spectral analysis, LaTeX scientific typesetting, and Zettelkasten research synthesis in Obsidian.
+                    </p>
+                    <p class="notepad-text">
+                        Beyond physics, I am deeply engaged in community building, open knowledge sharing, and intersectional advocacy with Sadar Setara and Ruang Postulat in Garut, Indonesia.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. FEATURED RESEARCH DOCUMENT (Quasar 4C31.61 & Allan Standard Deviation Analysis) -->
+        <div class="window" id="win-research" style="display: none; top: 12%; left: 10%; width: 660px; height: 560px; z-index: 99;">
+            <div class="title-bar" onmousedown="dragStart(event, 'win-research')">
+                <div class="title-bar-text">Quasar_Research.doc - WordPad [arXiv:2401.12325]</div>
+                <div class="title-bar-controls">
+                    <button class="tbtn" onclick="minimizeWindow('win-research')">_</button>
+                    <button class="tbtn" onclick="maximizeWindow('win-research')">口</button>
+                    <button class="tbtn" onclick="closeWindow('win-research')">X</button>
+                </div>
+            </div>
+            <div class="window-body" style="display: flex; flex-direction: column; height: calc(100% - 24px);">
+                <div class="wordpad-toolbar">
+                    <span class="toolbar-btn font-bold">B</span>
+                    <span class="toolbar-btn font-italic">I</span>
+                    <span class="toolbar-btn font-underline">U</span>
+                    <span class="toolbar-divider"></span>
+                    <span class="toolbar-font-name">MS Sans Serif</span>
+                    <span class="toolbar-divider"></span>
+                    <span style="font-size: 11px; color: #444;">Journal of Physics: Conference Series 2773 (2024) 012007</span>
+                </div>
+                <div class="document-content" style="flex: 1; max-height: none;">
+                    <h2 class="doc-title" style="font-size: 16px; color: #000080;">Implementation of Allan Standard Deviation Technique in Stability Analysis of 4C31.61 Quasar Position</h2>
+                    
+                    <p class="doc-meta" style="font-size: 11px; color: #222; margin-bottom: 12px;">
+                        <strong>Authors:</strong> Jessica Syafaq Muthmaina<sup>1</sup>, Ibnu Nurul Huda<sup>2</sup>, Dwi Satya Palupi<sup>1</sup><br>
+                        <em><sup>1</sup>Department of Physics, Faculty of Mathematics and Natural Sciences, Universitas Gadjah Mada, Yogyakarta, Indonesia<br>
+                        <sup>2</sup>Research Center for Computation, National Research and Innovation Agency (BRIN), Bogor, Indonesia</em><br>
+                        <strong>Publication:</strong> IOPScience Journal of Physics Conference Series | <strong>arXiv:</strong> <a href="https://arxiv.org/abs/2401.12325" target="_blank">2401.12325 [astro-ph.GA]</a> | <strong>DOI:</strong> <a href="https://iopscience.iop.org/article/10.1088/1742-6596/2773/1/012007/meta" target="_blank">10.1088/1742-6596/2773/1/012007</a>
+                    </p>
+
+                    <div class="doc-formula-box" style="background: #f4f6fb; border-left: 4px solid #000080; padding: 10px 14px; margin-bottom: 14px;">
+                        <p class="formula-label" style="color: #000080; font-weight: bold;">Abstract</p>
+                        <p class="doc-paragraph" style="margin-bottom: 0; font-style: italic; font-size: 11.5px;">
+                            The International Celestial Reference Frame (ICRF) plays an important role in astronomy and geodesy. The realization of ICRF is based on the position of thousands of quasars observed using the Very-Long Baseline Interferometry (VLBI) technique. Better quality of ICRF is achieved when the position of the quasars is stable. In this study, we aim to analyze the stability of one of the quasars in ICRF called 4C31.61 (2201+315). We performed VLBI data analysis by using Vienna VLBI and Satellite Software (VieVS) to get the position of the quasar. We also used the data of the quasar's position from the Paris Observatory Geodetic VLBI Center. We examined the stability of the quasar position by using the Allan standard deviation technique. We found that the quasar 4C31.61 (2201+315) has a stable position with the dominance of white noise across the majority of time scales.
+                        </p>
+                    </div>
+
+                    <h3 style="font-size: 13px; color: #8b0000; border-bottom: 1px solid #ccc; padding-bottom: 3px; margin-top: 15px;">1. Introduction & ICRF Realization</h3>
+                    <p class="doc-paragraph">
+                        Very Long Baseline Interferometry (VLBI) is an observational technique that uses widely separated radio telescopes to observe astronomical radio sources simultaneously. VLBI is the primary technique for realizing the International Celestial Reference Frame (ICRF-3) through high-precision positional monitoring of extragalactic radio sources. Positional stability is an essential prerequisite for reference quasars to prevent distortion in celestial reference frames.
+                    </p>
+
+                    <h3 style="font-size: 13px; color: #8b0000; border-bottom: 1px solid #ccc; padding-bottom: 3px; margin-top: 15px;">2. Data & Overlapping Allan Standard Deviation Formulation</h3>
+                    <p class="doc-paragraph">
+                        We analyzed 33 years of VLBI observation data (1990–2023) comprising 6,342 sessions. Quasar 4C31.61 positions in Right Ascension ($\alpha$) and Declination ($\delta$) were derived using Vienna VLBI Software (VieVS) with ICRF-3 and ITRF-2020 reference frames, and compared against Paris Observatory Geodetic VLBI Center data ($\alpha = 330.8123990589822^\circ$, $\delta = 31.7606305185240^\circ$).
+                    </p>
+
+                    <div class="doc-formula-box">
+                        <p class="formula-label">Overlapping Allan Standard Deviation $\sigma^2(\tau)$</p>
+                        <div class="formula-render">
+                            $$ \sigma^2(\tau) = \frac{1}{M-2m+1} \sum^{M-2m+1}_{j=1}\frac{1}{2}\left(\frac{1}{m}\sum^{j+m-1}_{i=j}(\bar{y}_{i+m}-\bar{y}_i)\right)^2 $$
+                        </div>
+                        <p style="font-size: 10px; color: #555; text-align: center; margin-top: 4px;">
+                            where $M$ is the number of windows, $\tau = m\tau_0$ is the time scale ($\tau_0$ sampling interval), and $\bar{y}$ is the sample mean over interval $\tau$.
+                        </p>
+                    </div>
+
+                    <p class="doc-paragraph">
+                        Noise classification is determined by the slope $S$ in logarithmic Allan variance plots:
+                        <strong>White Noise (Stable):</strong> $S < -0.25$; 
+                        <strong>Flicker Noise:</strong> $-0.25 \le S \le 0.25$; 
+                        <strong>Random Walk (Unstable):</strong> $S > 0.25$.
+                    </p>
+
+                    <h3 style="font-size: 13px; color: #8b0000; border-bottom: 1px solid #ccc; padding-bottom: 3px; margin-top: 15px;">3. Paper Figures & Observational Results</h3>
+                    
+                    <!-- Paper Figure 1: Relative Position Comparison -->
+                    <div class="paper-figure-container">
+                        <img src="img/quasar-position-comparison.png" alt="Figure 1: Comparison of 4C31.61 relative position given by VieVS and Paris Observatory" class="paper-figure-img">
+                        <div class="figure-caption">
+                            <em><strong>Figure 1.</strong> — Comparison of Quasar 4C31.61 relative position given by our VLBI analysis (VieVS, red dots) and Paris Observatory Geodetic VLBI Center (Paris, blue dots) with respect to reference position ($\alpha = 330.8123990589822^\circ$, $\delta = 31.7606305185240^\circ$).</em>
+                        </div>
+                    </div>
+
+                    <!-- Paper Figure 2: Allan Deviation Plots Grid -->
+                    <div class="paper-figure-container">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
+                            <div>
+                                <img src="img/vievs-allan-ra.png" alt="VieVS Allan Deviation RA" style="width: 100%; border: 1px solid #ccc; border-radius: 2px;">
+                                <p style="font-size: 9.5px; text-align: center; color: #444; margin-top: 2px;">(a) VieVS — $\alpha \cos \delta$</p>
+                            </div>
+                            <div>
+                                <img src="img/vievs-allan-dec.png" alt="VieVS Allan Deviation Dec" style="width: 100%; border: 1px solid #ccc; border-radius: 2px;">
+                                <p style="font-size: 9.5px; text-align: center; color: #444; margin-top: 2px;">(b) VieVS — $\delta$</p>
+                            </div>
+                            <div>
+                                <img src="img/paris-allan-ra.png" alt="Paris Allan Deviation RA" style="width: 100%; border: 1px solid #ccc; border-radius: 2px;">
+                                <p style="font-size: 9.5px; text-align: center; color: #444; margin-top: 2px;">(c) Paris Observatory — $\alpha \cos \delta$</p>
+                            </div>
+                            <div>
+                                <img src="img/paris-allan-dec.png" alt="Paris Allan Deviation Dec" style="width: 100%; border: 1px solid #ccc; border-radius: 2px;">
+                                <p style="font-size: 9.5px; text-align: center; color: #444; margin-top: 2px;">(d) Paris Observatory — $\delta$</p>
+                            </div>
+                        </div>
+                        <div class="figure-caption">
+                            <em><strong>Figure 2.</strong> — Allan Deviation $\sigma(\tau)$ plots of Quasar 4C31.61. Top row: VieVS VLBI analysis. Bottom row: Paris Observatory Geodetic VLBI Center data. Left: Right Ascension ($\alpha \cos \delta$). Right: Declination ($\delta$).</em>
+                        </div>
+                    </div>
+
+                    <h3 style="font-size: 13px; color: #8b0000; border-bottom: 1px solid #ccc; padding-bottom: 3px; margin-top: 15px;">4. Discussion & Conclusions</h3>
+                    <p class="doc-paragraph">
+                        The Allan deviation plots demonstrate that <strong>white noise dominates across short time scales</strong>, confirming that Quasar 4C31.61 (2201+315) maintains high positional stability suitable for ICRF reference frame realization. For long time scales, random walk noise is observed, which can be attributed to plasma jet ejections from the quasar nucleus or potential Binary Black Hole (BBH) orbital motions.
+                    </p>
+
+                    <fieldset class="sys-fieldset" style="margin-top: 15px;">
+                        <legend>Citation & Paper References</legend>
+                        <p style="font-size: 11px; margin-bottom: 4px;"><strong>BibTeX Citation:</strong></p>
+                        <pre style="font-family: monospace; font-size: 9.5px; background: #eee; padding: 6px; border: 1px solid #ccc; overflow-x: auto;">
+@article{muthmaina2024allan,
+  title={Implementation of Allan Standard Deviation Technique in Stability Analysis of 4C31.61 Quasar Position},
+  author={Muthmaina, Jessica Syafaq and Huda, Ibnu Nurul and Palupi, Dwi Satya},
+  journal={Journal of Physics: Conference Series},
+  volume={2773},
+  pages={012007},
+  year={2024},
+  publisher={IOP Publishing},
+  doi={10.1088/1742-6596/2773/1/012007}
+}</pre>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. OUTREACH & MEDIA WINDOW (Youtube and substack links) -->
+        <div class="window" id="win-media" style="display: none; top: 30%; left: 22%; width: 460px; z-index: 97;">
+            <div class="title-bar" onmousedown="dragStart(event, 'win-media')">
+                <div class="title-bar-text">Outreach.url - Internet Explorer</div>
+                <div class="title-bar-controls">
+                    <button class="tbtn" onclick="minimizeWindow('win-media')">_</button>
+                    <button class="tbtn" onclick="maximizeWindow('win-media')">口</button>
+                    <button class="tbtn" onclick="closeWindow('win-media')">X</button>
+                </div>
+            </div>
+            <div class="window-body text-body">
+                <div class="browser-address-bar">
+                    <span class="address-label">Address</span>
+                    <input type="text" class="address-input" value="https://yourastrophysicist.substack.com/" readonly>
+                </div>
+                <div class="browser-content">
+                    <img src="img/observationally-speaking-banner.png" alt="Observationally Speaking Banner" class="browser-banner">
+                    
+                    <fieldset class="link-card-group">
+                        <legend>Science Communication Channels</legend>
+                        
+                        <div class="web-link-card">
+                            <h4 class="pixel-heading">Observationally Speaking</h4>
+                            <p class="card-desc">YouTube storytelling blending warm visual reflections with high energy astrophysics and cosmic science topics.</p>
+                            <a href="https://www.youtube.com/@observationallyspeaking" target="_blank" class="win-link-button">Launch Channel</a>
+                        </div>
+                        
+                        <div class="web-link-card">
+                            <h4 class="pixel-heading">yourastrophysicist</h4>
+                            <p class="card-desc">Substack publication bridging theoretical physics, literature, philosophy, and environmental perspectives.</p>
+                            <a href="https://yourastrophysicist.substack.com" target="_blank" class="win-link-button">Read Essays</a>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. CURRICULUM VITAE WINDOW (CV Display) -->
+        <div class="window" id="win-cv" style="display: none; top: 35%; left: 30%; width: 450px; z-index: 96;">
+            <div class="title-bar" onmousedown="dragStart(event, 'win-cv')">
+                <div class="title-bar-text">hi.txt - Notepad</div>
+                <div class="title-bar-controls">
+                    <button class="tbtn" onclick="minimizeWindow('win-cv')">_</button>
+                    <button class="tbtn" onclick="maximizeWindow('win-cv')">口</button>
+                    <button class="tbtn" onclick="closeWindow('win-cv')">X</button>
+                </div>
+            </div>
+            <div class="window-body text-body">
+                <div class="notepad-menu">
+                    <span>File</span><span>Edit</span><span>Format</span><span>Help</span>
+                </div>
+                <div class="notepad-textarea cv-scroller">
+                    <h2 class="cv-name">Jessica Syafaq Muthmaina</h2>
+                    <p class="cv-contact">Astrophysics and Cosmology M.Sc. Candidate | Padova, Italy</p>
+                    <hr class="cv-divider">
+                    
+                    <h3 class="cv-section-title">Education</h3>
+                    <p class="cv-item">
+                        <strong>M.Sc. Astrophysics and Cosmology</strong><br>
+                        Universita degli Studi di Padova (UNIPD)<br>
+                        High Energy Instrumentation Lab Grade - 28/30
+                    </p>
+                    <p class="cv-item">
+                        <strong>B.Sc. Physics</strong><br>
+                        Universitas Gadjah Mada (UGM), Indonesia<br>
+                        Theoretical and Computational Physics concentration
+                    </p>
+
+                    <h3 class="cv-section-title">Academic Publications</h3>
+                    <p class="cv-item">
+                        <em>Positional Stability Analysis of Quasar 4C31.61 Using VLBI Time Series and Allan Standard Deviation</em><br>
+                        Journal of Physics - Conference Series
+                    </p>
+
+                    <h3 class="cv-section-title">Selected Achievements</h3>
+                    <p class="cv-item">
+                        - Traineeship Candidate - IRAM Grenoble, Superconducting Devices Group<br>
+                        - Creator - Observationally Speaking YouTube channel<br>
+                        - Lead Advocacy - Sadar Setara and Ruang Postulat community campaign
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. LATEX CV PDF READER WINDOW -->
+        <div class="window" id="win-pdf" style="display: none; top: 8%; left: 18%; width: 680px; height: 580px; z-index: 102;">
+            <div class="title-bar" onmousedown="dragStart(event, 'win-pdf')">
+                <div class="title-bar-text">CV_LaTeX.pdf - Adobe Acrobat Reader [moderncv]</div>
+                <div class="title-bar-controls">
+                    <button class="tbtn" onclick="minimizeWindow('win-pdf')">_</button>
+                    <button class="tbtn" onclick="maximizeWindow('win-pdf')">口</button>
+                    <button class="tbtn" onclick="closeWindow('win-pdf')">X</button>
+                </div>
+            </div>
+            <div class="window-body pdf-window-body">
+                <div class="notepad-menu">
+                    <span>File</span><span>Edit</span><span>View</span><span>Document</span><span>Tools</span><span>Help</span>
+                </div>
+                <div class="pdf-toolbar">
+                    <button class="pdf-toolbar-btn active-tab" id="btn-pdf-rendered" onclick="switchPdfTab('rendered')">📄 Rendered PDF</button>
+                    <button class="pdf-toolbar-btn" id="btn-pdf-tex" onclick="switchPdfTab('tex')">💻 TeX Source</button>
+                    <span class="toolbar-divider"></span>
+                    <button class="pdf-toolbar-btn" onclick="alert('Printing document...')">🖨️ Print</button>
+                    <button class="pdf-toolbar-btn" onclick="alert('Downloading TeX source...')">💾 Save</button>
+                    <span class="toolbar-divider"></span>
+                    <span>Page 1 / 1</span>
+                    <span class="toolbar-divider"></span>
+                    <span>Zoom: 100%</span>
+                </div>
+
+                <div class="pdf-viewer-area">
+                    <!-- Rendered Document View -->
+                    <div id="pdf-rendered-view" class="pdf-page-sheet">
+                        <div class="pdf-cv-header">
+                            <div class="pdf-cv-title">Jessica Syafaq Muthmaina</div>
+                            <div style="font-weight: 600; font-size: 12.5px; color: #333;">jessicasyafaq.muthmaina@studenti.unipd.it</div>
+                            <div class="pdf-cv-contact">
+                                <span>📱 +39 352 088 4100</span>
+                                <span>🏠 Padua, Italy</span>
+                                <span>🔗 <a href="https://www.linkedin.com/in/syafaqmuth/" target="_blank">in/syafaqmuth</a></span>
+                            </div>
+                        </div>
+
+                        <div class="pdf-cv-section-heading">Profile Summary</div>
+                        <div class="pdf-entry-desc">
+                            Observational Astrophysics and Cosmology Master's student at University of Padua with published research in high-energy quasar stability using VLBI data and Python pipelines. Proficient in data analysis and statistical modeling for large datasets.
+                        </div>
+
+                        <div class="pdf-cv-section-heading">Publications</div>
+                        <div class="pdf-entry">
+                            <div class="pdf-entry-row">
+                                <span>"Implementation of Allan Standard Deviation Technique in Stability Analysis of Quasar 4C31.61"</span>
+                                <span>2024</span>
+                            </div>
+                            <div class="pdf-entry-sub">Published in <strong>IOPScience - Journal of Physics</strong></div>
+                            <div class="pdf-entry-desc">
+                                Analyzed positional stability of Quasar 4C31.61 using VLBI data processed with VieVS software, demonstrating quasar's reliability for International Celestial Reference Frame (ICRF).<br>
+                                🔗 <a href="https://iopscience.iop.org/article/10.1088/1742-6596/2773/1/012007/meta" target="_blank">DOI 10.1088/1742-6596/2773/1/012007</a>
+                            </div>
+                        </div>
+
+                        <div class="pdf-cv-section-heading">Education</div>
+                        <div class="pdf-entry">
+                            <div class="pdf-entry-row">
+                                <span><a href="https://www.unipd.it/en/" target="_blank">University of Padua</a> — M.Sc. in Astrophysics and Cosmology</span>
+                                <span>Padua, Italy (2025–Present)</span>
+                            </div>
+                            <div class="pdf-entry-desc">Concentration: <strong>Observational and Computational Astrophysics</strong>.</div>
+                        </div>
+                        <div class="pdf-entry">
+                            <div class="pdf-entry-row">
+                                <span><a href="https://fisika.fmipa.ugm.ac.id/" target="_blank">Universitas Gadjah Mada</a> — B.Sc. in Physics</span>
+                                <span>Yogyakarta, Indonesia (2019–2023)</span>
+                            </div>
+                            <div class="pdf-entry-desc">
+                                Concentration: <strong>Theoretical and Computational Physics</strong>.<br>
+                                Bachelor thesis: <em>Implementation of Allan Standard Deviation Technique in Variability Analysis of 4C31.61 Quasar</em>. 🔗 <a href="https://etd.repository.ugm.ac.id/penelitian/detail/225834" target="_blank">Link to Publication</a>
+                            </div>
+                        </div>
+                        <div class="pdf-entry">
+                            <div class="pdf-entry-row">
+                                <span><a href="https://pacmann.io" target="_blank">Pacmann Academy</a> — Data Science for Research</span>
+                                <span>Jakarta, Indonesia (2023–2024)</span>
+                            </div>
+                            <div class="pdf-entry-desc">
+                                Final project: <em>Data-driven analysis of gender inequality in Indonesia using advanced statistical methods.</em> 🔗 <a href="https://arxiv.org/abs/2412.00012" target="_blank">arXiv:2412.00012</a>
+                            </div>
+                        </div>
+
+                        <div class="pdf-cv-section-heading">Professional Experience</div>
+                        <div class="pdf-entry">
+                            <div class="pdf-entry-row">
+                                <span><a href="https://brin.go.id/" target="_blank">National Research and Innovation Agency (BRIN)</a> — Research Intern</span>
+                                <span>01/2023 – 08/2023</span>
+                            </div>
+                            <div class="pdf-entry-desc">Processed and analyzed VLBI astronomical datasets using VieVS software and Paris Observatory data for celestial reference frame research.</div>
+                        </div>
+                        <div class="pdf-entry">
+                            <div class="pdf-entry-row">
+                                <span><a href="https://esdm.go.id/" target="_blank">Ministry of Energy and Mineral Resources (ESDM)</a> — Technical Writer</span>
+                                <span>05/2024 – 12/2024</span>
+                            </div>
+                            <div class="pdf-entry-desc">Translated complex engineering requirements into clear documentation for 200+ stakeholders across technical and business teams.</div>
+                        </div>
+                        <div class="pdf-entry">
+                            <div class="pdf-entry-row">
+                                <span><a href="https://savingnextgeninesia.or.id/" target="_blank">Saving Next Generation Indonesia</a> — Data Analyst & Field Researcher</span>
+                                <span>01/2024 – 03/2024</span>
+                            </div>
+                            <div class="pdf-entry-desc">Evaluated program effectiveness using Fuzzy Set Qualitative Comparative Analysis (fsQCA), producing policy recommendations.</div>
+                        </div>
+                        <div class="pdf-entry">
+                            <div class="pdf-entry-row">
+                                <span><a href="https://startupcampus.id/" target="_blank">Startup Campus</a> — Data Science Intern</span>
+                                <span>07/2022 – 12/2022</span>
+                            </div>
+                            <div class="pdf-entry-desc">Designed interactive Tableau dashboards, conducted customer segmentation using RFM analysis and K-Means, and performed A/B testing analysis.</div>
+                        </div>
+
+                        <div class="pdf-cv-section-heading">Teaching & Leadership Experience</div>
+                        <div class="pdf-entry">
+                            <div class="pdf-entry-row">
+                                <span>Universitas Gadjah Mada — Teaching Assistant & Lab Assistant</span>
+                                <span>08/2022 – 12/2022</span>
+                            </div>
+                            <div class="pdf-entry-desc">Guided 30+ students through laboratory experiments and helped with exam preparation.</div>
+                        </div>
+                        <div class="pdf-entry">
+                            <div class="pdf-entry-row">
+                                <span>Sadar Setara — Founder</span>
+                                <span>03/2025 – Present</span>
+                            </div>
+                            <div class="pdf-entry-desc">Founded a social advocacy platform focused on gender equality and human rights.</div>
+                        </div>
+                        <div class="pdf-entry">
+                            <div class="pdf-entry-row">
+                                <span>Ruang Postulat — Co-Founder</span>
+                                <span>01/2024 – 12/2024</span>
+                            </div>
+                            <div class="pdf-entry-desc">Established platform for intellectual discourse on science and philosophy.</div>
+                        </div>
+
+                        <div class="pdf-cv-section-heading">Languages</div>
+                        <div class="pdf-entry-desc">
+                            • <strong>English</strong> [Advanced] - C1 &nbsp;&nbsp;&nbsp;&nbsp;
+                            • <strong>French</strong> [Elementary] - A2 &nbsp;&nbsp;&nbsp;&nbsp;
+                            • <strong>Indonesian</strong> [Native]
+                        </div>
+
+                        <div class="pdf-cv-section-heading">References</div>
+                        <div class="pdf-entry">
+                            <strong>Prof. Stefano Ciroi</strong> — Professore Associato<br>
+                            Dipartimento di Fisica e Astronomia "Galileo Galilei", Università degli Studi di Padova<br>
+                            <code>stefano.ciroi@unipd.it</code>
+                        </div>
+                        <div class="pdf-entry" style="margin-top: 8px;">
+                            <strong>Dr. Ibnu Nurul Huda</strong> — Researcher<br>
+                            National Research and Innovation Agency (BRIN), Research Center for Computing<br>
+                            <code>ibnu.nurul.huda@brin.go.id</code>
+                        </div>
+                    </div>
+
+                    <!-- TeX Source Code View -->
+                    <div id="pdf-tex-view" class="pdf-tex-code-area" style="display: none;">\documentclass[11pt,a4paper,sans]{moderncv}
+\moderncvstyle{banking}
+\moderncvcolor{black}
+\nopagenumbers{}
+\usepackage[utf8]{inputenc}
+\usepackage{ragged2e}
+\usepackage[scale=0.915]{geometry}
+\usepackage{import}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{amssymb}
+
+% Personal Data
+\name{Jessica Syafaq}{Muthmaina}
+\newcommand*{\customcventry}[7][.13em]{
+\begin{tabular}{@{}l}
+{\bfseries #4} \
+{\itshape #3}
+\end{tabular}
+\hfill
+\begin{tabular}{l@{}}
+{\bfseries #5} \
+{\itshape #2}
+\end{tabular}
+\ifx&#7&%
+\else{\
+\begin{minipage}{\maincolumnwidth}%
+\small#7%
+\end{minipage}}\fi%
+\par\addvspace{#1}}
+
+\begin{document}
+\makecvtitle
+\vspace*{-12mm}
+
+% Contact Info
+\begin{center}\textbf{jessicasyafaq.muthmaina@studenti.unipd.it}\end{center}
+\begin{center}
+\begin{tabular}{ c c c }
+\faMobile \enspace +39 352 088 4100 \enspace & \faHome \enspace Padua, Italy & \enspace \faLinkedin \enspace \color{blue} \href{https://www.linkedin.com/in/syafaqmuth/}{in/syafaqmuth}
+\end{tabular}
+\end{center}
+
+% Profile
+\section{Profile Summary}
+{Observational Astrophysics and Cosmology Master's student at University of Padua with published research in high-energy quasar stability using VLBI data and Python pipelines. Proficient in data analysis and statistical modeling for large datasets.}
+
+% Publications
+\section{Publications}
+
+\textbf{"Implementation of Allan Standard Deviation Technique in Stability Analysis of Quasar 4C31.61"}
+
+Published in \textbf{IOPScience - Journal of Physics} (2024).
+
+Analyzed positional stability of Quasar 4C31.61 using VLBI data processed with VieVS software, demonstrating quasar's reliability for International Celestial Reference Frame (ICRF).
+\textcolor{blue}{\href{https://iopscience.iop.org/article/10.1088/1742-6596/2773/1/012007/meta}{\textit{DOI 10.1088/1742-6596/2773/1/012007}}}.
+
+% Education
+\section{Education}
+
+\customcventry{2025--Present}{\color{blue}\href{https://www.unipd.it/en/}{University of Padua}}{M.Sc. in Astrophysics and Cosmology}{Padua, Italy}{}{
+Concentration: \textbf{Observational and Computational Astrophysics}.
+}
+\vspace{1em}
+
+\customcventry{2019--2023}{\color{blue}\href{https://fisika.fmipa.ugm.ac.id/}{Universitas Gadjah Mada}}{B.Sc. in Physics}{Yogyakarta, Indonesia}{}{
+Concentration: \textbf{Theoretical and Computational Physics}.
+\\Bachelor thesis: \textit{Implementation of Allan Standard Deviation Technique in Variability Analysis of 4C31.61 Quasar}. \textcolor{blue}{\href{https://etd.repository.ugm.ac.id/penelitian/detail/225834}{\textit{Link to Publication}}}.
+}
+\vspace{1em}
+
+\customcventry{2023--2024}{\color{blue}\href{https://pacmann.io}{Pacmann Academy}}{Professional Training: Data Science for Research}{Jakarta, Indonesia}{}{
+Final project: \textit{Data-driven analysis of gender inequality in Indonesia using advanced statistical methods.} \textcolor{blue}{\href{https://arxiv.org/abs/2412.00012}{\textit{Link to Publication}}}.
+}
+
+% Experience
+\section{Professional Experience}
+
+\customcventry{01/2023 ‐ 08/2023}{{\color{blue}\href{https://brin.go.id/}{National Research and Innovation Agency (BRIN)}}}{Research Intern}{Bandung, Indonesia}{}{
+Processed and analyzed VLBI astronomical datasets using VieVS software and Paris Observatory data for celestial reference frame research.
+}
+\vspace{1em}
+\customcventry{05/2024 ‐ 12/2024}{{\color{blue}\href{https://esdm.go.id/}{Ministry of Energy and Mineral Resources (ESDM)}}}{Technical Writer}{Yogyakarta, Indonesia}{}{
+Translated complex engineering requirements into clear documentation for 200+ stakeholders across technical and business teams.}
+\vspace{1em}
+
+\customcventry{01/2024 ‐ 03/2024}{{\color{blue}\href{https://savingnextgeninesia.or.id/}{Saving Next Generation Indonesia}}}{Data Analyst \& Field Researcher}{Jakarta, Indonesia}{}{
+Evaluated program effectiveness using Fuzzy Set Qualitative Comparative Analysis (fsQCA), producing policy recommendations.
+}
+\vspace{1em}
+\customcventry{07/2022 ‐ 12/2022}{{\color{blue}\href{https://startupcampus.id/}{Startup Campus}}}{Data Science Intern}{Jakarta, Indonesia}{}{
+Designed interactive Tableau dashboards, conducted customer segmentation using RFM analysis and K-Means, and performed A/B testing analysis.
+}
+
+% Teaching & Leadership
+\section{Teaching \& Leadership Experience}
+
+\customcventry{08/2022 ‐ 12/2022}{Universitas Gadjah Mada}{Teaching Assistant}{Yogyakarta, Indonesia}{}{
+Helped students with preparation for exams, evaluated assignments for 25+ students.
+}
+\vspace{1em}
+\customcventry{08/2022 ‐ 12/2022}{Universitas Gadjah Mada}{Lab Assistant}{Yogyakarta, Indonesia}{}{
+Guided 30+ students through laboratory experiments, clarifying physics concepts and experimental procedures.
+}
+\vspace{1em}
+\customcventry{03/2025 ‐ Present}{Sadar Setara}{Founder} {Garut, Indonesia}{}{
+Founded a social advocacy platform focused on gender equality and human rights.
+}
+\vspace{1em}
+\customcventry{01/2024 ‐ 12/2024}{Ruang Postulat}{Co-Founder}{Yogyakarta, Indonesia}{}{
+Established platform for intellectual discourse on science and philosophy.
+}
+
+% Languages
+\section{Languages}
+\begin{multicols}{3}
+    \begin{itemize}[label=\textbullet]
+    \item \textbf{English} [Advanced] - C1
+    \item \textbf{French} [Elementary] - A2
+    \item \textbf{Indonesian} [Native]
+    \end{itemize}
+\end{multicols}
+
+% References
+\section{References}
+\begin{multicols}{2}
+\begin{itemize}[label=\textbullet, left=0pt, itemsep=10pt]
+    \item \textbf{Prof. Stefano Ciroi} \\
+    Professore Associato \\
+    Dipartimento di Fisica e Astronomia "Galileo Galilei"\\
+    Università degli Studi di Padova \\
+    VICOLO DELL' OSSERVATORIO, 3 \\
+    Padova, Italy \\
+    \texttt{stefano.ciroi@unipd.it}
+\end{itemize}
+
+\begin{itemize}[label=\textbullet, left=0pt, itemsep=10pt]
+    \item \textbf{Dr. Ibnu Nurul Huda} \\
+    Researcher \\
+    National Research and Innovation Agency (BRIN) \\
+    Research Center for Computing \\
+    Jalan Raya Bogor Km. 46 \\
+    Bogor 16911, Indonesia \\
+                    \texttt{ibnu.nurul.huda@brin.go.id}
+\end{itemize}
+\end{multicols}
+
+\enddocument</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. CORE VALUES WINDOW -->
+        <div class="window" id="win-values" style="display: none; top: 18%; left: 28%; width: 480px; z-index: 102;">
+            <div class="title-bar" onmousedown="dragStart(event, 'win-values')">
+                <div class="title-bar-text">Values.txt - Notepad</div>
+                <div class="title-bar-controls">
+                    <button class="tbtn" onclick="minimizeWindow('win-values')">_</button>
+                    <button class="tbtn" onclick="maximizeWindow('win-values')">口</button>
+                    <button class="tbtn" onclick="closeWindow('win-values')">X</button>
+                </div>
+            </div>
+            <div class="window-body text-body">
+                <div class="notepad-menu">
+                    <span>File</span><span>Edit</span><span>Search</span><span>Help</span>
+                </div>
+                <div class="notepad-textarea">
+                    <h2 class="cv-name" style="font-size: 16px;">Core Values & Scientific Vision</h2>
+                    <p class="cv-contact">Jessica Syafaq Muthmaina | Observational Astrophysics</p>
+                    <hr class="cv-divider">
+                    
+                    <h3 class="cv-section-title">1. Scientific Rigor & Empirical Curiosity</h3>
+                    <p class="notepad-text">
+                        A commitment to thorough observational data analysis, precise error quantification using methods like Allan variance, and seeking empirical truth in cosmic structures.
+                    </p>
+
+                    <h3 class="cv-section-title">2. Open Science & Knowledge Sharing</h3>
+                    <p class="notepad-text">
+                        Belief in accessible research, open-source computational tools, and communicating complex astronomical discoveries engagingly to public audiences.
+                    </p>
+
+                    <h3 class="cv-section-title">3. Intersectional Community & Advocacy</h3>
+                    <p class="notepad-text">
+                        Fostering inclusive academic spaces and active grassroots community advocacy through Sadar Setara and Ruang Postulat.
+                    </p>
+
+                    <h3 class="cv-section-title">4. Global Collaboration & Cultural Exchange</h3>
+                    <p class="notepad-text">
+                        Bridging academic perspectives between Indonesia and Europe, connecting UGM, UNIPD, and international research facilities.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. WINAMP MEDIA PLAYER WINDOW -->
+        <div class="window winamp-window" id="win-winamp" style="display: none; top: 10%; left: 25%; width: 450px; z-index: 103;">
+            <div class="title-bar winamp-title-bar" onmousedown="dragStart(event, 'win-winamp')">
+                <div class="title-bar-text">WINAMP - Ninajirachi [I Love My Computer]</div>
+                <div class="title-bar-controls">
+                    <button class="tbtn" onclick="minimizeWindow('win-winamp')">_</button>
+                    <button class="tbtn" onclick="maximizeWindow('win-winamp')">口</button>
+                    <button class="tbtn" onclick="closeWindow('win-winamp')">X</button>
+                </div>
+            </div>
+            <div class="window-body winamp-body">
+                <!-- Winamp Main Display Rack -->
+                <div class="winamp-main-rack">
+                    <div class="winamp-lcd" style="display: flex; gap: 10px; align-items: center;">
+                        <img src="https://i1.sndcdn.com/artworks-Tcz16NlSzuUEPPVv-3k3NJg-t1080x1080.jpg" alt="Ninajirachi - I Love My Computer" style="width: 54px; height: 54px; border-radius: 4px; border: 1px solid #00ff00; object-fit: cover;">
+                        <div style="flex: 1;">
+                            <div class="lcd-top-row">
+                                <div class="lcd-time" id="winamp-time">00:00</div>
+                                <div class="lcd-kbps">320<span class="kbps-unit">kbps</span> 44<span class="kbps-unit">kHz</span></div>
+                                <div class="lcd-stereo">STEREO</div>
+                            </div>
+                            <div class="lcd-ticker-container">
+                                <div class="lcd-ticker" id="winamp-ticker">1. Ninajirachi - Fuck My Computer (3:24) *** WINAMP v2.91 ***</div>
+                            </div>
+                            <canvas id="winamp-spectrum" width="320" height="24"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="winamp-controls-row">
+                        <!-- Playback Buttons -->
+                        <div class="winamp-btn-group">
+                            <button class="wa-btn" onclick="winampPrev()" title="Previous Track">|&lt;</button>
+                            <button class="wa-btn wa-play" onclick="winampPlay()" title="Play">&gt;</button>
+                            <button class="wa-btn" onclick="winampPause()" title="Pause">||</button>
+                            <button class="wa-btn" onclick="winampStop()" title="Stop">[]</button>
+                            <button class="wa-btn" onclick="winampNext()" title="Next Track">&gt;|</button>
+                        </div>
+                        
+                        <!-- Volume Control -->
+                        <div class="winamp-sliders">
+                            <div class="wa-slider-wrap">
+                                <span class="wa-label">VOL: <span id="winamp-vol-val">80%</span></span>
+                                <input type="range" id="winamp-vol" min="0" max="100" value="80" oninput="winampSetVolume(this.value)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Track Position Seek Bar -->
+                    <div class="winamp-seek-wrap">
+                        <input type="range" id="winamp-seek" min="0" max="100" value="0" oninput="winampSeek(this.value)">
+                    </div>
+                </div>
+
+                <!-- Winamp Playlist & Stream Section -->
+                <div class="winamp-playlist-rack">
+                    <div class="playlist-header">
+                        <span>WINAMP PLAYLIST - Ninajirachi (ILMC)</span>
+                        <a href="https://soundcloud.com/ninajirachi/sets/ilmc" target="_blank" class="wa-sc-link">🌐 SoundCloud Album</a>
+                    </div>
+                    
+                    <!-- Embedded SoundCloud Player for Stream Playback -->
+                    <div class="sc-embed-container" style="margin-bottom: 6px; border: 1px solid #000044; background: #000;">
+                        <iframe id="sc-widget" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/ninajirachi/sets/ilmc&color=%23ff007f&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false" width="100%" height="166" frameborder="0" allow="autoplay"></iframe>
+                    </div>
+
+                    <ul class="playlist-list" id="winamp-playlist-items">
+                        <li class="pl-item active" onclick="winampSelectTrack(0)"><span>1. Ninajirachi - Fuck My Computer</span> <span class="pl-dur">3:24</span></li>
+                        <li class="pl-item" onclick="winampSelectTrack(1)"><span>2. Ninajirachi - Start Button</span> <span class="pl-dur">2:58</span></li>
+                        <li class="pl-item" onclick="winampSelectTrack(2)"><span>3. Ninajirachi - Info Superhighway</span> <span class="pl-dur">3:45</span></li>
+                        <li class="pl-item" onclick="winampSelectTrack(3)"><span>4. Ninajirachi - Cyber Dream</span> <span class="pl-dur">4:12</span></li>
+                        <li class="pl-item" onclick="winampSelectTrack(4)"><span>5. Ninajirachi - Y2K System Shock</span> <span class="pl-dur">3:15</span></li>
+                        <li class="pl-item" onclick="winampSelectTrack(5)"><span>6. Ninajirachi - Binary Hearts</span> <span class="pl-dur">3:50</span></li>
+                    </ul>
+                    <div class="playlist-footer">
+                        <span id="pl-total-info">6 tracks | 21:24 total time</span>
+                        <button class="wa-mini-btn" onclick="winampPlay()">PLAY ALL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- The Windows 98 Taskbar -->
+    <div class="taskbar">
+        <button class="start-btn" id="start-menu-btn" onclick="toggleStartMenu()">
+            <svg class="start-icon" viewBox="0 0 16 16">
+                <rect x="2" y="2" width="5" height="5" fill="#ff6ab8"/>
+                <rect x="9" y="2" width="5" height="5" fill="#5ab8ff"/>
+                <rect x="2" y="9" width="5" height="5" fill="#7aff9a"/>
+                <rect x="9" y="9" width="5" height="5" fill="#9a7aff"/>
+            </svg>
+            Start
+        </button>
+
+        <div class="taskbar-divider"></div>
+
+        <!-- Open Window Tabs -->
+        <div class="taskbar-tabs" id="taskbar-tabs">
+            <!-- Dynamically populated via JavaScript -->
+        </div>
+
+        <div class="taskbar-divider"></div>
+
+        <!-- System Clock Area -->
+        <div class="system-tray">
+            <svg class="tray-icon" viewBox="0 0 16 16" width="14" height="14">
+                <rect x="2" y="2" width="12" height="12" fill="none" stroke="#202030" stroke-width="1.5"/>
+                <line x1="8" y1="4" x2="8" y2="8" stroke="#202030" stroke-width="1.5"/>
+                <line x1="8" y1="8" x2="11" y2="8" stroke="#202030" stroke-width="1.5"/>
+            </svg>
+            <span id="taskbar-clock">12:00 PM</span>
+        </div>
+    </div>
+
+    <!-- Start Menu Popup -->
+    <div class="start-menu" id="start-menu">
+        <div class="start-menu-sidebar">
+            <span class="sidebar-text">Y2K Space</span>
+        </div>
+        <div class="start-menu-items">
+            <div class="start-item" onclick="launchAndClose('win-sys')">
+                <span class="item-name">System Properties</span>
+            </div>
+            <div class="start-item" onclick="launchAndClose('win-about')">
+                <span class="item-name">AboutMe.txt</span>
+            </div>
+            <div class="start-item" onclick="launchAndClose('win-research')">
+                <span class="item-name">Quasar.doc</span>
+            </div>
+
+            <div class="start-item" onclick="launchAndClose('win-media')">
+                <span class="item-name">Outreach.url</span>
+            </div>
+            <div class="start-item" onclick="launchAndClose('win-cv')">
+                <span class="item-name">hi.txt</span>
+            </div>
+            <div class="start-item" onclick="launchAndClose('win-values')">
+                <span class="item-name">Values.txt</span>
+            </div>
+            <div class="start-item" onclick="launchAndClose('win-pdf')">
+                <span class="item-name">CV_LaTeX.pdf</span>
+            </div>
+            <div class="start-item" onclick="launchAndClose('win-winamp')">
+                <span class="item-name">Winamp.exe</span>
+            </div>
+            <hr class="start-divider">
+            <div class="start-item" onclick="closeAllAndAlert()">
+                <span class="item-name">Shutdown System</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
