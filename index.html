@@ -308,38 +308,30 @@
                         <strong>Random Walk (Unstable):</strong> $S > 0.25$.
                     </p>
 
-                    <h3 style="font-size: 13px; color: #8b0000; border-bottom: 1px solid #ccc; padding-bottom: 3px; margin-top: 15px;">3. Paper Figures & Observational Results</h3>
+                    <h3 style="font-size: 13px; color: #8b0000; border-bottom: 1px solid #ccc; padding-bottom: 3px; margin-top: 15px;">3. Allan Standard Deviation Observational Results</h3>
                     
-                    <!-- Paper Figure 1: Relative Position Comparison -->
-                    <div class="paper-figure-container">
-                        <img src="img/quasar-position-comparison.png" alt="Figure 1: Comparison of 4C31.61 relative position given by VieVS and Paris Observatory" class="paper-figure-img">
-                        <div class="figure-caption">
-                            <em><strong>Figure 1.</strong> — Comparison of Quasar 4C31.61 relative position given by our VLBI analysis (VieVS, red dots) and Paris Observatory Geodetic VLBI Center (Paris, blue dots) with respect to reference position ($\alpha = 330.8123990589822^\circ$, $\delta = 31.7606305185240^\circ$).</em>
-                        </div>
-                    </div>
-
-                    <!-- Paper Figure 2: Allan Deviation Plots Grid -->
-                    <div class="paper-figure-container">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
-                            <div>
+                    <!-- Paper Figure: Allan Deviation Plots Grid (Featured Primary Figure) -->
+                    <div class="paper-figure-container" style="background: #ffffff; border: 1px solid #c0c0d0; padding: 12px; border-radius: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px;">
+                            <div style="text-align: center; background: #fafafa; padding: 4px; border: 1px solid #e0e0e0; border-radius: 3px;">
                                 <img src="img/vievs-allan-ra.png" alt="VieVS Allan Deviation RA" style="width: 100%; border: 1px solid #ccc; border-radius: 2px;">
-                                <p style="font-size: 9.5px; text-align: center; color: #444; margin-top: 2px;">(a) VieVS — $\alpha \cos \delta$</p>
+                                <p style="font-size: 10px; font-weight: bold; color: #333; margin-top: 4px;">(a) VieVS Analysis — $\alpha \cos \delta$</p>
                             </div>
-                            <div>
+                            <div style="text-align: center; background: #fafafa; padding: 4px; border: 1px solid #e0e0e0; border-radius: 3px;">
                                 <img src="img/vievs-allan-dec.png" alt="VieVS Allan Deviation Dec" style="width: 100%; border: 1px solid #ccc; border-radius: 2px;">
-                                <p style="font-size: 9.5px; text-align: center; color: #444; margin-top: 2px;">(b) VieVS — $\delta$</p>
+                                <p style="font-size: 10px; font-weight: bold; color: #333; margin-top: 4px;">(b) VieVS Analysis — $\delta$</p>
                             </div>
-                            <div>
+                            <div style="text-align: center; background: #fafafa; padding: 4px; border: 1px solid #e0e0e0; border-radius: 3px;">
                                 <img src="img/paris-allan-ra.png" alt="Paris Allan Deviation RA" style="width: 100%; border: 1px solid #ccc; border-radius: 2px;">
-                                <p style="font-size: 9.5px; text-align: center; color: #444; margin-top: 2px;">(c) Paris Observatory — $\alpha \cos \delta$</p>
+                                <p style="font-size: 10px; font-weight: bold; color: #333; margin-top: 4px;">(c) Paris Observatory GVC — $\alpha \cos \delta$</p>
                             </div>
-                            <div>
+                            <div style="text-align: center; background: #fafafa; padding: 4px; border: 1px solid #e0e0e0; border-radius: 3px;">
                                 <img src="img/paris-allan-dec.png" alt="Paris Allan Deviation Dec" style="width: 100%; border: 1px solid #ccc; border-radius: 2px;">
-                                <p style="font-size: 9.5px; text-align: center; color: #444; margin-top: 2px;">(d) Paris Observatory — $\delta$</p>
+                                <p style="font-size: 10px; font-weight: bold; color: #333; margin-top: 4px;">(d) Paris Observatory GVC — $\delta$</p>
                             </div>
                         </div>
-                        <div class="figure-caption">
-                            <em><strong>Figure 2.</strong> — Allan Deviation $\sigma(\tau)$ plots of Quasar 4C31.61. Top row: VieVS VLBI analysis. Bottom row: Paris Observatory Geodetic VLBI Center data. Left: Right Ascension ($\alpha \cos \delta$). Right: Declination ($\delta$).</em>
+                        <div class="figure-caption" style="font-size: 11px; line-height: 1.5; color: #222; background: #f4f4f8; padding: 8px 10px; border-left: 3px solid #8b0000; border-radius: 2px;">
+                            <em><strong>Figure 1 (Allan Deviation Analysis).</strong> — Overlapping Allan Standard Deviation $\sigma(\tau)$ curves for Quasar 4C31.61 (2201+315). Top row: VieVS VLBI time series analysis. Bottom row: Paris Observatory Geodetic VLBI Center independent solution. Left column: Right Ascension ($\alpha \cos \delta$). Right column: Declination ($\delta$). The log-log slope $\tau^{-1/2}$ demonstrates white noise domination at short sampling intervals ($\tau \lesssim 10^3$ days), confirming high intrinsic position stability.</em>
                         </div>
                     </div>
 
