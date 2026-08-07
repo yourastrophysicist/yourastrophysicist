@@ -133,17 +133,6 @@
                 <div class="icon-label">Outreach.url</div>
             </div>
 
-            <div class="desktop-icon" onclick="openWindow('win-cv')">
-                <svg class="icon-svg" viewBox="0 0 32 32">
-                    <rect x="6" y="4" width="20" height="24" fill="#ffccee" stroke="#000000" stroke-width="2"/>
-                    <line x1="10" y1="10" x2="22" y2="10" stroke="#202030" stroke-width="2"/>
-                    <line x1="10" y1="14" x2="22" y2="14" stroke="#202030" stroke-width="2"/>
-                    <line x1="10" y1="18" x2="22" y2="18" stroke="#202030" stroke-width="2"/>
-                    <line x1="10" y1="22" x2="16" y2="22" stroke="#202030" stroke-width="2"/>
-                </svg>
-                <div class="icon-label">hi.txt</div>
-            </div>
-
             <div class="desktop-icon" onclick="openWindow('win-values')">
                 <svg class="icon-svg" viewBox="0 0 32 32">
                     <rect x="6" y="4" width="20" height="24" fill="#e6f7ff" stroke="#000000" stroke-width="2"/>
@@ -442,52 +431,7 @@
             </div>
         </div>
 
-        <!-- 6. CURRICULUM VITAE WINDOW (CV Display) -->
-        <div class="window" id="win-cv" style="display: none; top: 35%; left: 30%; width: 450px; z-index: 96;">
-            <div class="title-bar" onmousedown="dragStart(event, 'win-cv')">
-                <div class="title-bar-text">hi.txt - Notepad</div>
-                <div class="title-bar-controls">
-                    <button class="tbtn" onclick="minimizeWindow('win-cv')">_</button>
-                    <button class="tbtn" onclick="maximizeWindow('win-cv')">口</button>
-                    <button class="tbtn" onclick="closeWindow('win-cv')">X</button>
-                </div>
-            </div>
-            <div class="window-body text-body">
-                <div class="notepad-menu">
-                    <span>File</span><span>Edit</span><span>Format</span><span>Help</span>
-                </div>
-                <div class="notepad-textarea cv-scroller">
-                    <h2 class="cv-name">Jessica Syafaq Muthmaina</h2>
-                    <p class="cv-contact">Astrophysics and Cosmology M.Sc. Candidate | Padova, Italy</p>
-                    <hr class="cv-divider">
-                    
-                    <h3 class="cv-section-title">Education</h3>
-                    <p class="cv-item">
-                        <strong>M.Sc. Astrophysics and Cosmology</strong><br>
-                        Universita degli Studi di Padova (UNIPD)<br>
-                        High Energy Instrumentation Lab Grade - 28/30
-                    </p>
-                    <p class="cv-item">
-                        <strong>B.Sc. Physics</strong><br>
-                        Universitas Gadjah Mada (UGM), Indonesia<br>
-                        Theoretical and Computational Physics concentration
-                    </p>
 
-                    <h3 class="cv-section-title">Academic Publications</h3>
-                    <p class="cv-item">
-                        <em>Positional Stability Analysis of Quasar 4C31.61 Using VLBI Time Series and Allan Standard Deviation</em><br>
-                        Journal of Physics - Conference Series
-                    </p>
-
-                    <h3 class="cv-section-title">Selected Achievements</h3>
-                    <p class="cv-item">
-                        - Traineeship Candidate - IRAM Grenoble, Superconducting Devices Group<br>
-                        - Creator - Observationally Speaking YouTube channel<br>
-                        - Lead Advocacy - Sadar Setara and Ruang Postulat community campaign
-                    </p>
-                </div>
-            </div>
-        </div>
 
         <!-- 7. LATEX CV PDF READER WINDOW -->
         <div class="window" id="win-pdf" style="display: none; top: 8%; left: 18%; width: 680px; height: 580px; z-index: 102;">
@@ -977,9 +921,7 @@ Established platform for intellectual discourse on science and philosophy.
             <div class="start-item" onclick="launchAndClose('win-media')">
                 <span class="item-name">Outreach.url</span>
             </div>
-            <div class="start-item" onclick="launchAndClose('win-cv')">
-                <span class="item-name">hi.txt</span>
-            </div>
+
             <div class="start-item" onclick="launchAndClose('win-values')">
                 <span class="item-name">Values.txt</span>
             </div>
