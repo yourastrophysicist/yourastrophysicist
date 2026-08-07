@@ -35,7 +35,8 @@ body {
         radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
     background-size: 100% 100%, 20px 20px;
     font-family: var(--font-sans);
-    font-size: 13px;
+    font-size: 14.5px;
+    line-height: 1.5;
     color: var(--win-darkest);
     overflow: hidden;
     height: 100vh;
@@ -100,7 +101,8 @@ body {
 
 .icon-label {
     font-family: var(--font-pixel-text);
-    font-size: 15px;
+    font-size: 18px;
+    letter-spacing: 0.5px;
     color: var(--win-light);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), 0 0 4px var(--cyber-blue);
     word-break: break-all;
@@ -182,7 +184,7 @@ body {
 
 .title-bar-text {
     font-family: var(--font-pixel-title);
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.5px;
     white-space: nowrap;
     overflow: hidden;
@@ -202,11 +204,11 @@ body {
     border-right: 1px solid var(--win-darkest);
     border-bottom: 1px solid var(--win-darkest);
     box-shadow: inset 1px 1px 0px var(--win-mid-gray), inset -1px -1px 0px var(--win-dark-gray);
-    width: 16px;
-    height: 14px;
-    font-size: 9px;
+    width: 18px;
+    height: 16px;
+    font-size: 11px;
     font-weight: bold;
-    line-height: 10px;
+    line-height: 12px;
     color: var(--win-darkest);
     text-align: center;
     cursor: pointer;
@@ -264,7 +266,7 @@ body {
 
 .pixel-heading {
     font-family: var(--font-pixel-title);
-    font-size: 12px;
+    font-size: 13.5px;
     color: var(--cyber-navy);
     margin-bottom: 6px;
     letter-spacing: 0.5px;
@@ -272,14 +274,15 @@ body {
 
 .sys-item {
     font-family: var(--font-mono);
-    font-size: 12px;
-    margin-bottom: 3px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    margin-bottom: 4px;
 }
 
 .sys-item strong {
     color: var(--win-dark-gray);
     display: inline-block;
-    width: 70px;
+    width: 85px;
 }
 
 .sys-fieldset {
@@ -293,7 +296,7 @@ body {
 
 .sys-fieldset legend {
     font-family: var(--font-pixel-title);
-    font-size: 10px;
+    font-size: 11.5px;
     padding: 0 6px;
     color: var(--cyber-navy);
 }
@@ -301,7 +304,8 @@ body {
 .tech-list {
     list-style: none;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
 .tech-list li {
@@ -315,7 +319,7 @@ body {
     position: absolute;
     left: 0;
     color: var(--cyber-pink);
-    font-size: 8px;
+    font-size: 9px;
     top: 1px;
 }
 
@@ -332,9 +336,9 @@ body {
     border-right: 1px solid var(--win-darkest);
     border-bottom: 1px solid var(--win-darkest);
     box-shadow: inset 1px 1px 0px var(--win-mid-gray), inset -1px -1px 0px var(--win-dark-gray);
-    padding: 4px 16px;
+    padding: 5px 18px;
     font-family: var(--font-sans);
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
 }
@@ -344,7 +348,7 @@ body {
     border-left: 1px solid var(--win-darkest);
     border-right: 1px solid var(--win-light);
     border-bottom: 1px solid var(--win-light);
-    padding: 5px 15px 3px 17px;
+    padding: 6px 17px 4px 19px;
 }
 
 /* Notepad / Text Reader layouts */
@@ -356,10 +360,10 @@ body {
 .notepad-menu {
     border-bottom: 1px solid var(--win-dark-gray);
     background: var(--win-gray);
-    padding: 3px 8px;
+    padding: 4px 8px;
     display: flex;
-    gap: 12px;
-    font-size: 11px;
+    gap: 14px;
+    font-size: 12.5px;
 }
 
 .notepad-menu span {
@@ -373,10 +377,10 @@ body {
 }
 
 .notepad-textarea {
-    padding: 12px;
+    padding: 14px;
     font-family: var(--font-mono);
-    font-size: 12px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.65;
     overflow-y: auto;
     max-height: 380px;
 }
@@ -453,32 +457,32 @@ body {
 
 .doc-title {
     font-family: var(--font-pixel-title);
-    font-size: 14px;
+    font-size: 16px;
     color: var(--cyber-navy);
-    line-height: 1.4;
-    margin-bottom: 4px;
+    line-height: 1.45;
+    margin-bottom: 6px;
 }
 
 .doc-meta {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 13px;
     color: var(--win-dark-gray);
     margin-bottom: 15px;
 }
 
 .doc-paragraph {
     font-family: var(--font-sans);
-    font-size: 12px;
-    line-height: 1.6;
-    margin-bottom: 12px;
+    font-size: 14.5px;
+    line-height: 1.7;
+    margin-bottom: 14px;
 }
 
 .doc-formula-box {
     background: #fdfbf7;
     border: 1px solid #d4c5b9;
     border-left: 4px solid #8b0000;
-    padding: 12px 16px;
-    margin: 15px 0;
+    padding: 14px 18px;
+    margin: 16px 0;
     overflow-x: auto;
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.04);
     border-radius: 3px;
@@ -486,7 +490,7 @@ body {
 
 .formula-label {
     font-family: var(--font-pixel-title);
-    font-size: 10px;
+    font-size: 11.5px;
     color: #8b0000;
     margin-bottom: 6px;
     text-transform: uppercase;
@@ -495,17 +499,17 @@ body {
 }
 
 .formula-render {
-    font-size: 15px;
+    font-size: 17px;
     color: #111111;
     display: flex;
     justify-content: center;
-    padding: 6px 0;
+    padding: 8px 0;
 }
 
 /* MathJax CHTML Output Fine-Tuning */
 mjx-container[jax="CHTML"][display="true"] {
     margin: 0.5em 0 !important;
-    font-size: 110% !important;
+    font-size: 118% !important;
 }
 
 mjx-container[jax="CHTML"] {
@@ -1804,14 +1808,14 @@ mjx-container[jax="CHTML"] {
 }
 
 .lock-welcome-txt {
-    font-size: 12px;
+    font-size: 13.5px;
     color: var(--win-darkest);
     margin: 0;
 }
 
 .lock-instruction-txt {
-    font-size: 11px;
-    color: #444444;
+    font-size: 12.5px;
+    color: #333333;
     margin: 0 0 4px 0;
 }
 
@@ -1822,15 +1826,16 @@ mjx-container[jax="CHTML"] {
 }
 
 .lock-input-group label {
-    width: 75px;
-    font-size: 11px;
+    width: 80px;
+    font-size: 12.5px;
     color: var(--win-darkest);
+    font-weight: 500;
 }
 
 .lock-input {
     flex: 1;
-    font-size: 11px;
-    padding: 3px 6px;
+    font-size: 12.5px;
+    padding: 4px 8px;
     border-top: 2px solid var(--win-darkest);
     border-left: 2px solid var(--win-darkest);
     border-right: 2px solid var(--win-light);
@@ -1841,7 +1846,7 @@ mjx-container[jax="CHTML"] {
 
 .lock-input[readonly] {
     background: #e4e4e4;
-    color: #333;
+    color: #222;
 }
 
 .lock-btn-row {
@@ -1852,10 +1857,11 @@ mjx-container[jax="CHTML"] {
 }
 
 .lock-btn {
-    min-width: 65px;
-    padding: 4px 10px;
-    font-size: 11px;
+    min-width: 75px;
+    padding: 5px 14px;
+    font-size: 12.5px;
     font-family: var(--font-sans);
+    font-weight: 500;
     cursor: pointer;
 }
 
@@ -1863,8 +1869,8 @@ mjx-container[jax="CHTML"] {
     background: #dfdfdf;
     border-top: 1px solid var(--win-dark-gray);
     padding: 6px 12px;
-    font-size: 10px;
-    color: #555555;
+    font-size: 11.5px;
+    color: #444444;
     display: flex;
     justify-content: space-between;
     align-items: center;
