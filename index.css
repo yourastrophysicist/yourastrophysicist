@@ -1882,6 +1882,28 @@ mjx-container[jax="CHTML"] {
     align-items: center;
 }
 
+/* Obsidian Zettelkasten Note Styling */
+.obsidian-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 6px 12px;
+    background: #10101a;
+    border-bottom: 1px solid #282845;
+}
+
+.obsidian-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #9a7aff;
+    background: rgba(154, 122, 255, 0.15);
+    border: 1px solid rgba(154, 122, 255, 0.4);
+    padding: 2px 8px;
+    border-radius: 12px;
+    letter-spacing: 0.3px;
+    user-select: none;
+}
+
 /* ==========================================================================
    MOBILE & TOUCH-FRIENDLY RESPONSIVE STYLES (iOS, Android, Mobile Viewports)
    ========================================================================== */

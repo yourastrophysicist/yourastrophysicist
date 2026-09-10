@@ -117,7 +117,16 @@
                 <div class="icon-label">Quasar.doc</div>
             </div>
 
-
+            <div class="desktop-icon" onclick="openWindow('win-interferometry')">
+                <svg class="icon-svg" viewBox="0 0 32 32">
+                    <rect x="4" y="4" width="24" height="24" rx="2" fill="#14182b" stroke="#000000" stroke-width="2"/>
+                    <circle cx="16" cy="16" r="8" fill="none" stroke="#5ab8ff" stroke-width="1.5" stroke-dasharray="2,2"/>
+                    <circle cx="16" cy="16" r="3" fill="#7aff9a"/>
+                    <line x1="6" y1="16" x2="26" y2="16" stroke="#ff6ab8" stroke-width="1.5"/>
+                    <line x1="16" y1="6" x2="16" y2="26" stroke="#ff6ab8" stroke-width="1.5"/>
+                </svg>
+                <div class="icon-label">Interferometry.md</div>
+            </div>
 
             <div class="desktop-icon" onclick="openWindow('win-media')">
                 <svg class="icon-svg" viewBox="0 0 32 32">
@@ -168,7 +177,7 @@
         </div>
 
         <!-- 1. SYSTEM PROPERTIES WINDOW (System info & Tech stack) -->
-        <div class="window" id="win-sys" style="display: none; top: 8%; left: 15%; width: 460px; z-index: 101;">
+        <div class="window" id="win-sys" style="display: none; top: 8%; left: 15%; width: 490px; z-index: 101;">
             <div class="title-bar" onmousedown="dragStart(event, 'win-sys')">
                 <div class="title-bar-text">My Computer - System Properties</div>
                 <div class="title-bar-controls">
@@ -185,18 +194,20 @@
                     <div class="sys-details">
                         <h3 class="pixel-heading">System info</h3>
                         <p class="sys-item"><strong>User</strong> Jessica Syafaq Muthmaina</p>
-                        <p class="sys-item"><strong>Focus</strong> astrophysics and cosmology</p>
+                        <p class="sys-item"><strong>Focus</strong> Observational Astrophysics & Interferometry</p>
                         <p class="sys-item"><strong>Host</strong> M.Sc. UNIPD (Padova, Italy)</p>
                         <p class="sys-item"><strong>Base</strong> B.Sc. UGM (Yogyakarta, Indonesia)</p>
+                        <p class="sys-item"><strong>Station</strong> IRAM Grenoble (Superconducting Devices)</p>
                     </div>
                 </div>
                 <fieldset class="sys-fieldset">
-                    <legend>Computational Workspace</legend>
+                    <legend>Computational Workspace & Toolchain</legend>
                     <ul class="tech-list">
                         <li>Python - Astropy, SciPy, NumPy, Matplotlib, Polars, Scikit-learn</li>
-                        <li>LaTeX - Scientific manuscript generation and paper typesetting</li>
-                        <li>Workflow - I love my computer! Used for VLBI data analysis, cosmic simulation & observational research</li>
-                        <li>Knowledge - Obsidian Zettelkasten research systems</li>
+                        <li>Radio Astronomy & Geodesy - VieVS (Vienna VLBI Software), Paris Observatory GVC</li>
+                        <li>Coursework Honors - Astronomical Interferometry (30/30), High Energy Instrumentation (28/30)</li>
+                        <li>Typesetting & Math - LaTeX (moderncv, legal size, astrophysical manuscripts)</li>
+                        <li>Knowledge Architecture - Obsidian Zettelkasten & Maps of Content (MOC)</li>
                     </ul>
                 </fieldset>
                 <div class="window-footer">
@@ -206,7 +217,7 @@
         </div>
 
         <!-- 2. ABOUT ME TEXT READER WINDOW -->
-        <div class="window" id="win-about" style="display: none; top: 15%; left: 35%; width: 500px; z-index: 100;">
+        <div class="window" id="win-about" style="display: none; top: 14%; left: 32%; width: 520px; z-index: 100;">
             <div class="title-bar" onmousedown="dragStart(event, 'win-about')">
                 <div class="title-bar-text">AboutMe.txt - Notepad</div>
                 <div class="title-bar-controls">
@@ -222,19 +233,22 @@
                 <div class="notepad-textarea">
                     <img src="img/jessica-dandelion.jpg" alt="Jessica in dandelion field" class="notepad-image">
                     <p class="notepad-text">
-                        Welcome to my personal digital space! I am Jessica Syafaq Muthmaina, an astrophysicist and researcher currently pursuing my Master of Science (M.Sc.) in Astrophysics and Cosmology at Universita degli Studi di Padova (UNIPD), Padova, Italy.
+                        Welcome to my personal digital workspace! I am Jessica Syafaq Muthmaina, an astrophysicist and graduate researcher currently pursuing my Master of Science (M.Sc.) in Astrophysics and Cosmology at the Universita degli Studi di Padova (UNIPD), Department of Physics and Astronomy "Galileo Galilei", in Padua, Italy.
                     </p>
                     <p class="notepad-text">
-                        I previously earned my Bachelor of Science (B.Sc.) in Physics from Universitas Gadjah Mada (UGM) in Yogyakarta, Indonesia, concentrating on theoretical, computational physics, and observational astronomy.
+                        Prior to Padua, I earned my Bachelor of Science (B.Sc.) in Physics with a concentration in Theoretical and Computational Physics from Universitas Gadjah Mada (UGM) in Yogyakarta, Indonesia.
                     </p>
                     <p class="notepad-text">
-                        My scientific research focuses on observational astrophysics, quasars, active galactic nuclei (AGN), positional stability analysis using VLBI time series, and frequency stability metrics via Allan standard deviation.
+                        My primary scientific research centers on high-energy observational astrophysics, active galactic nuclei (AGN), and positional stability of reference quasars in the International Celestial Reference Frame (ICRF). In my published work on Quasar 4C31.61 (Journal of Physics: Conference Series / arXiv:2401.12325), I analyzed 33 years of VLBI geodetic observations using VieVS and Overlapping Allan Standard Deviation techniques to isolate intrinsic noise structures.
                     </p>
                     <p class="notepad-text">
-                        I love my computer! I use it for astronomical data processing, reduction, spectral analysis, LaTeX scientific typesetting, and Zettelkasten research synthesis in Obsidian.
+                        I specialize in astronomical interferometry (having completed UNIPD's advanced course with a score of 30/30) and high-energy instrumentation. I am slated for an Erasmus+ research traineeship at the Institut de Radioastronomie Millimetrique (IRAM) in Grenoble, France, collaborating with the Superconducting Devices Group under Dr. Eduard Driessen on sub-millimeter superconducting detectors and SIS mixers.
                     </p>
                     <p class="notepad-text">
-                        Beyond physics, I am deeply engaged in community building, open knowledge sharing, and intersectional advocacy with Sadar Setara in Garut, Indonesia.
+                        In my daily workflow, I love my computer! I use it for astronomical reduction pipelines, radio interferometric modeling, LaTeX typesetting, and structured research synthesis in Obsidian using Zettelkasten and Maps of Content.
+                    </p>
+                    <p class="notepad-text">
+                        Beyond astrophysics, I write essays exploring philosophy, science, and epistemology on my Substack "yourastrophysicist", produce cosmic storytelling videos on YouTube ("Observationally Speaking"), and coordinate grassroots community education and gender equity advocacy with Sadar Setara in Garut, Indonesia.
                     </p>
                 </div>
             </div>
@@ -485,7 +499,10 @@
                                 <span><a href="https://www.unipd.it/en/" target="_blank">University of Padua</a> — M.Sc. in Astrophysics and Cosmology</span>
                                 <span>Padua, Italy (2025–Present)</span>
                             </div>
-                            <div class="pdf-entry-desc">Concentration: <strong>Observational and Computational Astrophysics</strong>.</div>
+                            <div class="pdf-entry-desc">
+                                Concentration: <strong>Observational and Computational Astrophysics</strong>.<br>
+                                Coursework Honors: <em>Astronomical Interferometry</em> (Grade: <strong>30/30</strong>), <em>Astrophysics Laboratory 1: High Energy Instrumentation</em> (Grade: <strong>28/30</strong>), <em>Stellar Astrophysics</em> (Grade: <strong>28/30</strong>).
+                            </div>
                         </div>
                         <div class="pdf-entry">
                             <div class="pdf-entry-row">
@@ -497,17 +514,16 @@
                                 Bachelor thesis: <em>Implementation of Allan Standard Deviation Technique in Variability Analysis of 4C31.61 Quasar</em>. 🔗 <a href="https://etd.repository.ugm.ac.id/penelitian/detail/225834" target="_blank">Link to Publication</a>
                             </div>
                         </div>
-                        <div class="pdf-entry">
-                            <div class="pdf-entry-row">
-                                <span><a href="https://pacmann.io" target="_blank">Pacmann Academy</a> — Data Science for Research</span>
-                                <span>Jakarta, Indonesia (2023–2024)</span>
-                            </div>
-                            <div class="pdf-entry-desc">
-                                Final project: <em>Data-driven analysis of gender inequality in Indonesia using advanced statistical methods.</em> 🔗 <a href="https://arxiv.org/abs/2412.00012" target="_blank">arXiv:2412.00012</a>
-                            </div>
-                        </div>
 
                         <div class="pdf-cv-section-heading">Professional Experience</div>
+                        <div class="pdf-entry">
+                            <div class="pdf-entry-row">
+                                <span><a href="https://www.iram-institute.org/" target="_blank">Institut de Radioastronomie Millimétrique (IRAM)</a> — Erasmus+ Research Trainee</span>
+                                <span>Grenoble, France (Upcoming)</span>
+                            </div>
+                            <div class="pdf-entry-sub">Superconducting Devices Group (Project VN2021/05) under Dr. Eduard Driessen</div>
+                            <div class="pdf-entry-desc">Focusing on millimeter and sub-millimeter superconducting receiver instrumentation, SIS junction mixers, and heterodyne astronomical detectors.</div>
+                        </div>
                         <div class="pdf-entry">
                             <div class="pdf-entry-row">
                                 <span><a href="https://brin.go.id/" target="_blank">National Research and Innovation Agency (BRIN)</a> — Research Intern</span>
@@ -537,6 +553,15 @@
                             <div class="pdf-entry-desc">Designed interactive Tableau dashboards, conducted customer segmentation using RFM analysis and K-Means, and performed A/B testing analysis.</div>
                         </div>
 
+                        <div class="pdf-cv-section-heading">Independent Research & Data Projects</div>
+                        <div class="pdf-entry">
+                            <div class="pdf-entry-row">
+                                <span>Data-Driven Analysis of Gender Inequality in Indonesia</span>
+                                <span>2023–2024</span>
+                            </div>
+                            <div class="pdf-entry-desc">
+                                Applied advanced statistical methods, regression modeling, and demographic decomposition to examine socioeconomic disparities across Indonesian provinces. 🔗 <a href="https://arxiv.org/abs/2412.00012" target="_blank">arXiv:2412.00012</a>
+                            </div>
                         <div class="pdf-cv-section-heading">Teaching & Leadership Experience</div>
                         <div class="pdf-entry">
                             <div class="pdf-entry-row">
@@ -574,7 +599,7 @@
                     </div>
 
                     <!-- TeX Source Code View -->
-                    <div id="pdf-tex-view" class="pdf-tex-code-area" style="display: none;">\documentclass[11pt,a4paper,sans]{moderncv}
+                    <div id="pdf-tex-view" class="pdf-tex-code-area" style="display: none;">\documentclass[11pt,legalpaper,sans]{moderncv}
 \moderncvstyle{banking}
 \moderncvcolor{black}
 \nopagenumbers{}
@@ -636,6 +661,7 @@ Analyzed positional stability of Quasar 4C31.61 using VLBI data processed with V
 
 \customcventry{2025--Present}{\color{blue}\href{https://www.unipd.it/en/}{University of Padua}}{M.Sc. in Astrophysics and Cosmology}{Padua, Italy}{}{
 Concentration: \textbf{Observational and Computational Astrophysics}.
+\\Coursework Honors: \textit{Astronomical Interferometry} (Grade 30/30), \textit{Astrophysics Laboratory 1: High Energy Instrumentation} (Grade 28/30), \textit{Stellar Astrophysics} (Grade 28/30).
 }
 \vspace{1em}
 
@@ -643,14 +669,14 @@ Concentration: \textbf{Observational and Computational Astrophysics}.
 Concentration: \textbf{Theoretical and Computational Physics}.
 \\Bachelor thesis: \textit{Implementation of Allan Standard Deviation Technique in Variability Analysis of 4C31.61 Quasar}. \textcolor{blue}{\href{https://etd.repository.ugm.ac.id/penelitian/detail/225834}{\textit{Link to Publication}}}.
 }
-\vspace{1em}
-
-\customcventry{2023--2024}{\color{blue}\href{https://pacmann.io}{Pacmann Academy}}{Professional Training: Data Science for Research}{Jakarta, Indonesia}{}{
-Final project: \textit{Data-driven analysis of gender inequality in Indonesia using advanced statistical methods.} \textcolor{blue}{\href{https://arxiv.org/abs/2412.00012}{\textit{Link to Publication}}}.
-}
 
 % Experience
 \section{Professional Experience}
+
+\customcventry{Upcoming}{{\color{blue}\href{https://www.iram-institute.org/}{Institut de Radioastronomie Millimétrique (IRAM)}}}{Erasmus+ Research Trainee}{Grenoble, France}{}{
+Superconducting Devices Group (Project VN2021/05) under Dr. Eduard Driessen. Millimeter and sub-millimeter superconducting receiver instrumentation.
+}
+\vspace{1em}
 
 \customcventry{01/2023 ‐ 08/2023}{{\color{blue}\href{https://brin.go.id/}{National Research and Innovation Agency (BRIN)}}}{Research Intern}{Bandung, Indonesia}{}{
 Processed and analyzed VLBI astronomical datasets using VieVS software and Paris Observatory data for celestial reference frame research.
@@ -659,13 +685,19 @@ Processed and analyzed VLBI astronomical datasets using VieVS software and Paris
 \customcventry{05/2024 ‐ 12/2024}{{\color{blue}\href{https://esdm.go.id/}{Ministry of Energy and Mineral Resources (ESDM)}}}{Technical Writer}{Yogyakarta, Indonesia}{}{
 Translated complex engineering requirements into clear documentation for 200+ stakeholders across technical and business teams.}
 \vspace{1em}
-
 \customcventry{01/2024 ‐ 03/2024}{{\color{blue}\href{https://savingnextgeninesia.or.id/}{Saving Next Generation Indonesia}}}{Data Analyst \& Field Researcher}{Jakarta, Indonesia}{}{
 Evaluated program effectiveness using Fuzzy Set Qualitative Comparative Analysis (fsQCA), producing policy recommendations.
 }
 \vspace{1em}
 \customcventry{07/2022 ‐ 12/2022}{{\color{blue}\href{https://startupcampus.id/}{Startup Campus}}}{Data Science Intern}{Jakarta, Indonesia}{}{
 Designed interactive Tableau dashboards, conducted customer segmentation using RFM analysis and K-Means, and performed A/B testing analysis.
+}
+
+% Independent Projects
+\section{Independent Research \& Data Projects}
+
+\customcventry{2023--2024}{Independent Research Project}{Data Science \& Statistical Modeling}{Jakarta, Indonesia}{}{
+Data-driven analysis of gender inequality in Indonesia using advanced statistical methods. \textcolor{blue}{\href{https://arxiv.org/abs/2412.00012}{\textit{arXiv:2412.00012}}}.
 }
 
 % Teaching & Leadership
@@ -753,7 +785,7 @@ Founded a social advocacy platform focused on gender equality and human rights.
 
                     <h3 class="cv-section-title">3. Intersectional Community & Advocacy</h3>
                     <p class="notepad-text">
-                        Fostering inclusive academic spaces and active grassroots community advocacy through Sadar Setara and Ruang Postulat.
+                        Fostering inclusive academic spaces and active grassroots community advocacy through Sadar Setara in Garut, Indonesia.
                     </p>
 
                     <h3 class="cv-section-title">4. Global Collaboration & Cultural Exchange</h3>
@@ -764,7 +796,86 @@ Founded a social advocacy platform focused on gender equality and human rights.
             </div>
         </div>
 
-        <!-- 8. WINAMP MEDIA PLAYER WINDOW -->
+        <!-- 8. INTERFEROMETRY RESEARCH NOTES (Obsidian Zettelkasten MOC) -->
+        <div class="window" id="win-interferometry" style="display: none; top: 11%; left: 20%; width: 660px; height: 570px; z-index: 104;">
+            <div class="title-bar" onmousedown="dragStart(event, 'win-interferometry')">
+                <div class="title-bar-text">Interferometry_MOC.md - Obsidian Zettelkasten [UNIPD 30/30]</div>
+                <div class="title-bar-controls">
+                    <button class="tbtn" onclick="minimizeWindow('win-interferometry')">_</button>
+                    <button class="tbtn" onclick="maximizeWindow('win-interferometry')">口</button>
+                    <button class="tbtn" onclick="closeWindow('win-interferometry')">X</button>
+                </div>
+            </div>
+            <div class="window-body" style="display: flex; flex-direction: column; height: calc(100% - 24px);">
+                <div class="obsidian-toolbar">
+                    <span class="obsidian-tag">#astrophysics</span>
+                    <span class="obsidian-tag">#interferometry</span>
+                    <span class="obsidian-tag">#unipd-grade-30</span>
+                    <span class="obsidian-tag">#iram-grenoble</span>
+                    <span class="obsidian-tag">#radio-synthesis</span>
+                    <span class="obsidian-tag">#zettelkasten</span>
+                </div>
+                <div class="document-content" style="flex: 1; max-height: none; background: #161622; color: #d0d8f0; font-family: var(--font-sans); padding: 18px 20px;">
+                    <div style="border-bottom: 1px solid #333355; padding-bottom: 10px; margin-bottom: 16px;">
+                        <span style="font-size: 11px; color: #5ab8ff; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 1px;">Map of Content (MOC) &bull; Master's Research & PhD Foundations</span>
+                        <h2 style="font-size: 17px; color: #ffffff; margin-top: 4px; font-weight: 700;">Astronomical Interferometry, Aperture Synthesis & Superconducting Instrumentation</h2>
+                        <div style="font-size: 11px; color: #8a9bb8; margin-top: 4px;">
+                            Academic Course: <em>Astronomical Interferometry</em> (Università degli Studi di Padova, Grade: <strong>30/30</strong>) &bull; Research Traineeship: <em>IRAM Grenoble</em>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(90, 184, 255, 0.08); border-left: 3px solid #5ab8ff; padding: 10px 14px; border-radius: 4px; margin-bottom: 16px;">
+                        <p style="margin: 0; font-size: 12px; line-height: 1.6; color: #c8d8f8;">
+                            Interferometry bypasses the diffraction limit of single dishes ($\theta \sim \lambda / D$) by measuring the spatial coherence function across array baselines $B$, achieving angular resolutions of $\theta \sim \lambda / B_{\max}$ down to sub-milliarcsecond scales in mm/sub-mm regimes (ALMA, NOEMA, VLTI, and IVS VLBI networks).
+                        </p>
+                    </div>
+
+                    <h3 style="font-size: 13px; color: #7aff9a; font-family: var(--font-mono); text-transform: uppercase; margin-top: 14px; margin-bottom: 8px;">1. The van Cittert-Zernike Theorem</h3>
+                    <p style="font-size: 12px; line-height: 1.6; margin-bottom: 10px; color: #b8c4d8;">
+                        For an incoherent astronomical source observed in the far field, the complex spatial visibility $V(u,v)$ measured across baseline $(u,v)$ in units of observing wavelength is the two-dimensional Fourier transform of the sky brightness distribution $I(l,m)$:
+                    </p>
+
+                    <div class="doc-formula-box" style="background: #0d0d18; border: 1px solid #282845; padding: 12px; margin-bottom: 14px; border-radius: 4px; text-align: center;">
+                        <div class="formula-render" style="color: #5ab8ff; font-size: 13px;">
+                            $$ V(u, v) = \iint_{-\infty}^{\infty} I(l, m) \, e^{-2\pi i (ul + vm)} \, dl \, dm $$
+                        </div>
+                        <p style="font-size: 10.5px; color: #7e8fa8; margin-top: 6px; margin-bottom: 0;">
+                            where $(l,m)$ are directional cosines on the celestial sphere, and $(u,v)$ are spatial frequency coordinates projected onto the plane perpendicular to the phase tracking center.
+                        </p>
+                    </div>
+
+                    <h3 style="font-size: 13px; color: #7aff9a; font-family: var(--font-mono); text-transform: uppercase; margin-top: 14px; margin-bottom: 8px;">2. Baseline Projection & UV-Plane Synthesis</h3>
+                    <p style="font-size: 12px; line-height: 1.6; margin-bottom: 10px; color: #b8c4d8;">
+                        As the Earth rotates, each telescope baseline vector $\mathbf{B} = (X, Y, Z)$ sweeps elliptical tracks through the $(u,v)$ spatial frequency plane governed by declination $\delta$ and hour angle $H$:
+                    </p>
+                    <div class="doc-formula-box" style="background: #0d0d18; border: 1px solid #282845; padding: 12px; margin-bottom: 14px; border-radius: 4px; text-align: center;">
+                        <div class="formula-render" style="color: #ff6ab8; font-size: 12.5px;">
+                            $$ \begin{pmatrix} u \\ v \\ w \end{pmatrix} = \frac{1}{\lambda} \begin{pmatrix} \sin H & \cos H & 0 \\ -\sin \delta \cos H & \sin \delta \sin H & \cos \delta \\ \cos \delta \cos H & -\cos \delta \sin H & \sin \delta \end{pmatrix} \begin{pmatrix} X \\ Y \\ Z \end{pmatrix} $$
+                        </div>
+                    </div>
+
+                    <h3 style="font-size: 13px; color: #7aff9a; font-family: var(--font-mono); text-transform: uppercase; margin-top: 14px; margin-bottom: 8px;">3. Superconducting Heterodyne Instrumentation (IRAM Project)</h3>
+                    <p style="font-size: 12px; line-height: 1.6; margin-bottom: 10px; color: #b8c4d8;">
+                        At millimeter and sub-millimeter bands (100–350 GHz), front-end receivers operate at cryogenic temperatures ($\approx 4\text{ K}$) using <strong>Superconductor-Insulator-Superconductor (SIS)</strong> tunnel junctions. Quasiparticle photon-assisted tunneling achieves quantum-limited sensitivity ($T_{\text{sys}} \to h\nu / 2k_B$), critical for high-resolution array correlations at IRAM (NOEMA array and the 30-meter telescope).
+                    </p>
+
+                    <h3 style="font-size: 13px; color: #7aff9a; font-family: var(--font-mono); text-transform: uppercase; margin-top: 14px; margin-bottom: 8px;">4. VLBI Celestial Reference Frame Realization</h3>
+                    <p style="font-size: 12px; line-height: 1.6; margin-bottom: 10px; color: #b8c4d8;">
+                        Connecting back to my published research on Quasar 4C31.61 (arXiv:2401.12325), geodetic VLBI measures baseline delays with sub-picosecond accuracy. By applying the Overlapping Allan Standard Deviation, we filter out clock drifts and tropospheric flicker, proving that compact AGN cores maintain the long-term positional white-noise stability necessary to anchor the International Celestial Reference Frame (ICRF-3).
+                    </p>
+
+                    <div style="margin-top: 20px; padding-top: 12px; border-top: 1px solid #333355; font-size: 11px; color: #7e8fa8;">
+                        <span style="font-weight: bold; color: #ff6ab8;">Zettelkasten Links:</span> 
+                        <span style="text-decoration: underline; color: #5ab8ff; cursor: pointer;" onclick="openWindow('win-research')">[[Quasar_4C31.61_Stability]]</span> &bull; 
+                        <span style="text-decoration: underline; color: #5ab8ff; cursor: pointer;" onclick="openWindow('win-sys')">[[Computational_Astrophysics_Stack]]</span> &bull; 
+                        <span style="text-decoration: underline; color: #5ab8ff; cursor: pointer;" onclick="openWindow('win-pdf')">[[CV_ModernCV_Legal]]</span> &bull; 
+                        <span style="color: #7aff9a;">[[IRAM_Superconducting_Devices_VN2021]]</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. WINAMP MEDIA PLAYER WINDOW -->
         <div class="window winamp-window" id="win-winamp" style="display: none; top: 10%; left: 25%; width: 450px; z-index: 103;">
             <div class="title-bar winamp-title-bar" onmousedown="dragStart(event, 'win-winamp')">
                 <div class="title-bar-text">WINAMP - Ninajirachi [I Love My Computer]</div>
@@ -894,6 +1005,9 @@ Founded a social advocacy platform focused on gender equality and human rights.
             <div class="start-item" onclick="launchAndClose('win-research')">
                 <span class="item-name">Quasar.doc</span>
             </div>
+            <div class="start-item" onclick="launchAndClose('win-interferometry')">
+                <span class="item-name">Interferometry.md</span>
+            </div>
 
             <div class="start-item" onclick="launchAndClose('win-media')">
                 <span class="item-name">Outreach.url</span>
@@ -920,4 +1034,4 @@ Founded a social advocacy platform focused on gender equality and human rights.
 </body>
 </html>
 
-<!-- vercel-trigger-deploy: 1786126543 -->
+<!-- vercel-trigger-deploy: 1786130000 -->
