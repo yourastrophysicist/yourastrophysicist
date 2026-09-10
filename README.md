@@ -1,10 +1,3 @@
-```
- _ ___ ___ ___ ___ _ _ ___ __ ___ _ 
-| | | __/ __|/ __|/ __|| |/ /| __|/ \ / __| / \
-_|_| | _|\__ \\__ \\__ \| < | _| | () |\__ \|_ |
-(_)(_)___|___/|___/|___/|_|\_\|___|\__/ |___/ \_/
-```
-
 # Jessica Syafaq Muthmaina
 
 <p align="left">
@@ -34,7 +27,7 @@ I am an astrophysicist and graduate researcher based in Padua, Italy, pursuing m
 My academic trajectory centers on:
 - **Observational Astrophysics & AGN**: Investigating Active Galactic Nuclei (AGN), relativistic jets, and positional stability of reference quasars.
 - **Astronomical Interferometry**: Multi-element aperture synthesis, UV-plane spatial frequency sampling, van Cittert-Zernike theorem, and high-resolution instrumentation (ALMA, VLTI, and Intensity Interferometry).
-- **Radio Astronomy & Instrumentation**: Superconducting sub-millimeter detection devices, SIS mixers, and radio continuum/spectral line data reduction.
+- **Radio Astronomy & Instrumentation**: Sub-millimeter detection devices and radio continuum/spectral line data reduction.
 - **Statistical Signal Analysis**: Frequency and positional stability metrics using Overlapping Allan Standard Deviation $\sigma(\tau)$ to isolate white noise, flicker noise, and random-walk processes.
 
 ---
@@ -52,17 +45,15 @@ My academic trajectory centers on:
 
 ---
 
-### 🛰️ Research Appointments & Coursework Honors
+### 🛰️ Research Experience & Academic Coursework
 
-- **Upcoming Erasmus+ Traineeship**: Institut de Radioastronomie Millimétrique (**IRAM**), Grenoble, France  
-  *Superconducting Devices Group (Project VN2021/05) under Dr. Eduard Driessen* &mdash; Focusing on millimeter and sub-millimeter superconducting receiver technologies.
-- **Academic Coursework at UNIPD**:
-  - *Astronomical Interferometry* &mdash; **Grade: 30/30** (Spatial coherence, synthesis imaging, visibility calibration, interferometric arrays)
-  - *Astrophysics Laboratory 1: High Energy Instrumentation* &mdash; **Grade: 28/30** (X-ray/gamma-ray detectors, calibration, spectral timing analysis)
-  - *Stellar Astrophysics* &mdash; **Grade: 28/30** (Stellar structure, nucleosynthesis, stellar evolution)
-  - *General Relativity & Mathematical Methods* (Curved spacetime, tensor calculus, numerical modeling)
 - **Former Research Intern**: National Research and Innovation Agency (**BRIN**), Research Center for Computation (Bandung/Bogor, Indonesia)  
   *VLBI astronomical time-series processing, coordinate transformation, and reference frame kinematics.*
+- **Graduate Coursework at UNIPD**:
+  - *Astronomical Interferometry* (Spatial coherence, synthesis imaging, visibility calibration, interferometric arrays)
+  - *Astrophysics Laboratory 1: High Energy Instrumentation* (X-ray/gamma-ray detectors, calibration, spectral timing analysis)
+  - *Stellar Astrophysics* (Stellar structure, nucleosynthesis, stellar evolution)
+  - *General Relativity & Mathematical Methods* (Curved spacetime, tensor calculus, numerical modeling)
 
 ---
 
