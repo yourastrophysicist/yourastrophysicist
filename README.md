@@ -23,4 +23,4 @@ Python (Astropy, NumPy, SciPy, Matplotlib) · C · Shell · VieVS · LaTeX
 
 ## Links
 
-[Portfolio](https://yourastrophysicist.github.io/yourastrophysicist/) · [Substack](#) · [YouTube](#) · [LinkedIn](#)
+[Portfolio](https://yourastrophysicist.vercel.app/) · [Substack](#) · [YouTube](#) · [LinkedIn](#)
