@@ -17,7 +17,7 @@ Python (Astropy, NumPy, SciPy, Matplotlib) · C · Shell · VieVS · LaTeX
 
 ## Projects
 
-- [Astrophysics & Cosmology notes (Year 1 only)](https://yourastrophysicist.github.io/your_astronotes/)
+- [Astrophysics & Cosmology notes (Year 1 only)](https://yourastrophysicist.github.io/your_astronotes/README.html)
 - [yourastrophysicist](https://github.com/yourastrophysicist/yourastrophysicist): portfolio website
 - [comp_astro_26](https://github.com/yourastrophysicist/comp_astro_26): computational astrophysics coursework
 
