@@ -1,4 +1,4 @@
-/* Jessica Syafaq Muthmaina — terminal portfolio
+/* Jessica Syafaq Muthmaina, terminal portfolio
    Design after github.com/jackb1434/Terminal-Portfolio (gruvbox dark) */
 
 :root {
@@ -117,6 +117,10 @@ h1 {
 
 .indent {
     padding-left: 2ch;
+}
+
+.sub {
+    padding-left: 5ch;
 }
 
 .hang {

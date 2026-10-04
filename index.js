@@ -1,4 +1,4 @@
-/* Jessica Syafaq Muthmaina — terminal portfolio
+/* Jessica Syafaq Muthmaina, terminal portfolio
    Design after github.com/jackb1434/Terminal-Portfolio */
 
 const NOTES_BASE = 'https://yourastrophysicist.github.io/your_astronotes/';
@@ -49,118 +49,175 @@ function escapeHtml(text) {
 
 /* ---------- content ---------- */
 
+const SUBSTACK = 'https://yourastrophysicist.substack.com';
+
+function essay(slug, title) {
+    return link(title, `${SUBSTACK}/p/${slug}`);
+}
+
 const home = [
     { cls: 'row', html: `${cmd('whoami')}<span>- who am I?</span>` },
+    { cls: 'row', html: `${cmd('now')}<span>- what I am studying this semester</span>` },
     { cls: 'row', html: `${cmd('education')}<span>- where I studied</span>` },
     { cls: 'row', html: `${cmd('research')}<span>- my published work on quasar 4C31.61</span>` },
     { cls: 'row', html: `${cmd('figures')}<span>- Allan deviation plots from the paper</span>` },
-    { cls: 'row', html: `${cmd('experience')}<span>- research &amp; work experience</span>` },
+    { cls: 'row', html: `${cmd('experience')}<span>- research and work experience</span>` },
     { cls: 'row', html: `${cmd('projects')}<span>- view my projects</span>` },
     { cls: 'row', html: `${cmd('skills')}<span>- view my toolchain</span>` },
-    { cls: 'row', html: `${cmd('outreach')}<span>- writing, video &amp; advocacy</span>` },
-    { cls: 'row', html: `${cmd('values')}<span>- what I care about</span>` },
+    { cls: 'row', html: `${cmd('writing')}<span>- essays from my Substack</span>` },
+    { cls: 'row', html: `${cmd('outreach')}<span>- video, writing and community work</span>` },
+    { cls: 'row', html: `${cmd('values')}<span>- what I believe, in my own sentences</span>` },
     { cls: 'row', html: `${cmd('cv')}<span>- the whole CV in one go</span>` },
-    { cls: 'row', html: `${cmd('socials')}<span>- view my socials &amp; contact</span>` },
-    { cls: 'row', html: `${cmd('notes')}<span>- my second brain: Your AstroNotes <span class="event">(quiz-locked)</span></span>` },
+    { cls: 'row', html: `${cmd('socials')}<span>- view my socials and contact</span>` },
+    { cls: 'row', html: `${cmd('notes')}<span>- my second brain, Your AstroNotes <span class="event">(quiz-locked)</span></span>` },
     { cls: 'row', html: `${cmd('repo')}<span>- view project source</span>` },
     { cls: 'row', html: `${cmd('system')}<span>- view project information</span>` },
     { cls: 'row', html: `${cmd('clear')}<span>- clear the terminal</span>` },
-    { cls: 'dim', html: 'tip: commands are clickable · tab completes · ↑/↓ walks history' },
+    { cls: 'dim', html: 'tip - commands are clickable, tab completes, ↑/↓ walks history' },
 ];
 
 const who = [
     head('Jessica Syafaq Muthmaina'),
-    'M.Sc. student in Astrophysics &amp; Cosmology at the Università degli Studi di Padova, Department of Physics and Astronomy "Galileo Galilei". Before Padua: B.Sc. in Physics (Theoretical &amp; Computational) at Universitas Gadjah Mada, Yogyakarta.',
+    { cls: 'dim', html: 'a BRAT astrophysicist' },
     '',
-    'I work on observational astrophysics — active galactic nuclei, astronomical interferometry, radio instrumentation, and statistical signal analysis. My published work follows 33 years of VLBI observations of quasar 4C31.61 to test how stable it is as an anchor of the celestial reference frame.',
+    'I am a second-year M.Sc. student in Astrophysics and Cosmology at the University of Padua. I came here from Indonesia, where I studied Physics at Universitas Gadjah Mada.',
     '',
-    'Day to day I love my computer: reduction pipelines, interferometric modelling, LaTeX, and a Zettelkasten in Obsidian. Away from the telescope data I write essays on Substack, tell cosmic stories on YouTube, and run Sadar Setara, a gender-equity advocacy platform in Garut, Indonesia.',
-    { cls: 'dim', html: `next: ${cmd('research')} · ${cmd('notes')} · ${cmd('socials')}` },
+    "Most of my time in Padova is not spent looking at the night sky through a romantic telescope. It is spent at a desk, wrestling with Einstein's field equations, taking apart radiative transfer integrals, and tidying Christoffel symbols on scratch paper.",
+    { cls: 'dim', html: `my own words, translated from ${essay('melepaskan-ribuan-catatan-ke-ruang', 'Melepaskan Ribuan Catatan ke Ruang Terbuka')}` },
+    '',
+    'My published research follows 33 years of VLBI observations of the quasar 4C31.61 to test how stable it is as an anchor of the celestial reference frame. This year I am working on exoplanet transit photometry, Bayesian statistics and atmospheric retrievals.',
+    '',
+    'I write essays on Substack, mostly in Indonesian, about physics, science in public life and being a person. I make videos as Observationally Speaking, and I founded Sadar Setara, an advocacy platform for gender equality and human rights in Garut.',
+    { cls: 'dim', html: `next - ${cmd('now')} · ${cmd('research')} · ${cmd('writing')} · ${cmd('notes')}` },
+];
+
+const now = [
+    head('This semester in Padova (M.Sc. year 2, autumn 2026)'),
+    row('exoplanets', 'Exoplanetary Astrophysics. Demographics, 51 Peg b, TRAPPIST-1, radial velocity semi-amplitudes and transit light curves.'),
+    row('statistics', 'Astro-Statistics and Cosmology. Probability as extended logic, parameter estimation, Fisher information and MCMC sampling.'),
+    row('laboratory', 'Astrophysics Laboratory 2. Exoplanet transit photometry with the Copernico 1.82 m telescope (TASTE) and TESS, CCD calibration, aperture extraction and Bayesian MCMC modelling.'),
+    row('computing', 'Computational Astrophysics. Forward radiative transfer, atmospheric retrievals with TauREx 3, nested sampling and MPI scaling on CloudVeneto.'),
+    row('side quest', 'Archaeoastronomy of Nusantara. Old Javanese inscriptions and wariga dating read as astronomical records.'),
+    { cls: 'dim', html: `the first year lives in my second brain - ${cmd('notes')}` },
 ];
 
 const education = [
     head('Education'),
-    row('2025–now', `<span class="success">M.Sc. Astrophysics and Cosmology</span> — ${link('University of Padua', 'https://www.unipd.it/en/')}, Italy`, true),
-    row('', 'Concentration: Observational and Computational Astrophysics', true),
-    row('', 'Coursework: Astronomical Interferometry · Astrophysics Laboratory 1 (High Energy Instrumentation) · Stellar Astrophysics · General Relativity', true),
-    row('2019–2023', `<span class="success">B.Sc. Physics</span> — ${link('Universitas Gadjah Mada', 'https://fisika.fmipa.ugm.ac.id/')}, Indonesia`, true),
-    row('', 'Concentration: Theoretical and Computational Physics', true),
-    row('', `Thesis: Implementation of Allan Standard Deviation Technique in Variability Analysis of 4C31.61 Quasar (${link('repository', 'https://etd.repository.ugm.ac.id/penelitian/detail/225834')})`, true),
+    row('2025-now', `<span class="success">M.Sc. Astrophysics and Cosmology</span>, ${link('University of Padua', 'https://www.unipd.it/en/')}, Italy`, true),
+    row('', 'Concentration in Observational and Computational Astrophysics', true),
+    row('', 'Year 1 - Fundamentals of Astrophysics and Cosmology, Observational Astrophysics, General Relativity, Mathematical and Numerical Methods, Astrophysics Laboratory 1 (High Energy), Astrophysics of Galaxies, Stellar Astrophysics, Astronomical Interferometry, Observational Cosmology, Astronomical Spectroscopy', true),
+    row('', 'Year 2 - Exoplanetary Astrophysics, Astro-Statistics and Cosmology, Astrophysics Laboratory 2, Computational Astrophysics', true),
+    row('2019-2023', `<span class="success">B.Sc. Physics</span>, ${link('Universitas Gadjah Mada', 'https://fisika.fmipa.ugm.ac.id/')}, Indonesia`, true),
+    row('', 'Concentration in Theoretical and Computational Physics', true),
+    row('', `Thesis on the Allan standard deviation technique in variability analysis of the quasar 4C31.61 (${link('repository', 'https://etd.repository.ugm.ac.id/penelitian/detail/225834')})`, true),
 ];
 
 const research = [
     head('Implementation of Allan Standard Deviation Technique in Stability Analysis of 4C31.61 Quasar Position'),
     'J. S. Muthmaina, I. N. Huda, D. S. Palupi',
-    { cls: 'dim', html: 'Journal of Physics: Conference Series 2773 (2024) 012007' },
-    `${link('DOI 10.1088/1742-6596/2773/1/012007', 'https://doi.org/10.1088/1742-6596/2773/1/012007')} · ${link('arXiv:2401.12325', 'https://arxiv.org/abs/2401.12325')}`,
+    { cls: 'dim', html: 'Journal of Physics Conference Series 2773 (2024) 012007' },
+    `${link('DOI 10.1088/1742-6596/2773/1/012007', 'https://doi.org/10.1088/1742-6596/2773/1/012007')} · ${link('arXiv 2401.12325', 'https://arxiv.org/abs/2401.12325')}`,
     '',
     row('question', 'The International Celestial Reference Frame is pinned to thousands of quasars observed with VLBI. It is only as good as those quasars are still. Is 4C31.61 (2201+315) a stable anchor?'),
-    row('data', '33 years of VLBI sessions (1990–2023, 6,342 sessions), reduced with VieVS against ICRF-3 / ITRF-2020 and cross-checked with the Paris Observatory Geodetic VLBI Center solution.'),
-    row('method', 'Overlapping Allan standard deviation of the position time series; the log-log slope tells white noise (stable) from flicker noise and random walk (unstable).'),
-    row('result', '<span class="success">White noise dominates across most time scales</span> — the position is stable. A random-walk signature at long time scales may trace jet ejections or binary black hole motion.'),
-    { cls: 'dim', html: `see the plots: ${cmd('figures')}` },
+    row('data', '33 years of VLBI sessions (1990 to 2023, 6,342 sessions), reduced with VieVS against ICRF-3 and ITRF-2020 and cross-checked with the Paris Observatory Geodetic VLBI Center solution.'),
+    row('method', 'Overlapping Allan standard deviation of the position time series. The log-log slope separates white noise (stable) from flicker noise and random walk (unstable).'),
+    row('result', '<span class="success">White noise dominates across most time scales</span>, so the position is stable. A random walk signature at long time scales may trace jet ejections or binary black hole motion.'),
+    { cls: 'dim', html: `see the plots - ${cmd('figures')}` },
 ];
 
 const figures = [
-    head('Figure 1 — overlapping Allan standard deviation, quasar 4C31.61'),
+    head('Figure 1 - overlapping Allan standard deviation, quasar 4C31.61'),
     {
         cls: 'figures', tag: 'div', html: [
-            ['img/vievs-allan-ra.png', '(a) VieVS — α cos δ'],
-            ['img/vievs-allan-dec.png', '(b) VieVS — δ'],
-            ['img/paris-allan-ra.png', '(c) Paris Observatory GVC — α cos δ'],
-            ['img/paris-allan-dec.png', '(d) Paris Observatory GVC — δ'],
+            ['img/vievs-allan-ra.png', '(a) VieVS, α cos δ'],
+            ['img/vievs-allan-dec.png', '(b) VieVS, δ'],
+            ['img/paris-allan-ra.png', '(c) Paris Observatory GVC, α cos δ'],
+            ['img/paris-allan-dec.png', '(d) Paris Observatory GVC, δ'],
         ].map(([src, caption]) =>
-            `<figure><a href="${src}" target="_blank" rel="noopener"><img src="${src}" alt="Allan standard deviation plot: ${caption}" loading="lazy"></a><figcaption>${caption}</figcaption></figure>`
+            `<figure><a href="${src}" target="_blank" rel="noopener"><img src="${src}" alt="Allan standard deviation plot ${caption}" loading="lazy"></a><figcaption>${caption}</figcaption></figure>`
         ).join('')
     },
-    { cls: 'dim', html: 'Top: VieVS time series. Bottom: independent Paris Observatory solution. The τ^(-1/2) slope at short sampling intervals is the white-noise signature.' },
+    { cls: 'dim', html: 'Top row from my VieVS time series, bottom row from the independent Paris Observatory solution. The τ^(-1/2) slope at short sampling intervals is the white noise signature.' },
 ];
 
 const experience = [
-    head('Research &amp; work'),
-    row('2023', `<span class="success">Research Intern</span> — ${link('National Research and Innovation Agency (BRIN)', 'https://brin.go.id/')}. Processed and analysed VLBI datasets with VieVS and Paris Observatory data for celestial reference frame research.`, true),
-    row('2024', `<span class="success">Technical Writer</span> — ${link('Ministry of Energy and Mineral Resources (ESDM)', 'https://esdm.go.id/')}. Turned engineering requirements into clear documentation for 200+ stakeholders.`, true),
-    row('2024', '<span class="success">Data Analyst &amp; Field Researcher</span> — Saving Next Generation Indonesia. Evaluated programme effectiveness with fsQCA and wrote policy recommendations.', true),
-    row('2022', `<span class="success">Data Science Intern</span> — ${link('Startup Campus', 'https://startupcampus.id/')}. Tableau dashboards, RFM + K-Means customer segmentation, A/B test analysis.`, true),
+    head('Research and work'),
+    row('2023', `<span class="success">Research Intern</span>, ${link('National Research and Innovation Agency (BRIN)', 'https://brin.go.id/')}. Processed and analysed VLBI datasets with VieVS and Paris Observatory data for celestial reference frame research.`, true),
+    row('2024', `<span class="success">Technical Writer</span>, ${link('Ministry of Energy and Mineral Resources (ESDM)', 'https://esdm.go.id/')}. Turned engineering requirements into clear documentation for 200+ stakeholders.`, true),
+    row('2024', '<span class="success">Data Analyst and Field Researcher</span>, Saving Next Generation Indonesia. Evaluated programme effectiveness with fsQCA and wrote policy recommendations.', true),
+    row('2022', `<span class="success">Data Science Intern</span>, ${link('Startup Campus', 'https://startupcampus.id/')}. Tableau dashboards, RFM and K-Means customer segmentation, A/B test analysis.`, true),
     '',
-    head('Teaching &amp; leadership'),
-    row('2025–now', '<span class="success">Founder</span> — Sadar Setara, a social advocacy platform for gender equality and human rights (Garut, Indonesia).', true),
-    row('2022', '<span class="success">Teaching &amp; Lab Assistant</span> — Universitas Gadjah Mada. Guided 30+ students through physics laboratory experiments and exam preparation.', true),
+    head('Teaching and leadership'),
+    row('2025-now', '<span class="success">Founder</span>, Sadar Setara. A social advocacy platform for gender equality and human rights in Garut, Indonesia.', true),
+    row('2022', '<span class="success">Teaching and Lab Assistant</span>, Universitas Gadjah Mada. Guided 30+ students through physics laboratory experiments and exam preparation.', true),
 ];
 
 const projects = [
     head('Projects'),
-    row('astronotes', `My second brain — an open digital garden of graduate lecture notes, derivations and Maps of Content from the Padova M.Sc. Type ${cmd('notes')} to unlock it.`),
-    row('comp_astro', `${link('comp_astro_26', 'https://github.com/yourastrophysicist/comp_astro_26')} — computational astrophysics coursework.`),
-    row('gender-data', `Data-driven analysis of gender inequality across Indonesian provinces: regression modelling and demographic decomposition. ${link('arXiv:2412.00012', 'https://arxiv.org/abs/2412.00012')}`),
-    row('quasar', `VLBI stability analysis of 4C31.61 — see ${cmd('research')}.`),
-    row('this site', `A terminal you are typing into right now — ${cmd('repo')}.`),
+    row('astronotes', `Your AstroNotes, my second brain. More than 1,300 atomic notes and a Map of Content for every course of the Padova M.Sc., written so that no derivation skips a step. Type ${cmd('notes')} to unlock it.`),
+    row('comp_astro', `${link('comp_astro_26', 'https://github.com/yourastrophysicist/comp_astro_26')}, computational astrophysics coursework.`),
+    row('gender-data', `Data-driven analysis of gender inequality across Indonesian provinces with regression modelling and demographic decomposition. ${link('arXiv 2412.00012', 'https://arxiv.org/abs/2412.00012')}`),
+    row('quasar', `VLBI stability analysis of 4C31.61. See ${cmd('research')}.`),
+    row('substack', `Essays in Indonesian and English. See ${cmd('writing')}.`),
+    row('this site', `A terminal you are typing into right now. See ${cmd('repo')}.`),
 ];
 
 const skills = [
     head('Toolchain'),
     row('python', 'Astropy | NumPy | SciPy | Matplotlib | Polars | scikit-learn'),
     row('radio', 'VieVS (Vienna VLBI Software) | Paris Observatory GVC data | Allan variance analysis'),
+    row('this year', 'transit photometry | CCD calibration | Bayesian MCMC | TauREx 3 retrievals | nested sampling | mpi4py'),
     row('languages', 'Python | C | Shell | LaTeX'),
-    row('data', 'statistical modelling | Tableau | K-Means / RFM | A/B testing | fsQCA'),
+    row('data', 'statistical modelling | Tableau | K-Means and RFM | A/B testing | fsQCA'),
     row('knowledge', 'Obsidian Zettelkasten | Maps of Content'),
     row('human', 'Indonesian (native) | English (C1) | French (A2)'),
 ];
 
+// Essays as published on Substack, with my own titles and subtitles.
+const essays = [
+    ['id', 'logika-saintifik-bukan-barang-mewah', 'Logika Saintifik Bukan Barang Mewah', 'Indonesia bersiap menampung lumbung data center raksasa, tetapi tanpa logika saintifik kita cuma menjelma sapi gelonggongan yang mati kekenyangan.'],
+    ['id', 'kamu-bukan-kelabang-empat-dimensi', 'Kamu bukan kelabang empat dimensi', 'Indonesia belum siap belajar astrofisika dan kosmologi.'],
+    ['id', 'melepaskan-ribuan-catatan-ke-ruang', 'Melepaskan Ribuan Catatan ke Ruang Terbuka', 'rahasia alam semesta terlalu berat jika hanya disimpan sendiri.'],
+    ['id', 'belajar-alam-semesta-bukan-lomba', 'Belajar Alam Semesta Bukan Lomba Lari', 'beban mengatahui usia alam semesta.'],
+    ['id', 'aku-lulus-ujian-lisan-general-relativity', 'Aku Lulus Ujian Lisan General Relativity dan Rumus Einstein Bukan Satu-satunya yang Menyakitkan', 'Tentang melewati warisan matematis yang membuatmu ingin menangis'],
+    ['en', 'it-all-starts-from-an-astronomy-club', 'It All Starts From an Astronomy Club', 'Roman Space Telescope just launched :)'],
+    ['id', 'satu-teleskop-tidak-pernah-cukup', 'Satu Teleskop Tidak Pernah Cukup untuk Memuaskan Rasa Ingin Tahu', 'bagaimana astronom merentangkan jarak demi melihat detail terdalam semesta'],
+    ['en', 'it-was-never-about-how-smart-you', 'It Was Never About How Smart You Are', 'Someone dumped a kilogram of salt on a cake you spent years baking.'],
+    ['id', 'ai-tidak-membunuh-ilmu-pengetahuan', 'AI Tidak Membunuh Ilmu Pengetahuan Tapi Manusia yang Memakainya Bisa', 'Mengapa membatasi AI bukan tanda ketinggalan zaman, melainkan bentuk pertahanan paling rasional yang tersisa.'],
+];
+
+const writing = [
+    head('your astrophysicist, on Substack'),
+    { cls: 'dim', html: 'a BRAT astrophysicist' },
+    '',
+    ...essays.flatMap(([lang, slug, title, subtitle]) => [
+        { cls: 'hang', html: `<span class="key">[${lang}]</span> ${essay(slug, title)}` },
+        { cls: 'sub dim', html: subtitle },
+    ]),
+    '',
+    `${link('read everything on Substack', SUBSTACK)}`,
+];
+
 const outreach = [
     head('Science communication'),
-    row('youtube', `${link('Observationally Speaking', 'https://www.youtube.com/@obspeaking')} — storytelling that blends warm visual reflection with high-energy astrophysics.`),
-    row('substack', `${link('yourastrophysicist', 'https://yourastrophysicist.substack.com')} — essays between physics, literature, philosophy and the environment.`),
-    row('instagram', `${link('@your.astrophysicist', 'https://www.instagram.com/your.astrophysicist/')} — research, M.Sc. life in Padua, and cosmic visual stories.`),
-    row('advocacy', 'Sadar Setara — grassroots community education and gender equity in Garut, Indonesia.'),
+    row('substack', `${link('your astrophysicist', SUBSTACK)}. Essays in Indonesian and English. See ${cmd('writing')}.`),
+    row('youtube', `${link('Observationally Speaking', 'https://www.youtube.com/@obspeaking')}. Astrophysics on video.`),
+    row('instagram', `${link('@your.astrophysicist', 'https://www.instagram.com/your.astrophysicist/')}. Research and M.Sc. life in Padua.`),
+    row('notes', `Your AstroNotes, an open digital garden of my lecture notes. See ${cmd('notes')}.`),
+    row('advocacy', 'Sadar Setara. Gender equality and human rights advocacy in Garut, Indonesia.'),
 ];
 
 const values = [
-    head('Core values'),
-    row('rigor', 'Thorough observational analysis, honest error bars, and empirical truth over convenient answers.'),
-    row('openness', 'Accessible research, open-source tools, and astronomy explained so anyone can follow.'),
-    row('community', 'Inclusive academic spaces and intersectional grassroots advocacy.'),
-    row('exchange', 'Bridging Indonesia and Europe — UGM, UNIPD, and the observatories in between.'),
+    head('What I believe, in my own sentences'),
+    'Scientific logic is not a luxury good.',
+    { cls: 'indent dim', html: `from ${essay('logika-saintifik-bukan-barang-mewah', 'Logika Saintifik Bukan Barang Mewah')}` },
+    'Learning the universe is not a race.',
+    { cls: 'indent dim', html: `from ${essay('belajar-alam-semesta-bukan-lomba', 'Belajar Alam Semesta Bukan Lomba Lari')}` },
+    'Knowledge about this vast universe was never meant to make us feel smarter or higher than other people.',
+    { cls: 'indent dim', html: `from ${essay('melepaskan-ribuan-catatan-ke-ruang', 'Melepaskan Ribuan Catatan ke Ruang Terbuka')}` },
+    'Ambition without action becomes anxiety.',
+    { cls: 'indent dim', html: `from ${essay('it-all-starts-from-an-astronomy-club', 'It All Starts From an Astronomy Club')}` },
+    { cls: 'dim', html: 'the first three are translated from Indonesian' },
 ];
 
 const socialNames = ['GitHub', 'LinkedIn', 'Instagram', 'YouTube', 'Substack', 'Email'];
@@ -169,7 +226,7 @@ const socialLinks = [
     'https://www.linkedin.com/in/syafaqmuth/',
     'https://www.instagram.com/your.astrophysicist/',
     'https://www.youtube.com/@obspeaking',
-    'https://yourastrophysicist.substack.com',
+    SUBSTACK,
     'mailto:jessicasyafaq.muthmaina@studenti.unipd.it',
 ];
 const socials = socialNames.map((name, i) => link(name, socialLinks[i]));
@@ -177,18 +234,19 @@ const socials = socialNames.map((name, i) => link(name, socialLinks[i]));
 const system = [
     row('author', 'Jessica Syafaq Muthmaina'),
     row('host', 'Padova, Italy (45.4° N, 11.9° E)'),
-    row('framework', 'none — plain HTML, CSS and JavaScript'),
+    row('framework', 'none, plain HTML, CSS and JavaScript'),
     row('design', `after ${link('Terminal-Portfolio', 'https://github.com/jackb1434/Terminal-Portfolio')} by jackb1434`),
     row('theme', 'gruvbox dark'),
-    row('version', '2.0.0'),
+    row('version', '2.1.0'),
     row('updated', '2026-10-04'),
 ];
 
 const files = {
     'aboutme.txt': 'whoami',
+    'now.txt': 'now',
     'quasar.doc': 'research',
     'cv_latex.pdf': 'cv',
-    'outreach.url': 'outreach',
+    'essays/': 'writing',
     'values.txt': 'values',
     'astronotes/': 'notes',
 };
@@ -219,7 +277,7 @@ const vaultPages = {
 };
 
 // The gate is a friendly quiz, not real security: the notes are a public site.
-// Add or edit questions freely — any entry in `answers` is accepted.
+// Add or edit questions freely, any entry in `answers` is accepted.
 const quizPool = [
     { q: 'Which planet is known as the Red Planet?', answers: ['mars'], hint: 'it is named after the Roman god of war' },
     { q: 'What is the name of the star at the centre of our Solar System?', answers: ['sun', 'sol'], hint: 'you see it every day' },
@@ -269,7 +327,7 @@ async function startQuiz() {
     setQuizMode(true);
     await insertNewElement([
         '<span class="event">event</span> - ~/second-brain is locked',
-        `Password required. Luckily the password is astronomy: answer ${QUIZ_LENGTH} easy questions to get in.`,
+        `Password required. Luckily the password is astronomy. Answer ${QUIZ_LENGTH} easy questions to get in.`,
         { cls: 'dim', html: 'type your answer and press enter · type exit to give up' },
         '',
         quizQuestionLine(),
@@ -289,7 +347,7 @@ async function answerQuiz(raw) {
 
     if (!current.answers.includes(answer)) {
         await insertNewElement([
-            `<span class="error">error</span> - not quite. hint: ${current.hint}`,
+            `<span class="error">error</span> - not quite. hint - ${current.hint}`,
             quizQuestionLine(),
         ], false);
         return;
@@ -306,7 +364,7 @@ async function answerQuiz(raw) {
     setUnlocked(true);
     await insertNewElement([
         '<span class="success">success</span> - correct!',
-        '<span class="success">success</span> - access granted. welcome to the second brain ✦',
+        '<span class="success">success</span> - access granted. welcome to the second brain',
     ]);
     await showVault();
 }
@@ -314,11 +372,13 @@ async function answerQuiz(raw) {
 async function showVault() {
     const lines = [
         head('~/second-brain/your_astronotes'),
-        'From your BRAT astrophysicist for your astronotes — lecture notes, derivations, Maps of Content and observational figures from the Padova M.Sc. (semesters 1–2).',
+        'From your BRAT astrophysicist for your astronotes. More than 1,300 atomic notes, derivations and Maps of Content from the first year of the Padova M.Sc., compiled, derived and explored by one voyager only.',
+        'I rewrote every derivation without skipping a step. Keeping all of it locked in my laptop felt selfish, so the door is wide open.',
+        { cls: 'dim', html: `the story, in Indonesian - ${essay('melepaskan-ribuan-catatan-ke-ruang', 'Melepaskan Ribuan Catatan ke Ruang Terbuka')}` },
         '',
     ];
     [1, 2].forEach((sem) => {
-        lines.push({ cls: 'event', html: sem === 1 ? 'semester-1/ — foundations' : 'semester-2/ — stars, galaxies, cosmology' });
+        lines.push({ cls: 'event', html: sem === 1 ? 'semester-1/ foundations' : 'semester-2/ stars, galaxies, cosmology' });
         courses.forEach((course, i) => {
             if (course.sem !== sem) return;
             const number = String(i + 1).padStart(2, ' ');
@@ -368,7 +428,7 @@ async function openNote(target) {
     }
     const note = target && resolveNote(target);
     if (!note) {
-        await insertNewElement([`<span class="error">error</span> - usage: open &lt;1-${courses.length} | atlas | home&gt;`]);
+        await insertNewElement([`<span class="error">error</span> - usage - open &lt;1-${courses.length} | atlas | home&gt;`]);
         return;
     }
     await insertNewElement([`<span class="event">event</span> - opening ${escapeHtml(note.title)}`]);
@@ -435,6 +495,8 @@ const commands = {
     skills: () => { setTitleState('Terminal | My Skills'); return insertNewElement(skills); },
     outreach: () => { setTitleState('Terminal | Outreach'); return insertNewElement(outreach); },
     values: () => { setTitleState('Terminal | Values'); return insertNewElement(values); },
+    now: () => { setTitleState('Terminal | Now'); return insertNewElement(now); },
+    writing: () => { setTitleState('Terminal | Writing'); return insertNewElement(writing); },
     socials: () => { setTitleState('Terminal | My Socials'); return insertNewElement(socials); },
     system: () => { setTitleState('Terminal | System'); return insertNewElement(system); },
     repo: () => openGithubRepository(),
@@ -442,14 +504,14 @@ const commands = {
     cv: async () => {
         setTitleState('Terminal | CV');
         await insertNewElement([
-            head('Jessica Syafaq Muthmaina — curriculum vitae'),
+            head('Jessica Syafaq Muthmaina, curriculum vitae'),
             'Observational Astrophysics and Cosmology M.Sc. student at the University of Padua with published research on quasar stability using VLBI data and Python pipelines. Proficient in data analysis and statistical modelling for large datasets.',
         ]);
         await insertNewElement(education);
         await insertNewElement(research.slice(0, 4));
         await insertNewElement(experience);
         await insertNewElement(skills);
-        await insertNewElement([{ cls: 'dim', html: `references available on request — ${cmd('socials')}` }]);
+        await insertNewElement([{ cls: 'dim', html: `references available on request, see ${cmd('socials')}` }]);
     },
     notes: () => (isUnlocked() ? showVault() : startQuiz()),
     open: (args) => openNote(args[0]),
@@ -470,7 +532,7 @@ const commands = {
 
 const aliases = {
     cmds: 'home', help: 'home', who: 'whoami', about: 'whoami', paper: 'research', publication: 'research',
-    contact: 'socials', astronotes: 'notes', brain: 'notes', cls: 'clear', exit: 'clear',
+    contact: 'socials', astronotes: 'notes', brain: 'notes', essays: 'writing', substack: 'writing', blog: 'writing', cls: 'clear', exit: 'clear',
 };
 
 function runCommand(line) {
@@ -559,6 +621,6 @@ queue = queue.then(() => insertNewElement([
     '<span class="event">event</span> - correlating baselines',
     '<span class="success">success</span> - fringes detected, connected to Padova',
     '',
-    "Hi, I'm <span class=\"title\">Jessica Syafaq Muthmaina</span> — your astrophysicist.",
+    "Hi, I'm <span class=\"title\">Jessica Syafaq Muthmaina</span>, your astrophysicist.",
     `please type ${cmd('home')} or ${cmd('cmds')} to see a list of available commands.`,
 ]));
