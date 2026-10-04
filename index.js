@@ -458,6 +458,8 @@ function scrollToInput() {
     if (anchor && anchor.isConnected) {
         const anchorTop = scroller.scrollTop + anchor.getBoundingClientRect().top - scroller.getBoundingClientRect().top - 8;
         target = Math.min(bottom, Math.max(0, anchorTop));
+    } else if (document.documentElement.classList.contains('prompt-top')) {
+        target = 0;
     }
     scroller.scrollTop = target;
 }
@@ -477,6 +479,33 @@ if (window.visualViewport) {
     input.addEventListener('focus', () => setTimeout(syncViewport, 300));
     syncViewport();
 }
+
+// In-app browsers (Instagram, Facebook, TikTok...) lay the keyboard over the page
+// without telling it, so a prompt at the bottom ends up hidden. There the prompt
+// moves to the top of the screen, where the keyboard can never cover it.
+const inAppBrowser = /Instagram|FBAN|FBAV|FB_IAB|Barcelona|Line\/|TikTok|musical_ly|; wv\)/i.test(navigator.userAgent);
+
+function visibleHeight() {
+    return window.visualViewport ? window.visualViewport.height : window.innerHeight;
+}
+
+function usePromptOnTop() {
+    document.documentElement.classList.add('prompt-top');
+    scrollToInput();
+}
+
+let tallestViewport = visibleHeight();
+window.addEventListener('resize', () => { tallestViewport = Math.max(tallestViewport, visibleHeight()); });
+
+if (touchDevice && inAppBrowser) usePromptOnTop();
+
+// any other touch browser where the keyboard opens but the page never shrinks
+input.addEventListener('focus', () => {
+    if (!touchDevice || document.documentElement.classList.contains('prompt-top')) return;
+    setTimeout(() => {
+        if (document.activeElement === input && tallestViewport - visibleHeight() < 120) usePromptOnTop();
+    }, 800);
+});
 
 function appendLine(line) {
     const spec = typeof line === 'string' ? { html: line } : line;

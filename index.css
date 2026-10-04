@@ -241,6 +241,20 @@ h1 {
     opacity: 1;
 }
 
+/* prompt on top, for phones whose keyboard covers the bottom of the page */
+.prompt-top .inputArea {
+    order: -1;
+    border-top: none;
+    border-bottom: 1px solid var(--bg-soft);
+    padding-top: calc(12px + env(safe-area-inset-top));
+    padding-bottom: 8px;
+}
+
+.prompt-top .terminal {
+    padding-top: 8px;
+    padding-bottom: 85vh;
+}
+
 /* ---------- AstroNotes viewer ---------- */
 
 .viewer {
