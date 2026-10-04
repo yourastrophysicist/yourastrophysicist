@@ -83,7 +83,6 @@ const who = [
     'I am a second-year M.Sc. student in Astrophysics and Cosmology at the University of Padua. I came here from Indonesia, where I studied Physics at Universitas Gadjah Mada.',
     '',
     "Most of my time in Padova is not spent looking at the night sky through a romantic telescope. It is spent at a desk, wrestling with Einstein's field equations, taking apart radiative transfer integrals, and tidying Christoffel symbols on scratch paper.",
-    { cls: 'dim', html: `my own words, translated from ${essay('melepaskan-ribuan-catatan-ke-ruang', 'Melepaskan Ribuan Catatan ke Ruang Terbuka')}` },
     '',
     'My published research follows 33 years of VLBI observations of the quasar 4C31.61 to test how stable it is as an anchor of the celestial reference frame. This year I am working on exoplanet transit photometry, Bayesian statistics and atmospheric retrievals.',
     '',
