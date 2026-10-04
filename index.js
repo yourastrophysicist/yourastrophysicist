@@ -10,6 +10,7 @@ const iterm = document.getElementById('iterm');
 const form = document.getElementById('inputForm');
 const input = document.getElementById('textAreaID');
 const promptLabel = document.getElementById('promptLabel');
+const scroller = document.getElementById('scroller');
 const viewer = document.getElementById('viewer');
 const viewerFrame = document.getElementById('viewerFrame');
 const viewerPath = document.getElementById('viewerPath');
@@ -446,7 +447,23 @@ function setTitleState(state) {
 }
 
 function scrollToInput() {
-    form.scrollIntoView({ block: 'nearest' });
+    scroller.scrollTop = scroller.scrollHeight;
+}
+
+// keep the terminal inside the visible viewport when a phone keyboard opens
+function syncViewport() {
+    const viewport = window.visualViewport;
+    document.documentElement.style.setProperty('--vv-height', `${viewport.height}px`);
+    document.documentElement.style.setProperty('--vv-top', `${viewport.offsetTop}px`);
+    scrollToInput();
+}
+
+if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', syncViewport);
+    window.visualViewport.addEventListener('scroll', syncViewport);
+    window.addEventListener('resize', syncViewport);
+    input.addEventListener('focus', () => setTimeout(syncViewport, 300));
+    syncViewport();
 }
 
 function appendLine(line) {
