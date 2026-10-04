@@ -1,17 +1,17 @@
 /* Jessica Syafaq Muthmaina, terminal portfolio
-   Design after github.com/jackb1434/Terminal-Portfolio (gruvbox dark) */
+   Design after github.com/jackb1434/Terminal-Portfolio (recoloured in blue) */
 
 :root {
-    --bg: #282828;
-    --bg-soft: #32302f;
-    --fg: #ebdbb2;
-    --gray: #928374;
-    --red: #fb4934;
-    --green: #8ec07c;
-    --lime: #b8bb26;
-    --yellow: #fabd2f;
-    --blue: #83a598;
-    --pink: #d3869b;
+    --bg: #0b1a2e;
+    --bg-soft: #12263f;
+    --fg: #dce9f8;
+    --gray: #7489a6;
+    --red: #ff6b81;
+    --green: #6fe0d0;
+    --lime: #4fc3f7;
+    --yellow: #a8d4ff;
+    --blue: #82aaff;
+    --pink: #b3a6ff;
 }
 
 * {
