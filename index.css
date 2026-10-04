@@ -43,25 +43,33 @@ h1 {
     white-space: nowrap;
 }
 
-/* The terminal scrolls inside a box that tracks the visible viewport, so the
-   prompt and the latest output stay above the on-screen keyboard on phones. */
+/* The shell tracks the visible viewport. Output scrolls in the top part and the
+   prompt is pinned to the bottom, so it sits right above a phone keyboard. */
 .content {
     position: fixed;
     top: var(--vv-top, 0px);
     left: 0;
     right: 0;
     height: var(--vv-height, 100dvh);
-    overflow-y: auto;
-    overscroll-behavior: contain;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     animation-name: fadeIn;
     animation-duration: 1s;
 }
 
 .terminal {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 20px 20px 8px;
+}
+
+.terminal,
+.inputArea {
     width: 100%;
     max-width: 1000px;
-    min-height: 100%;
-    padding: 20px;
     font-size: 18px;
     line-height: 25px;
     text-align: left;
@@ -200,8 +208,11 @@ h1 {
     gap: 0 10px;
     background-color: transparent;
     border: none;
+    border-top: 1px solid var(--bg-soft);
     outline: none;
     margin: 0;
+    flex: none;
+    padding: 8px 20px calc(12px + env(safe-area-inset-bottom));
 }
 
 .atSymbol {
@@ -310,10 +321,18 @@ h1 {
 }
 
 @media (max-width: 600px) {
-    .terminal {
-        padding: 16px;
+    .terminal,
+    .inputArea {
         font-size: 14px;
         line-height: 21px;
+    }
+
+    .terminal {
+        padding: 16px 16px 8px;
+    }
+
+    .inputArea {
+        padding: 8px 16px calc(10px + env(safe-area-inset-bottom));
     }
 
     #iterm p {

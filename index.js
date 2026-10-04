@@ -10,7 +10,8 @@ const iterm = document.getElementById('iterm');
 const form = document.getElementById('inputForm');
 const input = document.getElementById('textAreaID');
 const promptLabel = document.getElementById('promptLabel');
-const scroller = document.getElementById('scroller');
+const scroller = document.getElementById('terminal');
+const touchDevice = window.matchMedia('(pointer: coarse)').matches;
 const viewer = document.getElementById('viewer');
 const viewerFrame = document.getElementById('viewerFrame');
 const viewerPath = document.getElementById('viewerPath');
@@ -419,7 +420,7 @@ function closeViewer() {
     viewer.hidden = true;
     viewerFrame.src = 'about:blank';
     document.body.style.overflow = '';
-    input.focus();
+    if (!touchDevice) input.focus();
 }
 
 async function openNote(target) {
@@ -447,8 +448,18 @@ function setTitleState(state) {
     document.title = state;
 }
 
+// Follow new output, but never scroll the command that produced it out of view:
+// long output starts at the top of the screen and the reader scrolls down.
+let anchor = null;
+
 function scrollToInput() {
-    scroller.scrollTop = scroller.scrollHeight;
+    const bottom = scroller.scrollHeight - scroller.clientHeight;
+    let target = bottom;
+    if (anchor && anchor.isConnected) {
+        const anchorTop = scroller.scrollTop + anchor.getBoundingClientRect().top - scroller.getBoundingClientRect().top - 8;
+        target = Math.min(bottom, Math.max(0, anchorTop));
+    }
+    scroller.scrollTop = target;
 }
 
 // keep the terminal inside the visible viewport when a phone keyboard opens
@@ -474,6 +485,7 @@ function appendLine(line) {
     element.innerHTML = spec.html;
     iterm.appendChild(element);
     scrollToInput();
+    return element;
 }
 
 // print lines one by one, like the terminal is thinking
@@ -571,7 +583,7 @@ function callCommand(raw) {
     historyIndex = history.length;
 
     queue = queue.then(async () => {
-        appendLine({ cls: 'echo', html: `<span class="inputLine">${promptLabel.innerHTML}</span> ${escapeHtml(line)}` });
+        anchor = appendLine({ cls: 'echo', html: `<span class="inputLine">${promptLabel.innerHTML}</span> ${escapeHtml(line)}` });
         if (quiz) await answerQuiz(line);
         else await runCommand(line);
         scrollToInput();
@@ -610,7 +622,8 @@ document.addEventListener('click', (e) => {
     const commandButton = e.target.closest('.cmd');
     if (commandButton) {
         callCommand(commandButton.dataset.cmd);
-        input.focus({ preventScroll: true });
+        // on phones, tapping a command should not pop the keyboard over the answer
+        if (!touchDevice) input.focus({ preventScroll: true });
         return;
     }
 
@@ -623,7 +636,7 @@ document.addEventListener('click', (e) => {
 
     // click anywhere on the terminal to keep typing, unless selecting text or using a link
     if (!viewer.hidden || e.target.closest('a, button, input')) return;
-    if (String(window.getSelection())) return;
+    if (touchDevice || String(window.getSelection())) return;
     input.focus({ preventScroll: true });
 });
 
