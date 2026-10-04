@@ -233,11 +233,12 @@ const socials = socialNames.map((name, i) => link(name, socialLinks[i]));
 
 const system = [
     row('author', 'Jessica Syafaq Muthmaina'),
+    row('url', link('www.yourastro.space', 'https://www.yourastro.space/')),
     row('host', 'Padova, Italy (45.4° N, 11.9° E)'),
     row('framework', 'none, plain HTML, CSS and JavaScript'),
     row('design', `after ${link('Terminal-Portfolio', 'https://github.com/jackb1434/Terminal-Portfolio')} by jackb1434`),
     row('theme', 'midnight blue'),
-    row('version', '2.1.0'),
+    row('version', '2.2.0'),
     row('updated', '2026-10-04'),
 ];
 
@@ -516,7 +517,7 @@ const commands = {
     socials: () => { setTitleState('Terminal | My Socials'); return insertNewElement(socials); },
     system: () => { setTitleState('Terminal | System'); return insertNewElement(system); },
     repo: () => openGithubRepository(),
-    clear: () => { iterm.innerHTML = ''; setTitleState('Terminal | yourastrophysicist'); },
+    clear: () => { iterm.innerHTML = ''; setTitleState('Terminal | yourastro.space'); },
     cv: async () => {
         setTitleState('Terminal | CV');
         await insertNewElement([
