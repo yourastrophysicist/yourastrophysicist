@@ -236,7 +236,7 @@ const system = [
     row('host', 'Padova, Italy (45.4° N, 11.9° E)'),
     row('framework', 'none, plain HTML, CSS and JavaScript'),
     row('design', `after ${link('Terminal-Portfolio', 'https://github.com/jackb1434/Terminal-Portfolio')} by jackb1434`),
-    row('theme', 'gruvbox dark'),
+    row('theme', 'midnight blue'),
     row('version', '2.1.0'),
     row('updated', '2026-10-04'),
 ];
