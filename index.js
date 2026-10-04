@@ -79,6 +79,7 @@ const home = [
 ];
 
 const who = [
+    { cls: 'portrait', tag: 'div', html: '<img src="img/jessica-portrait.jpg" alt="Illustrated portrait of Jessica with teal and pink hair, holding a book in front of a telescope" width="160" height="160">' },
     head('Jessica Syafaq Muthmaina'),
     { cls: 'dim', html: 'a BRAT astrophysicist' },
     '',
@@ -202,7 +203,8 @@ const writing = [
 const outreach = [
     head('Science communication'),
     row('substack', `${link('your astrophysicist', SUBSTACK)}. Essays in Indonesian and English. See ${cmd('writing')}.`),
-    row('youtube', `${link('Observationally Speaking', 'https://www.youtube.com/@obspeaking')}. Astrophysics on video.`),
+    row('youtube', `${link('Observationally Speaking', 'https://www.youtube.com/@obspeaking')}. On stars, softly.`),
+    { cls: 'bannerArt', tag: 'div', html: '<a href="https://www.youtube.com/@obspeaking" target="_blank" rel="noopener"><img src="img/observationally-speaking.jpg" alt="Observationally Speaking banner, a telescope among clouds facing a pale moon, with the line on stars, softly" width="1600" height="264"></a>' },
     row('instagram', `${link('@your.astrophysicist', 'https://www.instagram.com/your.astrophysicist/')}. Research and M.Sc. life in Padua.`),
     row('notes', `Your AstroNotes, an open digital garden of my lecture notes. See ${cmd('notes')}.`),
     row('advocacy', 'Sadar Setara. Gender equality and human rights advocacy in Garut, Indonesia.'),
