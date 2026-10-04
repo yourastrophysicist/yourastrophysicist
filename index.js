@@ -1,893 +1,564 @@
-/* Jessica Syafaq Muthmaina - Interactive Windows 98 / Y2K Desktop JavaScript Logic */
+/* Jessica Syafaq Muthmaina — terminal portfolio
+   Design after github.com/jackb1434/Terminal-Portfolio */
 
-let activeDragWindow = null;
-let dragOffsetX = 0;
-let dragOffsetY = 0;
-let topZIndex = 100;
+const NOTES_BASE = 'https://yourastrophysicist.github.io/your_astronotes/';
+const REPO_URL = 'https://github.com/yourastrophysicist/yourastrophysicist';
+const UNLOCK_KEY = 'astronotes-unlocked';
+const QUIZ_LENGTH = 3;
 
-document.addEventListener("DOMContentLoaded", () => {
-    // 1. Initial window layout and tray clock setup
-    updateTrayClock();
-    setInterval(updateTrayClock, 1000);
-    updateLockClock();
-    setInterval(updateLockClock, 1000);
-    
-    // Start clean with NO windows open on startup as requested
-    document.querySelectorAll('.window').forEach(win => {
-        win.style.display = 'none';
-    });
-    rebuildTaskbarTabs();
-    
-    // Global mousedown/touchstart listeners to handle window focus activation
-    document.querySelectorAll('.window').forEach(win => {
-        win.addEventListener('mousedown', () => focusWindow(win.id));
-        win.addEventListener('touchstart', () => focusWindow(win.id), { passive: true });
-    });
+const iterm = document.getElementById('iterm');
+const form = document.getElementById('inputForm');
+const input = document.getElementById('textAreaID');
+const promptLabel = document.getElementById('promptLabel');
+const viewer = document.getElementById('viewer');
+const viewerFrame = document.getElementById('viewerFrame');
+const viewerPath = document.getElementById('viewerPath');
+const viewerExternal = document.getElementById('viewerExternal');
+const viewerClose = document.getElementById('viewerClose');
 
-    // Touch listeners for titlebars on mobile
-    document.querySelectorAll('.title-bar').forEach(tb => {
-        const parentWin = tb.closest('.window');
-        if (parentWin) {
-            tb.addEventListener('touchstart', (e) => dragStart(e, parentWin.id), { passive: false });
-        }
-    });
+const SHELL_PROMPT = promptLabel.innerHTML;
+const QUIZ_PROMPT = 'quiz<span class="atSymbol">@</span>astronotes:?';
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const LINE_DELAY = reducedMotion ? 0 : 25;
 
-    // Close Start Menu when clicking outside
-    document.addEventListener('click', (e) => {
-        const startBtn = document.getElementById('start-menu-btn');
-        const startMenu = document.getElementById('start-menu');
-        if (startMenu && startBtn) {
-            if (!startBtn.contains(e.target) && !startMenu.contains(e.target)) {
-                startMenu.classList.remove('show-menu');
-                startBtn.classList.remove('active');
-            }
-        }
-    });
 
-    // 2. Allan Deviation Simulator Initialization
-    initAllanSimulator();
+/* ---------- content helpers ---------- */
 
-    // 3. Initialize SoundCloud API Widget
-    initSoundCloudWidget();
-});
-
-/* Lock Screen Handler */
-function unlockDesktop() {
-    const lockScreen = document.getElementById('lock-screen');
-    if (lockScreen && lockScreen.style.display !== 'none') {
-        lockScreen.classList.add('unlock-fade');
-        setTimeout(() => {
-            lockScreen.style.display = 'none';
-        }, 400);
-    }
+function cmd(name, label) {
+    return `<button type="button" class="cmd" data-cmd="${name}">${label || name}</button>`;
 }
 
-document.addEventListener('keydown', (e) => {
-    const lockScreen = document.getElementById('lock-screen');
-    if (lockScreen && lockScreen.style.display !== 'none') {
-        if (e.key === 'Enter' || e.key === 'Escape' || (e.ctrlKey && e.altKey && (e.key === 'Delete' || e.key === 'Del'))) {
-            unlockDesktop();
-        }
-    }
-});
-
-function updateLockClock() {
-    const el = document.getElementById('lock-screen-clock');
-    if (!el) return;
-    const now = new Date();
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    el.textContent = `${hours}:${minutes} ${ampm}`;
+function link(text, href) {
+    return `<a href="${href}" target="_blank" rel="noopener">${text}</a>`;
 }
 
-/* Window Dragging Handlers (Mouse & Touch Support for Mobile) */
-function dragStart(e, windowId) {
-    const win = document.getElementById(windowId);
-    if (!win || win.classList.contains('maximized-window')) return;
-    
-    // Bring window to focus
-    focusWindow(windowId);
-    
-    activeDragWindow = win;
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    
-    dragOffsetX = clientX - win.offsetLeft;
-    dragOffsetY = clientY - win.offsetTop;
-    
-    document.addEventListener('mousemove', dragMove);
-    document.addEventListener('mouseup', dragEnd);
-    document.addEventListener('touchmove', dragMove, { passive: false });
-    document.addEventListener('touchend', dragEnd);
+function row(key, value, wide) {
+    return { cls: wide ? 'row wide' : 'row', html: `<span class="key">${key}</span><span>${value}</span>` };
 }
 
-function dragMove(e) {
-    if (!activeDragWindow) return;
-    
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    
-    let left = clientX - dragOffsetX;
-    let top = clientY - dragOffsetY;
-    
-    // Constrain within desktop boundary
-    const desktop = document.getElementById('desktop');
-    if (desktop) {
-        const maxLeft = Math.max(0, desktop.clientWidth - activeDragWindow.clientWidth);
-        const maxTop = Math.max(0, desktop.clientHeight - activeDragWindow.clientHeight);
-        
-        if (left < 0) left = 0;
-        if (top < 0) top = 0;
-        if (left > maxLeft) left = maxLeft;
-        if (top > maxTop) top = maxTop;
-    }
-    
-    activeDragWindow.style.left = left + 'px';
-    activeDragWindow.style.top = top + 'px';
-    
-    if (e.touches) e.preventDefault();
+function head(text) {
+    return { cls: 'title', html: text };
 }
 
-function dragEnd() {
-    activeDragWindow = null;
-    document.removeEventListener('mousemove', dragMove);
-    document.removeEventListener('mouseup', dragEnd);
-    document.removeEventListener('touchmove', dragMove);
-    document.removeEventListener('touchend', dragEnd);
+function escapeHtml(text) {
+    const span = document.createElement('span');
+    span.textContent = text;
+    return span.innerHTML;
 }
 
-/* Window Control Actions */
-function openWindow(windowId) {
-    const win = document.getElementById(windowId);
-    if (!win) return;
-    
-    win.classList.remove('minimized-window');
-    win.style.display = 'flex';
-    focusWindow(windowId);
-    rebuildTaskbarTabs();
 
-    if (window.MathJax && window.MathJax.typesetPromise) {
-        try { window.MathJax.typesetPromise([win]); } catch(e){}
-    }
-}
+/* ---------- content ---------- */
 
-function closeWindow(windowId) {
-    const win = document.getElementById(windowId);
-    if (!win) return;
-    
-    win.style.display = 'none';
-    rebuildTaskbarTabs();
-}
-
-function minimizeWindow(windowId) {
-    const win = document.getElementById(windowId);
-    if (!win) return;
-    
-    win.classList.add('minimized-window');
-    rebuildTaskbarTabs();
-}
-
-function maximizeWindow(windowId) {
-    const win = document.getElementById(windowId);
-    if (!win) return;
-    
-    win.classList.toggle('maximized-window');
-    
-    // Refocus on maximize
-    focusWindow(windowId);
-}
-
-function focusWindow(windowId) {
-    const win = document.getElementById(windowId);
-    if (!win) return;
-    
-    // Check if it's already top focused
-    if (win.style.zIndex == topZIndex && win.classList.contains('active-window')) {
-        return;
-    }
-    
-    // Reset all active classes
-    document.querySelectorAll('.window').forEach(w => {
-        w.classList.remove('active-window');
-    });
-    
-    topZIndex += 2;
-    win.style.zIndex = topZIndex;
-    win.classList.add('active-window');
-    
-    // Sync taskbar active state
-    updateActiveTaskTab(windowId);
-}
-
-/* Taskbar Synchronization */
-function rebuildTaskbarTabs() {
-    const tabContainer = document.getElementById('taskbar-tabs');
-    if (!tabContainer) return;
-    
-    tabContainer.innerHTML = '';
-    
-    // Get all windows
-    const windows = document.querySelectorAll('.window');
-    windows.forEach(win => {
-        // Only show tabs for windows that are open (style.display !== 'none')
-        if (win.style.display !== 'none') {
-            const windowId = win.id;
-            const titleBar = win.querySelector('.title-bar-text');
-            const titleText = titleBar ? titleBar.textContent : 'Window';
-            
-            const tab = document.createElement('div');
-            tab.className = 'task-tab';
-            tab.id = 'tab-' + windowId;
-            tab.textContent = titleText;
-            
-            // Toggle minimize/focus on tab click
-            tab.addEventListener('click', () => {
-                if (win.classList.contains('minimized-window')) {
-                    // Restore and focus
-                    win.classList.remove('minimized-window');
-                    focusWindow(windowId);
-                    rebuildTaskbarTabs();
-                } else if (win.classList.contains('active-window')) {
-                    // Minimize if already focused
-                    win.classList.add('minimized-window');
-                    rebuildTaskbarTabs();
-                } else {
-                    // Just bring to focus
-                    focusWindow(windowId);
-                }
-            });
-            
-            if (win.classList.contains('active-window') && !win.classList.contains('minimized-window')) {
-                tab.classList.add('active-tab');
-            }
-            
-            tabContainer.appendChild(tab);
-        }
-    });
-}
-
-function updateActiveTaskTab(windowId) {
-    document.querySelectorAll('.task-tab').forEach(tab => {
-        tab.classList.remove('active-tab');
-    });
-    const activeTab = document.getElementById('tab-' + windowId);
-    if (activeTab) {
-        activeTab.classList.add('active-tab');
-    }
-}
-
-/* Start Menu Controls */
-function toggleStartMenu() {
-    const startMenu = document.getElementById('start-menu');
-    const startBtn = document.getElementById('start-menu-btn');
-    if (startMenu && startBtn) {
-        startMenu.classList.toggle('show-menu');
-        startBtn.classList.toggle('active');
-    }
-}
-
-function launchAndClose(windowId) {
-    openWindow(windowId);
-    toggleStartMenu();
-}
-
-function closeAllAndAlert() {
-    toggleStartMenu();
-    // Simulate system shutdown dialogue
-    alert("System Shutdown command received. System is going to standby mode. Click OK to return to desktop.");
-}
-
-/* System Tray Clock */
-function updateTrayClock() {
-    const clockElement = document.getElementById('taskbar-clock');
-    if (!clockElement) return;
-    
-    const now = new Date();
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    
-    hours = hours % 12;
-    hours = hours ? hours : 12; // Hour '0' should be '12'
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    
-    clockElement.textContent = hours + ':' + minutes + ' ' + ampm;
-}
-
-/* 3. Allan Deviation Simulation Logic (arXiv:2401.12325 Quasar 4C31.61) */
-function initAllanSimulator() {
-    const canvases = [
-        document.getElementById('allan-canvas'),
-        document.getElementById('doc-allan-canvas')
-    ].filter(Boolean);
-
-    if (canvases.length === 0) return;
-
-    // Observational Data Points from arXiv:2401.12325 (Quasar 4C31.61 position time series)
-    const arxivDataPoints = [
-        { tau: 5, sigma: 0.112 },
-        { tau: 15, sigma: 0.068 },
-        { tau: 30, sigma: 0.049 },
-        { tau: 50, sigma: 0.042 },
-        { tau: 90, sigma: 0.045 },
-        { tau: 150, sigma: 0.054 },
-        { tau: 250, sigma: 0.067 },
-        { tau: 400, sigma: 0.086 }
-    ];
-
-    function drawSingleCanvas(cv, tauVal, baselineVal, totalSigma) {
-        const ctx = cv.getContext('2d');
-        const w = cv.width;
-        const h = cv.height;
-
-        ctx.clearRect(0, 0, w, h);
-        
-        // Dark background grid
-        ctx.fillStyle = '#060612';
-        ctx.fillRect(0, 0, w, h);
-
-        ctx.strokeStyle = '#181830';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        for (let x = 0; x < w; x += 40) {
-            ctx.moveTo(x, 0); ctx.lineTo(x, h);
-        }
-        for (let y = 0; y < h; y += 30) {
-            ctx.moveTo(0, y); ctx.lineTo(w, y);
-        }
-        ctx.stroke();
-
-        const scaleX = w / 500;
-        const centerY = h * 0.85;
-
-        // Draw theoretical white noise asymptote (slope -1/2)
-        ctx.strokeStyle = 'rgba(0, 255, 200, 0.4)';
-        ctx.lineWidth = 1.5;
-        ctx.setLineDash([4, 4]);
-        ctx.beginPath();
-        for (let px = 0; px < w; px++) {
-            const t = px / scaleX + 1;
-            const sw = 0.25 * Math.pow(t, -0.5) * (8000 / baselineVal);
-            const py = centerY - sw * (h * 1.8);
-            if (px === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-        }
-        ctx.stroke();
-
-        // Draw theoretical random walk asymptote (slope +1/2)
-        ctx.strokeStyle = 'rgba(255, 180, 0, 0.4)';
-        ctx.beginPath();
-        for (let px = 0; px < w; px++) {
-            const t = px / scaleX + 1;
-            const srw = 0.003 * Math.pow(t, 0.5);
-            const py = centerY - srw * (h * 1.8);
-            if (px === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-        }
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        // Draw total Allan deviation curve σ_y(τ)
-        ctx.strokeStyle = '#ff007f'; /* Y2K Magenta */
-        ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        for (let px = 0; px < w; px++) {
-            const t = px / scaleX + 1;
-            const sw = 0.25 * Math.pow(t, -0.5) * (8000 / baselineVal);
-            const srw = 0.003 * Math.pow(t, 0.5);
-            const sig = Math.sqrt(sw * sw + srw * srw);
-            const py = centerY - sig * (h * 1.8);
-            if (px === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-        }
-        ctx.stroke();
-
-        // Draw empirical arXiv:2401.12325 VLBI observational data points
-        arxivDataPoints.forEach(pt => {
-            const px = pt.tau * scaleX;
-            const py = centerY - pt.sigma * (h * 1.8);
-            ctx.fillStyle = '#00ffff';
-            ctx.beginPath();
-            ctx.arc(px, py, 3.5, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.strokeStyle = '#000000';
-            ctx.lineWidth = 1;
-            ctx.stroke();
-        });
-
-        // Draw active tau pointer marker
-        const markerX = tauVal * scaleX;
-        ctx.strokeStyle = '#ffffff';
-        ctx.lineWidth = 1;
-        ctx.setLineDash([2, 2]);
-        ctx.beginPath();
-        ctx.moveTo(markerX, 0); ctx.lineTo(markerX, h);
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        const markerY = centerY - totalSigma * (h * 1.8);
-        ctx.fillStyle = '#ffff00'; /* Neon Yellow active marker */
-        ctx.beginPath();
-        ctx.arc(markerX, markerY, 5.5, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.strokeStyle = '#000000';
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-
-        // Canvas legend overlay
-        ctx.fillStyle = 'rgba(0,0,0,0.6)';
-        ctx.fillRect(8, 8, 190, 42);
-        ctx.strokeStyle = '#333355';
-        ctx.strokeRect(8, 8, 190, 42);
-
-        ctx.fillStyle = '#00ffff';
-        ctx.font = '10px monospace';
-        ctx.fillText('• arXiv:2401.12325 VLBI Data', 14, 22);
-
-        ctx.fillStyle = '#ff007f';
-        ctx.fillText('— Total σ_y(τ) Model', 14, 38);
-    }
-
-    function updateAll(srcTauVal, srcBaselineVal) {
-        const tau = parseFloat(srcTauVal);
-        const b = parseFloat(srcBaselineVal);
-
-        const sigmaWhite = 0.25 * Math.pow(tau, -0.5) * (8000 / b);
-        const sigmaRW = 0.003 * Math.pow(tau, 0.5);
-        const totalSigma = Math.sqrt(sigmaWhite * sigmaWhite + sigmaRW * sigmaRW);
-        const resStr = totalSigma.toFixed(3) + ' mas';
-
-        // Update control panel elements for stand-alone simulator
-        const inputTau = document.getElementById('input-tau');
-        const inputBaseline = document.getElementById('input-baseline');
-        const lblTau = document.getElementById('lbl-tau');
-        const lblBaseline = document.getElementById('lbl-baseline');
-        const lblResult = document.getElementById('lbl-result');
-
-        if (inputTau) inputTau.value = tau;
-        if (inputBaseline) inputBaseline.value = b;
-        if (lblTau) lblTau.textContent = tau + ' days';
-        if (lblBaseline) lblBaseline.textContent = b + ' km';
-        if (lblResult) lblResult.textContent = resStr;
-
-        // Update control panel elements for document embedded figure
-        const docInputTau = document.getElementById('doc-input-tau');
-        const docInputBaseline = document.getElementById('doc-input-baseline');
-        const docLblTau = document.getElementById('doc-lbl-tau');
-        const docLblBaseline = document.getElementById('doc-lbl-baseline');
-        const docLblResult = document.getElementById('doc-lbl-result');
-
-        if (docInputTau) docInputTau.value = tau;
-        if (docInputBaseline) docInputBaseline.value = b;
-        if (docLblTau) docLblTau.textContent = tau + ' days';
-        if (docLblBaseline) docLblBaseline.textContent = b + ' km';
-        if (docLblResult) docLblResult.textContent = resStr;
-
-        // Re-render canvases
-        canvases.forEach(cv => drawSingleCanvas(cv, tau, b, totalSigma));
-    }
-
-    // Attach listeners for main simulator controls
-    const inputTau = document.getElementById('input-tau');
-    const inputBaseline = document.getElementById('input-baseline');
-    const calcBtn = document.getElementById('calc-btn');
-
-    if (inputTau) inputTau.oninput = (e) => updateAll(e.target.value, inputBaseline ? inputBaseline.value : 8000);
-    if (inputBaseline) inputBaseline.oninput = (e) => updateAll(inputTau ? inputTau.value : 50, e.target.value);
-    if (calcBtn) calcBtn.onclick = () => updateAll(inputTau ? inputTau.value : 50, inputBaseline ? inputBaseline.value : 8000);
-
-    // Attach listeners for doc embedded figure controls
-    const docInputTau = document.getElementById('doc-input-tau');
-    const docInputBaseline = document.getElementById('doc-input-baseline');
-
-    if (docInputTau) docInputTau.oninput = (e) => updateAll(e.target.value, docInputBaseline ? docInputBaseline.value : 8000);
-    if (docInputBaseline) docInputBaseline.oninput = (e) => updateAll(docInputTau ? docInputTau.value : 50, e.target.value);
-
-    // Initial render
-    updateAll(50, 8000);
-}
-
-/* PDF Viewer Tab Switcher */
-function switchPdfTab(tabName) {
-    const renderedView = document.getElementById('pdf-rendered-view');
-    const texView = document.getElementById('pdf-tex-view');
-    const btnRendered = document.getElementById('btn-pdf-rendered');
-    const btnTex = document.getElementById('btn-pdf-tex');
-
-    if (!renderedView || !texView) return;
-
-    if (tabName === 'rendered') {
-        renderedView.style.display = 'block';
-        texView.style.display = 'none';
-        btnRendered.classList.add('active-tab');
-        btnTex.classList.remove('active-tab');
-    } else {
-        renderedView.style.display = 'none';
-        texView.style.display = 'block';
-        btnTex.classList.add('active-tab');
-        btnRendered.classList.remove('active-tab');
-    }
-}
-
-/* Winamp v2.91 Media Player Engine */
-const winampPlaylist = [
-    { title: "1. Ninajirachi - I Love My Computer", duration: 204, strDur: "3:24", freq: 440 },
-    { title: "2. Ninajirachi - Start Button", duration: 178, strDur: "2:58", freq: 523 },
-    { title: "3. Ninajirachi - Info Superhighway", duration: 225, strDur: "3:45", freq: 659 },
-    { title: "4. Ninajirachi - Cyber Dream", duration: 252, strDur: "4:12", freq: 587 },
-    { title: "5. Ninajirachi - Y2K System Shock", duration: 195, strDur: "3:15", freq: 698 },
-    { title: "6. Ninajirachi - Binary Hearts", duration: 230, strDur: "3:50", freq: 784 }
+const home = [
+    { cls: 'row', html: `${cmd('whoami')}<span>- who am I?</span>` },
+    { cls: 'row', html: `${cmd('education')}<span>- where I studied</span>` },
+    { cls: 'row', html: `${cmd('research')}<span>- my published work on quasar 4C31.61</span>` },
+    { cls: 'row', html: `${cmd('figures')}<span>- Allan deviation plots from the paper</span>` },
+    { cls: 'row', html: `${cmd('experience')}<span>- research &amp; work experience</span>` },
+    { cls: 'row', html: `${cmd('projects')}<span>- view my projects</span>` },
+    { cls: 'row', html: `${cmd('skills')}<span>- view my toolchain</span>` },
+    { cls: 'row', html: `${cmd('outreach')}<span>- writing, video &amp; advocacy</span>` },
+    { cls: 'row', html: `${cmd('values')}<span>- what I care about</span>` },
+    { cls: 'row', html: `${cmd('cv')}<span>- the whole CV in one go</span>` },
+    { cls: 'row', html: `${cmd('socials')}<span>- view my socials &amp; contact</span>` },
+    { cls: 'row', html: `${cmd('notes')}<span>- my second brain: Your AstroNotes <span class="event">(quiz-locked)</span></span>` },
+    { cls: 'row', html: `${cmd('repo')}<span>- view project source</span>` },
+    { cls: 'row', html: `${cmd('system')}<span>- view project information</span>` },
+    { cls: 'row', html: `${cmd('clear')}<span>- clear the terminal</span>` },
+    { cls: 'dim', html: 'tip: commands are clickable · tab completes · ↑/↓ walks history' },
 ];
 
-let winampCurrentTrack = 0;
-let winampIsPlaying = false;
-let winampIsPaused = false;
-let winampCurrentTime = 0;
-let winampVolume = 0.8;
-let winampTimerInterval = null;
-let winampAnimFrame = null;
-let audioCtx = null;
-let synthOsc = null;
-let synthGain = null;
-
-let scWidget = null;
-let scIsReady = false;
-
-function initSoundCloudWidget() {
-    const iframe = document.getElementById('sc-widget');
-    if (!iframe) return;
-    
-    if (typeof SC === 'undefined' || !SC.Widget) {
-        setTimeout(initSoundCloudWidget, 500);
-        return;
-    }
-    
-    try {
-        scWidget = SC.Widget(iframe);
-        scWidget.bind(SC.Widget.Events.READY, function() {
-            scIsReady = true;
-            scWidget.setVolume(winampVolume * 100);
-            scWidget.getSounds(function(sounds) {
-                if (sounds && sounds.length) {
-                    winampPlaylist.length = 0;
-                    sounds.forEach((snd, i) => {
-                        const durMs = snd.duration || 204000;
-                        const mins = Math.floor((durMs / 1000) / 60);
-                        const secs = String(Math.floor((durMs / 1000) % 60)).padStart(2, '0');
-                        
-                        const trackName = (snd && snd.title && snd.title !== 'undefined') ? snd.title : 'I Love My Computer';
-                        const artistName = (snd && snd.user && snd.user.username && snd.user.username !== 'undefined') ? snd.user.username : 'Ninajirachi';
-                        
-                        winampPlaylist.push({
-                            title: `${i + 1}. ${artistName} - ${trackName}`,
-                            duration: Math.floor(durMs / 1000),
-                            strDur: `${mins}:${secs}`
-                        });
-                    });
-                    renderPlaylistUI();
-                    updateWinampUI();
-                }
-            });
-        });
-        
-        scWidget.bind(SC.Widget.Events.PLAY_PROGRESS, function(data) {
-            winampCurrentTime = Math.floor(data.currentPosition / 1000);
-            updateWinampTimeDisplay();
-            if (data.relativePosition) {
-                const seekEl = document.getElementById('winamp-seek');
-                if (seekEl) seekEl.value = Math.floor(data.relativePosition * 100);
-            }
-        });
-        
-        scWidget.bind(SC.Widget.Events.PLAY, function() {
-            winampIsPlaying = true;
-            winampIsPaused = false;
-            startWinampVisualizer();
-            updateWinampUI();
-        });
-        
-        scWidget.bind(SC.Widget.Events.PAUSE, function() {
-            winampIsPaused = true;
-            updateWinampUI();
-        });
-        
-        scWidget.bind(SC.Widget.Events.FINISH, function() {
-            winampNext();
-        });
-    } catch(e) {
-        console.error("SC Widget Init Error:", e);
-    }
-}
-
-function renderPlaylistUI() {
-    const listEl = document.getElementById('winamp-playlist-items');
-    if (!listEl) return;
-    listEl.innerHTML = '';
-    
-    let totalSecs = 0;
-    winampPlaylist.forEach((item, idx) => {
-        totalSecs += item.duration;
-        const li = document.createElement('li');
-        li.className = 'pl-item' + (idx === winampCurrentTrack ? ' active' : '');
-        li.onclick = () => winampSelectTrack(idx);
-        li.innerHTML = `<span>${item.title}</span> <span class="pl-dur">${item.strDur}</span>`;
-        listEl.appendChild(li);
-    });
-    
-    const infoEl = document.getElementById('pl-total-info');
-    if (infoEl) {
-        const tMins = Math.floor(totalSecs / 60);
-        const tSecs = String(totalSecs % 60).padStart(2, '0');
-        infoEl.textContent = `${winampPlaylist.length} tracks | ${tMins}:${tSecs} total time`;
-    }
-}
-
-function winampPlay() {
-    winampIsPlaying = true;
-    winampIsPaused = false;
-    if (scWidget && scIsReady) {
-        try { scWidget.play(); } catch(e){}
-    } else {
-        initSoundCloudWidget();
-    }
-    startWinampVisualizer();
-    updateWinampUI();
-}
-
-function winampPause() {
-    if (winampIsPaused) {
-        winampIsPaused = false;
-        if (scWidget && scIsReady) {
-            try { scWidget.play(); } catch(e){}
-        }
-    } else {
-        winampIsPaused = true;
-        if (scWidget && scIsReady) {
-            try { scWidget.pause(); } catch(e){}
-        }
-    }
-    updateWinampUI();
-}
-
-function winampStop() {
-    winampIsPlaying = false;
-    winampIsPaused = false;
-    winampCurrentTime = 0;
-    if (scWidget && scIsReady) {
-        try { scWidget.pause(); scWidget.seekTo(0); } catch(e){}
-    }
-    if (winampAnimFrame) cancelAnimationFrame(winampAnimFrame);
-    clearWinampCanvas();
-    updateWinampUI();
-}
-
-function winampNext() {
-    winampCurrentTrack = (winampCurrentTrack + 1) % winampPlaylist.length;
-    winampCurrentTime = 0;
-    if (scWidget && scIsReady) {
-        try { scWidget.skip(winampCurrentTrack); scWidget.play(); } catch(e){}
-    }
-    updateWinampUI();
-}
-
-function winampPrev() {
-    winampCurrentTrack = (winampCurrentTrack - 1 + winampPlaylist.length) % winampPlaylist.length;
-    winampCurrentTime = 0;
-    if (scWidget && scIsReady) {
-        try { scWidget.skip(winampCurrentTrack); scWidget.play(); } catch(e){}
-    }
-    updateWinampUI();
-}
-
-function winampSelectTrack(index) {
-    winampCurrentTrack = index;
-    winampCurrentTime = 0;
-    if (scWidget && scIsReady) {
-        try { scWidget.skip(index); scWidget.play(); } catch(e){}
-    }
-    winampPlay();
-}
-
-function winampSetVolume(val) {
-    winampVolume = val / 100;
-    const volEl = document.getElementById('winamp-vol-val');
-    if (volEl) volEl.textContent = val + '%';
-    if (scWidget && scIsReady) {
-        try { scWidget.setVolume(val); } catch(e){}
-    }
-}
-
-function winampSeek(val) {
-    if (scWidget && scIsReady) {
-        try {
-            scWidget.getDuration(function(duration) {
-                const targetMs = (val / 100) * duration;
-                scWidget.seekTo(targetMs);
-            });
-        } catch(e){}
-    }
-}
-
-function startWinampTimer() {
-    if (winampTimerInterval) clearInterval(winampTimerInterval);
-    winampTimerInterval = setInterval(() => {
-        if (!winampIsPlaying || winampIsPaused) return;
-        winampCurrentTime++;
-        const track = winampPlaylist[winampCurrentTrack];
-        if (winampCurrentTime >= track.duration) {
-            winampNext();
-        } else {
-            updateWinampTimeDisplay();
-        }
-    }, 1000);
-}
-
-function updateWinampTimeDisplay() {
-    const mins = String(Math.floor(winampCurrentTime / 60)).padStart(2, '0');
-    const secs = String(winampCurrentTime % 60).padStart(2, '0');
-    const timeEl = document.getElementById('winamp-time');
-    if (timeEl) timeEl.textContent = `${mins}:${secs}`;
-    
-    const track = winampPlaylist[winampCurrentTrack];
-    const seekEl = document.getElementById('winamp-seek');
-    if (seekEl) seekEl.value = (winampCurrentTime / track.duration) * 100;
-}
-
-function updateWinampUI() {
-    const defaultTrack = { title: "1. Ninajirachi - I Love My Computer", duration: 204, strDur: "3:24" };
-    const track = winampPlaylist[winampCurrentTrack] || winampPlaylist[0] || defaultTrack;
-    const tickerEl = document.getElementById('winamp-ticker');
-    if (tickerEl) {
-        let trackTitle = (track && track.title) ? track.title : "1. Ninajirachi - I Love My Computer";
-        trackTitle = trackTitle.replace(/undefined/g, "Ninajirachi");
-        const trackDur = (track && track.strDur) ? track.strDur : "3:24";
-        const state = winampIsPaused ? '[PAUSED] ' : (winampIsPlaying ? '▶ PLAYING: ' : '■ STOPPED: ');
-        tickerEl.textContent = `${state} ${trackTitle} (${trackDur}) *** WINAMP v2.91 ***`;
-    }
-    
-    updateWinampTimeDisplay();
-
-    // Highlight active track in playlist
-    const items = document.querySelectorAll('.pl-item');
-    items.forEach((item, idx) => {
-        if (idx === winampCurrentTrack) {
-            item.classList.add('active');
-        } else {
-            item.classList.remove('active');
-        }
-    });
-}
-
-let synthInterval = null;
-let noteStep = 0;
-
-const trackMelodies = [
-    // Track 1: I Love My Computer (C Major Hyperpop Lead)
-    [261.63, 329.63, 392.00, 523.25, 659.25, 523.25, 392.00, 329.63],
-    // Track 2: Start Button (E Minor Electro Wave)
-    [329.63, 392.00, 493.88, 659.25, 783.99, 659.25, 493.88, 392.00],
-    // Track 3: Info Superhighway (F Major Chiptune)
-    [349.23, 440.00, 523.25, 698.46, 880.00, 698.46, 523.25, 440.00],
-    // Track 4: Cyber Dream (A Minor Ambient Pulse)
-    [220.00, 261.63, 329.63, 440.00, 523.25, 440.00, 329.63, 261.63],
-    // Track 5: Y2K System Shock (G Major Bass Synth)
-    [196.00, 246.94, 293.66, 392.00, 493.88, 392.00, 293.66, 246.94],
-    // Track 6: Binary Hearts (D Minor Synthpop)
-    [293.66, 349.23, 440.00, 587.33, 698.46, 587.33, 440.00, 349.23]
+const who = [
+    head('Jessica Syafaq Muthmaina'),
+    'M.Sc. student in Astrophysics &amp; Cosmology at the Università degli Studi di Padova, Department of Physics and Astronomy "Galileo Galilei". Before Padua: B.Sc. in Physics (Theoretical &amp; Computational) at Universitas Gadjah Mada, Yogyakarta.',
+    '',
+    'I work on observational astrophysics — active galactic nuclei, astronomical interferometry, radio instrumentation, and statistical signal analysis. My published work follows 33 years of VLBI observations of quasar 4C31.61 to test how stable it is as an anchor of the celestial reference frame.',
+    '',
+    'Day to day I love my computer: reduction pipelines, interferometric modelling, LaTeX, and a Zettelkasten in Obsidian. Away from the telescope data I write essays on Substack, tell cosmic stories on YouTube, and run Sadar Setara, a gender-equity advocacy platform in Garut, Indonesia.',
+    { cls: 'dim', html: `next: ${cmd('research')} · ${cmd('notes')} · ${cmd('socials')}` },
 ];
 
-function startWinampAudioSynth() {
-    try {
-        if (!audioCtx) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
-        stopWinampAudioSynth();
-        
-        noteStep = 0;
-        const melody = trackMelodies[winampCurrentTrack % trackMelodies.length];
-        
-        // Play melodic electronic synth notes & bass beat pulse every 180ms
-        synthInterval = setInterval(() => {
-            if (!winampIsPlaying || winampIsPaused || !audioCtx) return;
-            
-            const freq = melody[noteStep % melody.length];
-            noteStep++;
-            
-            // Lead Synth Note
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-            
-            const volume = winampVolume * 0.25;
-            gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-            gain.gain.linearRampToValueAtTime(volume, audioCtx.currentTime + 0.02);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.16);
-            
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.17);
-            
-            // Bass Kick Pulse on rhythmic beats
-            if (noteStep % 4 === 1) {
-                const bassOsc = audioCtx.createOscillator();
-                const bassGain = audioCtx.createGain();
-                
-                bassOsc.type = 'sine';
-                bassOsc.frequency.setValueAtTime(110, audioCtx.currentTime);
-                bassOsc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.12);
-                
-                bassGain.gain.setValueAtTime(winampVolume * 0.3, audioCtx.currentTime);
-                bassGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.14);
-                
-                bassOsc.connect(bassGain);
-                bassGain.connect(audioCtx.destination);
-                
-                bassOsc.start();
-                bassOsc.stop(audioCtx.currentTime + 0.15);
-            }
-        }, 180);
+const education = [
+    head('Education'),
+    row('2025–now', `<span class="success">M.Sc. Astrophysics and Cosmology</span> — ${link('University of Padua', 'https://www.unipd.it/en/')}, Italy`, true),
+    row('', 'Concentration: Observational and Computational Astrophysics', true),
+    row('', 'Coursework: Astronomical Interferometry · Astrophysics Laboratory 1 (High Energy Instrumentation) · Stellar Astrophysics · General Relativity', true),
+    row('2019–2023', `<span class="success">B.Sc. Physics</span> — ${link('Universitas Gadjah Mada', 'https://fisika.fmipa.ugm.ac.id/')}, Indonesia`, true),
+    row('', 'Concentration: Theoretical and Computational Physics', true),
+    row('', `Thesis: Implementation of Allan Standard Deviation Technique in Variability Analysis of 4C31.61 Quasar (${link('repository', 'https://etd.repository.ugm.ac.id/penelitian/detail/225834')})`, true),
+];
 
+const research = [
+    head('Implementation of Allan Standard Deviation Technique in Stability Analysis of 4C31.61 Quasar Position'),
+    'J. S. Muthmaina, I. N. Huda, D. S. Palupi',
+    { cls: 'dim', html: 'Journal of Physics: Conference Series 2773 (2024) 012007' },
+    `${link('DOI 10.1088/1742-6596/2773/1/012007', 'https://doi.org/10.1088/1742-6596/2773/1/012007')} · ${link('arXiv:2401.12325', 'https://arxiv.org/abs/2401.12325')}`,
+    '',
+    row('question', 'The International Celestial Reference Frame is pinned to thousands of quasars observed with VLBI. It is only as good as those quasars are still. Is 4C31.61 (2201+315) a stable anchor?'),
+    row('data', '33 years of VLBI sessions (1990–2023, 6,342 sessions), reduced with VieVS against ICRF-3 / ITRF-2020 and cross-checked with the Paris Observatory Geodetic VLBI Center solution.'),
+    row('method', 'Overlapping Allan standard deviation of the position time series; the log-log slope tells white noise (stable) from flicker noise and random walk (unstable).'),
+    row('result', '<span class="success">White noise dominates across most time scales</span> — the position is stable. A random-walk signature at long time scales may trace jet ejections or binary black hole motion.'),
+    { cls: 'dim', html: `see the plots: ${cmd('figures')}` },
+];
+
+const figures = [
+    head('Figure 1 — overlapping Allan standard deviation, quasar 4C31.61'),
+    {
+        cls: 'figures', tag: 'div', html: [
+            ['img/vievs-allan-ra.png', '(a) VieVS — α cos δ'],
+            ['img/vievs-allan-dec.png', '(b) VieVS — δ'],
+            ['img/paris-allan-ra.png', '(c) Paris Observatory GVC — α cos δ'],
+            ['img/paris-allan-dec.png', '(d) Paris Observatory GVC — δ'],
+        ].map(([src, caption]) =>
+            `<figure><a href="${src}" target="_blank" rel="noopener"><img src="${src}" alt="Allan standard deviation plot: ${caption}" loading="lazy"></a><figcaption>${caption}</figcaption></figure>`
+        ).join('')
+    },
+    { cls: 'dim', html: 'Top: VieVS time series. Bottom: independent Paris Observatory solution. The τ^(-1/2) slope at short sampling intervals is the white-noise signature.' },
+];
+
+const experience = [
+    head('Research &amp; work'),
+    row('2023', `<span class="success">Research Intern</span> — ${link('National Research and Innovation Agency (BRIN)', 'https://brin.go.id/')}. Processed and analysed VLBI datasets with VieVS and Paris Observatory data for celestial reference frame research.`, true),
+    row('2024', `<span class="success">Technical Writer</span> — ${link('Ministry of Energy and Mineral Resources (ESDM)', 'https://esdm.go.id/')}. Turned engineering requirements into clear documentation for 200+ stakeholders.`, true),
+    row('2024', '<span class="success">Data Analyst &amp; Field Researcher</span> — Saving Next Generation Indonesia. Evaluated programme effectiveness with fsQCA and wrote policy recommendations.', true),
+    row('2022', `<span class="success">Data Science Intern</span> — ${link('Startup Campus', 'https://startupcampus.id/')}. Tableau dashboards, RFM + K-Means customer segmentation, A/B test analysis.`, true),
+    '',
+    head('Teaching &amp; leadership'),
+    row('2025–now', '<span class="success">Founder</span> — Sadar Setara, a social advocacy platform for gender equality and human rights (Garut, Indonesia).', true),
+    row('2022', '<span class="success">Teaching &amp; Lab Assistant</span> — Universitas Gadjah Mada. Guided 30+ students through physics laboratory experiments and exam preparation.', true),
+];
+
+const projects = [
+    head('Projects'),
+    row('astronotes', `My second brain — an open digital garden of graduate lecture notes, derivations and Maps of Content from the Padova M.Sc. Type ${cmd('notes')} to unlock it.`),
+    row('comp_astro', `${link('comp_astro_26', 'https://github.com/yourastrophysicist/comp_astro_26')} — computational astrophysics coursework.`),
+    row('gender-data', `Data-driven analysis of gender inequality across Indonesian provinces: regression modelling and demographic decomposition. ${link('arXiv:2412.00012', 'https://arxiv.org/abs/2412.00012')}`),
+    row('quasar', `VLBI stability analysis of 4C31.61 — see ${cmd('research')}.`),
+    row('this site', `A terminal you are typing into right now — ${cmd('repo')}.`),
+];
+
+const skills = [
+    head('Toolchain'),
+    row('python', 'Astropy | NumPy | SciPy | Matplotlib | Polars | scikit-learn'),
+    row('radio', 'VieVS (Vienna VLBI Software) | Paris Observatory GVC data | Allan variance analysis'),
+    row('languages', 'Python | C | Shell | LaTeX'),
+    row('data', 'statistical modelling | Tableau | K-Means / RFM | A/B testing | fsQCA'),
+    row('knowledge', 'Obsidian Zettelkasten | Maps of Content'),
+    row('human', 'Indonesian (native) | English (C1) | French (A2)'),
+];
+
+const outreach = [
+    head('Science communication'),
+    row('youtube', `${link('Observationally Speaking', 'https://www.youtube.com/@obspeaking')} — storytelling that blends warm visual reflection with high-energy astrophysics.`),
+    row('substack', `${link('yourastrophysicist', 'https://yourastrophysicist.substack.com')} — essays between physics, literature, philosophy and the environment.`),
+    row('instagram', `${link('@your.astrophysicist', 'https://www.instagram.com/your.astrophysicist/')} — research, M.Sc. life in Padua, and cosmic visual stories.`),
+    row('advocacy', 'Sadar Setara — grassroots community education and gender equity in Garut, Indonesia.'),
+];
+
+const values = [
+    head('Core values'),
+    row('rigor', 'Thorough observational analysis, honest error bars, and empirical truth over convenient answers.'),
+    row('openness', 'Accessible research, open-source tools, and astronomy explained so anyone can follow.'),
+    row('community', 'Inclusive academic spaces and intersectional grassroots advocacy.'),
+    row('exchange', 'Bridging Indonesia and Europe — UGM, UNIPD, and the observatories in between.'),
+];
+
+const socialNames = ['GitHub', 'LinkedIn', 'Instagram', 'YouTube', 'Substack', 'Email'];
+const socialLinks = [
+    'https://github.com/yourastrophysicist',
+    'https://www.linkedin.com/in/syafaqmuth/',
+    'https://www.instagram.com/your.astrophysicist/',
+    'https://www.youtube.com/@obspeaking',
+    'https://yourastrophysicist.substack.com',
+    'mailto:jessicasyafaq.muthmaina@studenti.unipd.it',
+];
+const socials = socialNames.map((name, i) => link(name, socialLinks[i]));
+
+const system = [
+    row('author', 'Jessica Syafaq Muthmaina'),
+    row('host', 'Padova, Italy (45.4° N, 11.9° E)'),
+    row('framework', 'none — plain HTML, CSS and JavaScript'),
+    row('design', `after ${link('Terminal-Portfolio', 'https://github.com/jackb1434/Terminal-Portfolio')} by jackb1434`),
+    row('theme', 'gruvbox dark'),
+    row('version', '2.0.0'),
+    row('updated', '2026-10-04'),
+];
+
+const files = {
+    'aboutme.txt': 'whoami',
+    'quasar.doc': 'research',
+    'cv_latex.pdf': 'cv',
+    'outreach.url': 'outreach',
+    'values.txt': 'values',
+    'astronotes/': 'notes',
+};
+
+
+/* ---------- AstroNotes: the second brain ---------- */
+
+const courses = [
+    { sem: 1, title: 'Fundamentals of Astrophysics & Cosmology', page: 'Fundamentals_Astrophysics_Cosmology_MOC' },
+    { sem: 1, title: 'Observational Astrophysics', page: 'Observational_Astrophysics_MOC' },
+    { sem: 1, title: 'General Relativity for Astrophysics', page: 'General_Relativity_MOC' },
+    { sem: 1, title: 'Mathematical and Numerical Methods', page: 'Mathematical_Numerical_Methods_MOC' },
+    { sem: 1, title: 'Astrophysics Laboratory 1 (High Energy)', page: 'Lab_High-Energy_MOC' },
+    { sem: 2, title: 'Astrophysics of Galaxies', page: 'Astrophysics_of_Galaxies_MOC' },
+    { sem: 2, title: 'Stellar Astrophysics', page: 'Stellar_Astrophysics_MOC' },
+    { sem: 2, title: 'Astronomical Interferometry', page: 'Astronomical_Interferometry_MOC' },
+    { sem: 2, title: 'Observational Cosmology', page: 'Observational_Cosmology_MOC' },
+    { sem: 2, title: 'Astronomical Spectroscopy', page: 'Astronomical_Spectroscopy_MOC' },
+];
+
+function courseUrl(course) {
+    return `${NOTES_BASE}04_Atlas/${course.page}.html`;
+}
+
+const vaultPages = {
+    home: { title: 'README', url: NOTES_BASE },
+    atlas: { title: '04_Atlas', url: `${NOTES_BASE}04_Atlas/04_Atlas.html` },
+};
+
+// The gate is a friendly quiz, not real security: the notes are a public site.
+// Add or edit questions freely — any entry in `answers` is accepted.
+const quizPool = [
+    { q: 'Which planet is known as the Red Planet?', answers: ['mars'], hint: 'it is named after the Roman god of war' },
+    { q: 'What is the name of the star at the centre of our Solar System?', answers: ['sun', 'sol'], hint: 'you see it every day' },
+    { q: 'What is the name of the galaxy we live in?', answers: ['milkyway', 'milkywaygalaxy'], hint: 'it shares its name with a chocolate bar' },
+    { q: 'How many planets are in our Solar System?', answers: ['8', 'eight', '8planets', 'eightplanets'], hint: 'Pluto was reclassified in 2006' },
+    { q: "What is Earth's natural satellite called?", answers: ['moon', 'luna'], hint: 'it lights up the night sky' },
+    { q: 'What is the largest planet in our Solar System?', answers: ['jupiter'], hint: 'it has a Great Red Spot' },
+    { q: 'Which planet is famous for its bright rings?', answers: ['saturn'], hint: 'the sixth planet from the Sun' },
+    { q: 'What force keeps the planets in orbit around the Sun?', answers: ['gravity', 'gravitation', 'gravitationalforce'], hint: 'it also made the apple fall on Newton' },
+];
+
+let quiz = null;
+
+function isUnlocked() {
+    try {
+        return sessionStorage.getItem(UNLOCK_KEY) === '1';
     } catch (e) {
-        // Audio synthesis fallback
+        return isUnlocked.memory === true;
     }
 }
 
-function stopWinampAudioSynth() {
-    if (synthInterval) {
-        clearInterval(synthInterval);
-        synthInterval = null;
-    }
+function setUnlocked(value) {
+    isUnlocked.memory = value;
+    try {
+        if (value) sessionStorage.setItem(UNLOCK_KEY, '1');
+        else sessionStorage.removeItem(UNLOCK_KEY);
+    } catch (e) { /* storage blocked: stay unlocked for this page view only */ }
 }
 
-function startWinampVisualizer() {
-    const canvas = document.getElementById('winamp-spectrum');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    
-    function draw() {
-        if (!winampIsPlaying || winampIsPaused) {
-            clearWinampCanvas();
-            return;
+function normalizeAnswer(text) {
+    return text.toLowerCase().replace(/[^a-z0-9]/g, '').replace(/^the/, '');
+}
+
+function setQuizMode(on) {
+    promptLabel.innerHTML = on ? QUIZ_PROMPT : SHELL_PROMPT;
+    input.placeholder = on ? 'type your answer' : 'enter input here';
+}
+
+function quizQuestionLine() {
+    const current = quiz.questions[quiz.index];
+    return `<span class="key">Q${quiz.index + 1}/${quiz.questions.length}</span> ${current.q}`;
+}
+
+async function startQuiz() {
+    const shuffled = quizPool.slice().sort(() => Math.random() - 0.5);
+    quiz = { questions: shuffled.slice(0, QUIZ_LENGTH), index: 0 };
+    setQuizMode(true);
+    await insertNewElement([
+        '<span class="event">event</span> - ~/second-brain is locked',
+        `Password required. Luckily the password is astronomy: answer ${QUIZ_LENGTH} easy questions to get in.`,
+        { cls: 'dim', html: 'type your answer and press enter · type exit to give up' },
+        '',
+        quizQuestionLine(),
+    ], false);
+}
+
+async function answerQuiz(raw) {
+    const answer = normalizeAnswer(raw);
+    const current = quiz.questions[quiz.index];
+
+    if (['exit', 'quit', 'cancel'].includes(answer)) {
+        quiz = null;
+        setQuizMode(false);
+        await insertNewElement(['<span class="event">event</span> - quiz cancelled, the notes stay locked']);
+        return;
+    }
+
+    if (!current.answers.includes(answer)) {
+        await insertNewElement([
+            `<span class="error">error</span> - not quite. hint: ${current.hint}`,
+            quizQuestionLine(),
+        ], false);
+        return;
+    }
+
+    quiz.index += 1;
+    if (quiz.index < quiz.questions.length) {
+        await insertNewElement(['<span class="success">success</span> - correct!', '', quizQuestionLine()], false);
+        return;
+    }
+
+    quiz = null;
+    setQuizMode(false);
+    setUnlocked(true);
+    await insertNewElement([
+        '<span class="success">success</span> - correct!',
+        '<span class="success">success</span> - access granted. welcome to the second brain ✦',
+    ]);
+    await showVault();
+}
+
+async function showVault() {
+    const lines = [
+        head('~/second-brain/your_astronotes'),
+        'From your BRAT astrophysicist for your astronotes — lecture notes, derivations, Maps of Content and observational figures from the Padova M.Sc. (semesters 1–2).',
+        '',
+    ];
+    [1, 2].forEach((sem) => {
+        lines.push({ cls: 'event', html: sem === 1 ? 'semester-1/ — foundations' : 'semester-2/ — stars, galaxies, cosmology' });
+        courses.forEach((course, i) => {
+            if (course.sem !== sem) return;
+            const number = String(i + 1).padStart(2, ' ');
+            lines.push({
+                cls: 'indent',
+                html: `<span class="key">[${number}]</span> <a href="${courseUrl(course)}" data-view="${course.page}">${escapeHtml(course.title)}</a>`,
+            });
+        });
+    });
+    lines.push(
+        '',
+        `${cmd('open atlas')} - the full Maps of Content hub · ${cmd('open home')} - the vault README`,
+        { cls: 'dim', html: `open a course by clicking it or typing e.g. ${cmd('open 8')} · ${cmd('lock')} locks the vault again` },
+    );
+    setTitleState('Terminal | Second Brain');
+    await insertNewElement(lines);
+}
+
+function resolveNote(target) {
+    if (vaultPages[target]) return vaultPages[target];
+    const byNumber = courses[Number(target) - 1];
+    const course = byNumber || courses.find((c) => c.page.toLowerCase() === target || c.page.toLowerCase().includes(target));
+    return course ? { title: course.page, url: courseUrl(course) } : null;
+}
+
+function openViewer(note) {
+    viewerPath.textContent = `~/second-brain/${note.title}`;
+    viewerExternal.href = note.url;
+    viewerFrame.src = note.url;
+    viewer.hidden = false;
+    document.body.style.overflow = 'hidden';
+    viewerClose.focus();
+}
+
+function closeViewer() {
+    if (viewer.hidden) return;
+    viewer.hidden = true;
+    viewerFrame.src = 'about:blank';
+    document.body.style.overflow = '';
+    input.focus();
+}
+
+async function openNote(target) {
+    if (!isUnlocked()) {
+        await insertNewElement([`<span class="error">error</span> - the second brain is locked. type ${cmd('notes')} and pass the quiz first.`]);
+        return;
+    }
+    const note = target && resolveNote(target);
+    if (!note) {
+        await insertNewElement([`<span class="error">error</span> - usage: open &lt;1-${courses.length} | atlas | home&gt;`]);
+        return;
+    }
+    await insertNewElement([`<span class="event">event</span> - opening ${escapeHtml(note.title)}`]);
+    openViewer(note);
+}
+
+
+/* ---------- terminal ---------- */
+
+function delay(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+function setTitleState(state) {
+    document.title = state;
+}
+
+function scrollToInput() {
+    form.scrollIntoView({ block: 'nearest' });
+}
+
+function appendLine(line) {
+    const spec = typeof line === 'string' ? { html: line } : line;
+    const element = document.createElement(spec.tag || 'p');
+    if (spec.cls) element.className = spec.cls;
+    element.innerHTML = spec.html;
+    iterm.appendChild(element);
+    scrollToInput();
+}
+
+// print lines one by one, like the terminal is thinking
+async function insertNewElement(lines, trailingBreak = true) {
+    for (const line of lines) {
+        appendLine(line);
+        if (LINE_DELAY) await delay(LINE_DELAY);
+    }
+    if (trailingBreak) appendLine('');
+}
+
+async function openGithubRepository() {
+    await insertNewElement(['<span class="event">event</span> - sending you to the GitHub repository!']);
+    await delay(reducedMotion ? 0 : 1000);
+    window.open(REPO_URL, '_blank', 'noopener');
+}
+
+function spellCheck(inputVal) {
+    const known = Object.keys(commands);
+    const guess = known.find((name) => name.startsWith(inputVal.slice(0, 3)) || inputVal.startsWith(name));
+    const lines = [`<span class="error">error</span> - '${escapeHtml(inputVal)}' is not a valid command.`];
+    lines.push(guess
+        ? { cls: 'dim', html: `did you mean ${cmd(guess)}? type ${cmd('home')} to see every command.` }
+        : { cls: 'dim', html: `type ${cmd('home')} or ${cmd('cmds')} to see a list of available commands.` });
+    return insertNewElement(lines);
+}
+
+const commands = {
+    home: () => { setTitleState('Terminal | Home'); return insertNewElement(home); },
+    whoami: () => { setTitleState('Terminal | Background'); return insertNewElement(who); },
+    education: () => { setTitleState('Terminal | Education'); return insertNewElement(education); },
+    research: () => { setTitleState('Terminal | Research'); return insertNewElement(research); },
+    figures: () => { setTitleState('Terminal | Figures'); return insertNewElement(figures); },
+    experience: () => { setTitleState('Terminal | Experience'); return insertNewElement(experience); },
+    projects: () => { setTitleState('Terminal | My Projects'); return insertNewElement(projects); },
+    skills: () => { setTitleState('Terminal | My Skills'); return insertNewElement(skills); },
+    outreach: () => { setTitleState('Terminal | Outreach'); return insertNewElement(outreach); },
+    values: () => { setTitleState('Terminal | Values'); return insertNewElement(values); },
+    socials: () => { setTitleState('Terminal | My Socials'); return insertNewElement(socials); },
+    system: () => { setTitleState('Terminal | System'); return insertNewElement(system); },
+    repo: () => openGithubRepository(),
+    clear: () => { iterm.innerHTML = ''; setTitleState('Terminal | yourastrophysicist'); },
+    cv: async () => {
+        setTitleState('Terminal | CV');
+        await insertNewElement([
+            head('Jessica Syafaq Muthmaina — curriculum vitae'),
+            'Observational Astrophysics and Cosmology M.Sc. student at the University of Padua with published research on quasar stability using VLBI data and Python pipelines. Proficient in data analysis and statistical modelling for large datasets.',
+        ]);
+        await insertNewElement(education);
+        await insertNewElement(research.slice(0, 4));
+        await insertNewElement(experience);
+        await insertNewElement(skills);
+        await insertNewElement([{ cls: 'dim', html: `references available on request — ${cmd('socials')}` }]);
+    },
+    notes: () => (isUnlocked() ? showVault() : startQuiz()),
+    open: (args) => openNote(args[0]),
+    lock: () => {
+        setUnlocked(false);
+        return insertNewElement(['<span class="event">event</span> - second brain locked']);
+    },
+    ls: () => insertNewElement([
+        Object.keys(files).map((name) => cmd(`cat ${name}`, name)).join('&nbsp;&nbsp;'),
+    ]),
+    cat: (args) => {
+        const target = files[args[0]] || files[`${args[0]}/`];
+        if (target) return runCommand(target);
+        return insertNewElement([`<span class="error">error</span> - cat: ${escapeHtml(args[0] || '')}: no such file. try ${cmd('ls')}`]);
+    },
+    sudo: () => insertNewElement(['<span class="error">error</span> - visitor is not in the sudoers file. this incident will be reported to the nearest black hole.']),
+};
+
+const aliases = {
+    cmds: 'home', help: 'home', who: 'whoami', about: 'whoami', paper: 'research', publication: 'research',
+    contact: 'socials', astronotes: 'notes', brain: 'notes', cls: 'clear', exit: 'clear',
+};
+
+function runCommand(line) {
+    const [name, ...args] = line.toLowerCase().split(/\s+/);
+    const resolved = aliases[name] || name;
+    if (Object.prototype.hasOwnProperty.call(commands, resolved)) return commands[resolved](args);
+    return spellCheck(line);
+}
+
+// one command at a time, so typed output never interleaves
+let queue = Promise.resolve();
+const history = [];
+let historyIndex = 0;
+
+function callCommand(raw) {
+    const line = raw.trim();
+    if (!line) return;
+    history.push(line);
+    historyIndex = history.length;
+
+    queue = queue.then(async () => {
+        appendLine({ cls: 'echo', html: `<span class="inputLine">${promptLabel.innerHTML}</span> ${escapeHtml(line)}` });
+        if (quiz) await answerQuiz(line);
+        else await runCommand(line);
+        scrollToInput();
+    }).catch((error) => {
+        console.error(error);
+        appendLine('<span class="error">error</span> - something went wrong running that command.');
+    });
+}
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    callCommand(input.value);
+    input.value = '';
+});
+
+input.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+        if (!history.length) return;
+        e.preventDefault();
+        historyIndex = Math.max(0, Math.min(history.length, historyIndex + (e.key === 'ArrowUp' ? -1 : 1)));
+        input.value = history[historyIndex] || '';
+    } else if (e.key === 'Tab' && input.value && !quiz) {
+        const typed = input.value.toLowerCase();
+        const matches = Object.keys(commands).filter((name) => name.startsWith(typed));
+        if (matches.length === 1) {
+            e.preventDefault();
+            input.value = matches[0];
         }
-        ctx.fillStyle = '#000000';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        const numBars = 22;
-        const barWidth = canvas.width / numBars;
-        
-        for (let i = 0; i < numBars; i++) {
-            const barHeight = Math.floor(Math.random() * (canvas.height - 4)) + 4;
-            const x = i * barWidth;
-            const y = canvas.height - barHeight;
-            
-            const grad = ctx.createLinearGradient(0, canvas.height, 0, 0);
-            grad.addColorStop(0, '#00ff00');
-            grad.addColorStop(0.65, '#ffff00');
-            grad.addColorStop(1, '#ff0000');
-            
-            ctx.fillStyle = grad;
-            ctx.fillRect(x + 1, y, barWidth - 2, barHeight);
-        }
-        
-        winampAnimFrame = requestAnimationFrame(draw);
+    } else if (e.key === 'l' && e.ctrlKey) {
+        e.preventDefault();
+        commands.clear();
     }
-    
-    if (winampAnimFrame) cancelAnimationFrame(winampAnimFrame);
-    draw();
-}
+});
 
-function clearWinampCanvas() {
-    const canvas = document.getElementById('winamp-spectrum');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-}
+document.addEventListener('click', (e) => {
+    const commandButton = e.target.closest('.cmd');
+    if (commandButton) {
+        callCommand(commandButton.dataset.cmd);
+        input.focus({ preventScroll: true });
+        return;
+    }
 
+    const noteLink = e.target.closest('a[data-view]');
+    if (noteLink && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+        e.preventDefault();
+        callCommand(`open ${noteLink.dataset.view.toLowerCase()}`);
+        return;
+    }
+
+    // click anywhere on the terminal to keep typing, unless selecting text or using a link
+    if (!viewer.hidden || e.target.closest('a, button, input')) return;
+    if (String(window.getSelection())) return;
+    input.focus({ preventScroll: true });
+});
+
+viewerClose.addEventListener('click', closeViewer);
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeViewer();
+});
+
+// boot sequence
+queue = queue.then(() => insertNewElement([
+    '<span class="event">event</span> - pointing telescopes',
+    '<span class="event">event</span> - correlating baselines',
+    '<span class="success">success</span> - fringes detected, connected to Padova',
+    '',
+    "Hi, I'm <span class=\"title\">Jessica Syafaq Muthmaina</span> — your astrophysicist.",
+    `please type ${cmd('home')} or ${cmd('cmds')} to see a list of available commands.`,
+]));
