@@ -451,17 +451,34 @@ function setTitleState(state) {
 // Follow new output, but never scroll the command that produced it out of view:
 // long output starts at the top of the screen and the reader scrolls down.
 let anchor = null;
+let keyboardOverlay = false;
+let tallestViewport = 0;
+
+function visibleHeight() {
+    return window.visualViewport ? window.visualViewport.height : window.innerHeight;
+}
+
+// Where the prompt should rest, as a fraction of the screen height. In browsers
+// that lay the keyboard over the page without resizing it, the prompt stays in
+// the upper half so the keyboard never covers it.
+function promptLine() {
+    if (!keyboardOverlay) return 1;
+    return tallestViewport - visibleHeight() > 120 ? 1 : 0.5;
+}
 
 function scrollToInput() {
-    const bottom = scroller.scrollHeight - scroller.clientHeight;
-    let target = bottom;
-    if (anchor && anchor.isConnected) {
-        const anchorTop = scroller.scrollTop + anchor.getBoundingClientRect().top - scroller.getBoundingClientRect().top - 8;
-        target = Math.min(bottom, Math.max(0, anchorTop));
-    } else if (document.documentElement.classList.contains('prompt-top')) {
-        target = 0;
+    const scrollerTop = scroller.getBoundingClientRect().top;
+    const promptBottom = scroller.scrollTop + form.getBoundingClientRect().top - scrollerTop + promptLabel.offsetHeight + input.offsetHeight + 12;
+    let target = keyboardOverlay
+        ? promptBottom - scroller.clientHeight * promptLine()
+        : scroller.scrollHeight - scroller.clientHeight;
+    // while typing over a keyboard the page cannot see, the prompt must stay in view
+    const typingBlind = keyboardOverlay && document.activeElement === input;
+    if (anchor && anchor.isConnected && !typingBlind) {
+        const anchorTop = scroller.scrollTop + anchor.getBoundingClientRect().top - scrollerTop - 8;
+        target = Math.min(target, anchorTop);
     }
-    scroller.scrollTop = target;
+    scroller.scrollTop = Math.max(0, target);
 }
 
 // keep the terminal inside the visible viewport when a phone keyboard opens
@@ -481,29 +498,30 @@ if (window.visualViewport) {
 }
 
 // In-app browsers (Instagram, Facebook, TikTok...) lay the keyboard over the page
-// without telling it, so a prompt at the bottom ends up hidden. There the prompt
-// moves to the top of the screen, where the keyboard can never cover it.
+// without resizing it, so a prompt at the bottom of the screen ends up hidden.
+// There the prompt flows right after the output like a plain terminal and is
+// kept in the upper half of the screen, with empty room below for the keyboard.
 const inAppBrowser = /Instagram|FBAN|FBAV|FB_IAB|Barcelona|Line\/|TikTok|musical_ly|; wv\)/i.test(navigator.userAgent);
 
-function visibleHeight() {
-    return window.visualViewport ? window.visualViewport.height : window.innerHeight;
-}
-
-function usePromptOnTop() {
-    document.documentElement.classList.add('prompt-top');
+function useKeyboardOverlayLayout() {
+    keyboardOverlay = true;
+    document.documentElement.classList.add('kb-overlay');
     scrollToInput();
 }
 
-let tallestViewport = visibleHeight();
+tallestViewport = visibleHeight();
 window.addEventListener('resize', () => { tallestViewport = Math.max(tallestViewport, visibleHeight()); });
 
-if (touchDevice && inAppBrowser) usePromptOnTop();
+if (touchDevice && inAppBrowser) useKeyboardOverlayLayout();
 
 // any other touch browser where the keyboard opens but the page never shrinks
 input.addEventListener('focus', () => {
-    if (!touchDevice || document.documentElement.classList.contains('prompt-top')) return;
+    if (keyboardOverlay) scrollToInput();
+    if (!touchDevice || keyboardOverlay) return;
     setTimeout(() => {
-        if (document.activeElement === input && tallestViewport - visibleHeight() < 120) usePromptOnTop();
+        if (document.activeElement === input && tallestViewport - visibleHeight() < 120) {
+            useKeyboardOverlayLayout();
+        }
     }, 800);
 });
 

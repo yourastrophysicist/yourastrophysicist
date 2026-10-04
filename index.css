@@ -63,7 +63,17 @@ h1 {
     min-height: 0;
     overflow-y: auto;
     overscroll-behavior: contain;
-    padding: 20px 20px 8px;
+    padding: 20px 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal > * {
+    flex-shrink: 0;
+}
+
+#iterm {
+    margin-bottom: 8px;
 }
 
 .terminal,
@@ -206,13 +216,16 @@ h1 {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 0 10px;
-    background-color: transparent;
     border: none;
     border-top: 1px solid var(--bg-soft);
     outline: none;
     margin: 0;
-    flex: none;
-    padding: 8px 20px calc(12px + env(safe-area-inset-bottom));
+    /* pinned to the bottom of the terminal, like a prompt waiting for input */
+    position: sticky;
+    bottom: 0;
+    margin-top: auto;
+    background-color: var(--bg);
+    padding: 8px 0 calc(12px + env(safe-area-inset-bottom));
 }
 
 .atSymbol {
@@ -241,18 +254,13 @@ h1 {
     opacity: 1;
 }
 
-/* prompt on top, for phones whose keyboard covers the bottom of the page */
-.prompt-top .inputArea {
-    order: -1;
+/* keyboard-overlay layout: the prompt flows after the output, with room below
+   it so it can rest in the upper half of the screen, clear of the keyboard */
+.kb-overlay .inputArea {
+    position: static;
+    margin-top: 0;
     border-top: none;
-    border-bottom: 1px solid var(--bg-soft);
-    padding-top: calc(12px + env(safe-area-inset-top));
-    padding-bottom: 8px;
-}
-
-.prompt-top .terminal {
-    padding-top: 8px;
-    padding-bottom: 85vh;
+    padding: 0 0 70vh;
 }
 
 /* ---------- AstroNotes viewer ---------- */
@@ -342,11 +350,15 @@ h1 {
     }
 
     .terminal {
-        padding: 16px 16px 8px;
+        padding: 16px 16px 0;
     }
 
     .inputArea {
-        padding: 8px 16px calc(10px + env(safe-area-inset-bottom));
+        padding: 8px 0 calc(10px + env(safe-area-inset-bottom));
+    }
+
+    .kb-overlay .inputArea {
+        padding: 0 0 70vh;
     }
 
     #iterm p {
