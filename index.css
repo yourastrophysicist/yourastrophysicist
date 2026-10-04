@@ -184,6 +184,24 @@ h1 {
     outline: none;
 }
 
+.portrait img {
+    display: block;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 2px solid var(--blue);
+    margin: 4px 0 10px;
+}
+
+.bannerArt img {
+    display: block;
+    width: 100%;
+    max-width: 760px;
+    height: auto;
+    border-radius: 6px;
+    margin: 6px 0;
+}
+
 .figures {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
