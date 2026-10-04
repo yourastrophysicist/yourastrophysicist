@@ -22,7 +22,8 @@ html,
 body {
     padding: 0;
     margin: 0;
-    min-height: 100%;
+    height: 100%;
+    overflow: hidden;
     background-color: var(--bg);
     color: var(--fg);
 }
@@ -42,7 +43,16 @@ h1 {
     white-space: nowrap;
 }
 
+/* The terminal scrolls inside a box that tracks the visible viewport, so the
+   prompt and the latest output stay above the on-screen keyboard on phones. */
 .content {
+    position: fixed;
+    top: var(--vv-top, 0px);
+    left: 0;
+    right: 0;
+    height: var(--vv-height, 100dvh);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     animation-name: fadeIn;
     animation-duration: 1s;
 }
@@ -50,7 +60,7 @@ h1 {
 .terminal {
     width: 100%;
     max-width: 1000px;
-    min-height: 100vh;
+    min-height: 100%;
     padding: 20px;
     font-size: 18px;
     line-height: 25px;
