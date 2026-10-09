@@ -223,16 +223,22 @@ const values = [
     { cls: 'dim', html: 'the first three are translated from Indonesian' },
 ];
 
-const socialNames = ['GitHub', 'LinkedIn', 'Instagram', 'YouTube', 'Substack', 'Email'];
-const socialLinks = [
-    'https://github.com/yourastrophysicist',
-    'https://www.linkedin.com/in/syafaqmuth/',
-    'https://www.instagram.com/your.astrophysicist/',
-    'https://www.youtube.com/@obspeaking',
-    SUBSTACK,
-    'mailto:jessicasyafaq.muthmaina@studenti.unipd.it',
+// Socials are shown as icons only, drawn from img/icons.
+const socialIcons = [
+    ['GitHub', 'github', 'https://github.com/yourastrophysicist'],
+    ['LinkedIn', 'linkedin', 'https://www.linkedin.com/in/syafaqmuth/'],
+    ['Instagram', 'instagram', 'https://www.instagram.com/your.astrophysicist/'],
+    ['YouTube', 'youtube', 'https://www.youtube.com/@obspeaking'],
+    ['Substack', 'substack', SUBSTACK],
+    ['Email', 'email', 'mailto:jessicasyafaq.muthmaina@studenti.unipd.it'],
 ];
-const socials = socialNames.map((name, i) => link(name, socialLinks[i]));
+const socials = [
+    {
+        cls: 'icons',
+        tag: 'div',
+        html: socialIcons.map(([name, icon, href]) => `<a class="icon" href="${href}" target="_blank" rel="noopener" aria-label="${name}" title="${name}" style="--icon: url(img/icons/${icon}.svg)"></a>`).join(''),
+    },
+];
 
 const system = [
     row('author', 'Jessica Syafaq Muthmaina'),
@@ -242,7 +248,7 @@ const system = [
     row('design', `after ${link('Terminal-Portfolio', 'https://github.com/jackb1434/Terminal-Portfolio')} by jackb1434`),
     row('theme', 'midnight blue'),
     row('version', '2.2.0'),
-    row('updated', '2026-10-04'),
+    row('updated', '2026-10-09'),
 ];
 
 const files = {
