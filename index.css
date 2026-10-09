@@ -166,6 +166,28 @@ h1 {
     color: var(--green);
 }
 
+/* icon-only links, tinted through a mask so they follow the theme */
+.icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin: 6px 0;
+}
+
+.terminal a.icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+    background-color: var(--blue);
+    -webkit-mask: var(--icon) center / contain no-repeat;
+    mask: var(--icon) center / contain no-repeat;
+}
+
+.terminal a.icon:hover,
+.terminal a.icon:focus-visible {
+    background-color: var(--green);
+}
+
 /* clickable command names */
 .cmd {
     font: inherit;
