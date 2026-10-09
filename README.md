@@ -2,6 +2,20 @@
 
 your BRAT astrophysicist
 
+<p>
+<a href="https://www.yourastro.space/"><img src="img/icons/website.svg" alt="Portfolio" title="Portfolio" height="26"></a>
+&nbsp;&nbsp;
+<a href="https://yourastrophysicist.substack.com"><img src="img/icons/substack.svg" alt="Substack" title="Substack" height="26"></a>
+&nbsp;&nbsp;
+<a href="https://www.youtube.com/@obspeaking"><img src="img/icons/youtube.svg" alt="YouTube" title="YouTube" height="26"></a>
+&nbsp;&nbsp;
+<a href="https://www.instagram.com/your.astrophysicist/"><img src="img/icons/instagram.svg" alt="Instagram" title="Instagram" height="26"></a>
+&nbsp;&nbsp;
+<a href="https://www.linkedin.com/in/syafaqmuth/"><img src="img/icons/linkedin.svg" alt="LinkedIn" title="LinkedIn" height="26"></a>
+&nbsp;&nbsp;
+<a href="mailto:jessicasyafaq.muthmaina@studenti.unipd.it"><img src="img/icons/email.svg" alt="Email" title="Email" height="26"></a>
+</p>
+
 Second-year M.Sc. student in Astrophysics and Cosmology at the University of Padova.
 B.Sc. in Physics (Theoretical and Computational) from Universitas Gadjah Mada.
 
@@ -11,7 +25,9 @@ Observational astrophysics and AGN, astronomical interferometry, radio astronomy
 
 ## Publication
 
-Muthmaina et al. (2024), *Implementation of Allan Standard Deviation Technique in Stability Analysis of 4C31.61 Quasar Position*, Journal of Physics Conference Series, vol. 2773. An analysis of 33 years of VLBI observations of quasar positional stability. [DOI](https://doi.org/10.1088/1742-6596/2773/1/012007) · [arXiv](https://arxiv.org/abs/2401.12325)
+Muthmaina et al. (2024), *Implementation of Allan Standard Deviation Technique in Stability Analysis of 4C31.61 Quasar Position*, Journal of Physics Conference Series, vol. 2773. An analysis of 33 years of VLBI observations of quasar positional stability.
+
+<a href="https://doi.org/10.1088/1742-6596/2773/1/012007"><img src="img/icons/doi.svg" alt="DOI" title="DOI" height="18"></a>&nbsp;&nbsp;<a href="https://arxiv.org/abs/2401.12325"><img src="img/icons/arxiv.svg" alt="arXiv" title="arXiv" height="18"></a>
 
 ## Tools
 
@@ -22,18 +38,6 @@ Python (Astropy, NumPy, SciPy, Matplotlib) · C · Shell · VieVS · LaTeX
 - [Your AstroNotes](https://yourastrophysicist.github.io/your_astronotes/README.html), my second brain. An open digital garden of first-year lecture notes, derivations and Maps of Content.
 - [yourastro.space](https://www.yourastro.space/), my portfolio as a terminal. Type `home` to see the commands and `notes` to unlock the second brain with a small astronomy quiz.
 - [comp_astro_26](https://github.com/yourastrophysicist/comp_astro_26), computational astrophysics coursework.
-
-## Writing
-
-Essays in Indonesian and English on [Substack](https://yourastrophysicist.substack.com).
-
-- [Logika Saintifik Bukan Barang Mewah](https://yourastrophysicist.substack.com/p/logika-saintifik-bukan-barang-mewah)
-- [It All Starts From an Astronomy Club](https://yourastrophysicist.substack.com/p/it-all-starts-from-an-astronomy-club)
-- [Melepaskan Ribuan Catatan ke Ruang Terbuka](https://yourastrophysicist.substack.com/p/melepaskan-ribuan-catatan-ke-ruang)
-
-## Links
-
-[Portfolio](https://www.yourastro.space/) · [Substack](https://yourastrophysicist.substack.com) · [YouTube](https://www.youtube.com/@obspeaking) · [LinkedIn](https://www.linkedin.com/in/syafaqmuth/) · [Instagram](https://www.instagram.com/your.astrophysicist/)
 
 ## About this repository
 
