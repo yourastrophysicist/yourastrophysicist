@@ -21,7 +21,7 @@ B.Sc. in Physics (Theoretical and Computational) from Universitas Gadjah Mada.
 
 ## Research interests
 
-Observational astrophysics and AGN, astronomical interferometry, radio astronomy instrumentation and statistical signal analysis. This year I am working on exoplanet transit photometry, Bayesian statistics and atmospheric retrievals.
+Observational astrophysics and Cosmology. This year I am working on exoplanet transit photometry, Bayesian statistics and atmospheric retrievals.
 
 ## Publication
 
