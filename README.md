@@ -21,7 +21,7 @@ B.Sc. in Physics (Theoretical and Computational) from Universitas Gadjah Mada.
 
 ## Research interests
 
-Observational astrophysics and Cosmology. This year I am working on exoplanet transit photometry, Bayesian statistics and atmospheric retrievals.
+Observational Astrophysics and Cosmology. This year I am working on exoplanet transit photometry, Bayesian statistics and atmospheric retrievals.
 
 ## Publication
 
@@ -37,7 +37,7 @@ Python (Astropy, NumPy, SciPy, Matplotlib) · C · Shell · VieVS · LaTeX
 
 - [Your AstroNotes](https://www.yourastro.space/notes/), my second brain. An open digital garden of first-year lecture notes, more than 1,100 linked notes, a Map of Content for each of the ten courses, and 25 cosmology derivations written out step by step ([source](https://github.com/yourastrophysicist/your_astronotes)).
 - [yourastro.space](https://www.yourastro.space/), my portfolio as a terminal. Type `home` to see the commands and `notes` to unlock the second brain with a small astronomy quiz.
-- [comp_astro_26](https://github.com/yourastrophysicist/comp_astro_26), computational astrophysics coursework.
+- [transit-authority](https://github.com/yourastrophysicist/comp_astro_26), computational astrophysics coursework.
 
 ## About this repository
 
