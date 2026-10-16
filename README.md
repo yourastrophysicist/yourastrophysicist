@@ -35,10 +35,10 @@ Python (Astropy, NumPy, SciPy, Matplotlib) · C · Shell · VieVS · LaTeX
 
 ## Projects
 
-- [Your AstroNotes](https://www.yourastro.space/notes/), my second brain. An open digital garden of first-year lecture notes, derivations and Maps of Content.
+- [Your AstroNotes](https://www.yourastro.space/notes/), my second brain. An open digital garden of first-year lecture notes, more than 1,100 linked notes, a Map of Content for each of the ten courses, and 25 cosmology derivations written out step by step ([source](https://github.com/yourastrophysicist/your_astronotes)).
 - [yourastro.space](https://www.yourastro.space/), my portfolio as a terminal. Type `home` to see the commands and `notes` to unlock the second brain with a small astronomy quiz.
 - [comp_astro_26](https://github.com/yourastrophysicist/comp_astro_26), computational astrophysics coursework.
 
 ## About this repository
 
-The portfolio is three plain files, `index.html`, `index.css` and `index.js`, with no build step. All text lives in the arrays at the top of `index.js`. The design follows [Terminal-Portfolio](https://github.com/jackb1434/Terminal-Portfolio) by jackb1434.
+The portfolio is three plain files, `index.html`, `index.css` and `index.js`, with no build step, plus a `vercel.json` that serves Your AstroNotes under `/notes`. All text lives in the arrays at the top of `index.js`. The design follows [Terminal-Portfolio](https://github.com/jackb1434/Terminal-Portfolio) by jackb1434.
