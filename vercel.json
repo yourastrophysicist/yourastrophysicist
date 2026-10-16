@@ -1,6 +1,10 @@
 {
   "version": 2,
+  "redirects": [
+    { "source": "/notes", "destination": "/notes/", "permanent": true }
+  ],
   "rewrites": [
+    { "source": "/notes/:path*", "destination": "https://yourastrophysicist.github.io/your_astronotes/:path*" },
     { "source": "/(.*)", "destination": "/$1" }
   ]
 }

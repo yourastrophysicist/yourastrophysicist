@@ -1,7 +1,7 @@
 /* Jessica Syafaq Muthmaina, terminal portfolio
    Design after github.com/jackb1434/Terminal-Portfolio */
 
-const NOTES_BASE = 'https://yourastrophysicist.github.io/your_astronotes/';
+const NOTES_BASE = '/notes/';
 const REPO_URL = 'https://github.com/yourastrophysicist/yourastrophysicist';
 const UNLOCK_KEY = 'astronotes-unlocked';
 const QUIZ_LENGTH = 3;

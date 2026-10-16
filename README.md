@@ -35,7 +35,7 @@ Python (Astropy, NumPy, SciPy, Matplotlib) · C · Shell · VieVS · LaTeX
 
 ## Projects
 
-- [Your AstroNotes](https://yourastrophysicist.github.io/your_astronotes/README.html), my second brain. An open digital garden of first-year lecture notes, derivations and Maps of Content.
+- [Your AstroNotes](https://www.yourastro.space/notes/), my second brain. An open digital garden of first-year lecture notes, derivations and Maps of Content.
 - [yourastro.space](https://www.yourastro.space/), my portfolio as a terminal. Type `home` to see the commands and `notes` to unlock the second brain with a small astronomy quiz.
 - [comp_astro_26](https://github.com/yourastrophysicist/comp_astro_26), computational astrophysics coursework.
 
