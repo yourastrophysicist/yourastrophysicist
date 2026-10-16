@@ -4,6 +4,7 @@
     { "source": "/notes", "destination": "/notes/", "permanent": true }
   ],
   "rewrites": [
+    { "source": "/notes/", "destination": "https://yourastrophysicist.github.io/your_astronotes/" },
     { "source": "/notes/:path*", "destination": "https://yourastrophysicist.github.io/your_astronotes/:path*" },
     { "source": "/(.*)", "destination": "/$1" }
   ]
