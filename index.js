@@ -156,8 +156,8 @@ const experience = [
 
 const projects = [
     head('Projects'),
-    row('astronotes', `Your AstroNotes, my second brain. More than 1,300 atomic notes and a Map of Content for every course of the Padova M.Sc., written so that no derivation skips a step. Type ${cmd('notes')} to unlock it.`),
-    row('comp_astro', `${link('comp_astro_26', 'https://github.com/yourastrophysicist/comp_astro_26')}, computational astrophysics coursework.`),
+    row('astronotes', `Your AstroNotes, my second brain, at ${link('yourastro.space/notes', NOTES_BASE)}. More than 1,100 linked notes from the first year of the Padova M.Sc., a Map of Content for each of the ten courses, and 25 cosmology derivations written so that no step is skipped. Type ${cmd('notes')} to unlock it here.`),
+    row('transit', `${link('transit-authority', 'https://github.com/yourastrophysicist/comp_astro_26')}, computational astrophysics coursework.`),
     row('gender-data', `Data-driven analysis of gender inequality across Indonesian provinces with regression modelling and demographic decomposition. ${link('arXiv 2412.00012', 'https://arxiv.org/abs/2412.00012')}`),
     row('quasar', `VLBI stability analysis of 4C31.61. See ${cmd('research')}.`),
     row('substack', `Essays in Indonesian and English. See ${cmd('writing')}.`),
@@ -247,8 +247,8 @@ const system = [
     row('framework', 'none, plain HTML, CSS and JavaScript'),
     row('design', `after ${link('Terminal-Portfolio', 'https://github.com/jackb1434/Terminal-Portfolio')} by jackb1434`),
     row('theme', 'midnight blue'),
-    row('version', '2.2.0'),
-    row('updated', '2026-10-09'),
+    row('version', '2.3.0'),
+    row('updated', '2026-10-16'),
 ];
 
 const files = {
@@ -267,7 +267,7 @@ const files = {
 const courses = [
     { sem: 1, title: 'Fundamentals of Astrophysics & Cosmology', page: 'Fundamentals_Astrophysics_Cosmology_MOC' },
     { sem: 1, title: 'Observational Astrophysics', page: 'Observational_Astrophysics_MOC' },
-    { sem: 1, title: 'General Relativity for Astrophysics', page: 'General_Relativity_MOC' },
+    { sem: 1, title: 'General Relativity for Astrophysics and Cosmology', page: 'General_Relativity_MOC' },
     { sem: 1, title: 'Mathematical and Numerical Methods', page: 'Mathematical_Numerical_Methods_MOC' },
     { sem: 1, title: 'Astrophysics Laboratory 1 (High Energy)', page: 'Lab_High-Energy_MOC' },
     { sem: 2, title: 'Astrophysics of Galaxies', page: 'Astrophysics_of_Galaxies_MOC' },
@@ -284,6 +284,7 @@ function courseUrl(course) {
 const vaultPages = {
     home: { title: 'README', url: NOTES_BASE },
     atlas: { title: '04_Atlas', url: `${NOTES_BASE}04_Atlas/04_Atlas.html` },
+    derivations: { title: 'Fundamentals Derivations', url: `${NOTES_BASE}03_Zettel/Derivations/Fundamentals%20Derivations.html` },
 };
 
 // The gate is a friendly quiz, not real security: the notes are a public site.
@@ -382,7 +383,7 @@ async function answerQuiz(raw) {
 async function showVault() {
     const lines = [
         head('~/second-brain/your_astronotes'),
-        'From your BRAT astrophysicist for your astronotes. More than 1,300 atomic notes, derivations and Maps of Content from the first year of the Padova M.Sc., compiled, derived and explored by one voyager only.',
+        'From your BRAT astrophysicist for your astronotes. More than 1,100 linked notes, ten Maps of Content and 25 cosmology derivations from the first year of the Padova M.Sc., compiled, derived and explored by one voyager only.',
         'I rewrote every derivation without skipping a step. Keeping all of it locked in my laptop felt selfish, so the door is wide open.',
         { cls: 'dim', html: `the story, in Indonesian - ${essay('melepaskan-ribuan-catatan-ke-ruang', 'Melepaskan Ribuan Catatan ke Ruang Terbuka')}` },
         '',
@@ -400,7 +401,7 @@ async function showVault() {
     });
     lines.push(
         '',
-        `${cmd('open atlas')} - the full Maps of Content hub · ${cmd('open home')} - the vault README`,
+        `${cmd('open atlas')} - the full Maps of Content hub · ${cmd('open derivations')} - the cosmology derivations · ${cmd('open home')} - the vault README`,
         { cls: 'dim', html: `open a course by clicking it or typing e.g. ${cmd('open 8')} · ${cmd('lock')} locks the vault again` },
     );
     setTitleState('Terminal | Second Brain');
@@ -438,7 +439,7 @@ async function openNote(target) {
     }
     const note = target && resolveNote(target);
     if (!note) {
-        await insertNewElement([`<span class="error">error</span> - usage - open &lt;1-${courses.length} | atlas | home&gt;`]);
+        await insertNewElement([`<span class="error">error</span> - usage - open &lt;1-${courses.length} | atlas | derivations | home&gt;`]);
         return;
     }
     await insertNewElement([`<span class="event">event</span> - opening ${escapeHtml(note.title)}`]);
