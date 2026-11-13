@@ -171,3 +171,22 @@ footer { margin-top: 120px; }
     .q-promise ol { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { .q-panel { animation: none; } .q-list button { transition: none; } }
+
+/* short version, story pass: the tabs read as stages of one journey, the panel shows how far along it is */
+.q-lede + .q-lede { margin-top: -18px; }
+.q-list button { font-size: 24px; }
+.q-list button[aria-selected="true"] ~ button .qt-n { opacity: .55; }
+.q-progress { height: 3px; background: var(--blue-line); margin: -26px -28px 22px; }
+.q-progress span { display: block; height: 100%; background: var(--blue); transition: width .3s ease; }
+.q-panel h3 { font-weight: 400; }
+.q-also { padding-left: 14px; border-left: 2px solid var(--blue); color: var(--blue); }
+.q-promise summary { flex-direction: column; }
+.q-promise .pr-n { font: 200 44px/1 var(--display); }
+.q-promise .pr-t { font-size: 15px; line-height: 1.45; }
+.q-pnote { margin: 16px 0 0; font-size: 14px; line-height: 1.5; opacity: .85; max-width: 70ch; }
+@media (max-width: 720px) {
+    .q-list button { font-size: 20px; min-height: 76px; }
+    .q-progress { margin: -20px -16px 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .q-progress span { transition: none; } }
+.q-h { font-size: clamp(40px, 5.2vw, 72px); max-width: 20ch; }
