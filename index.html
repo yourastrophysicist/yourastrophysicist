@@ -2,74 +2,487 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
-    <title>Terminal | yourastro.space</title>
-    <meta name="description" content="your BRAT astrophysicist">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jessica Syafaq Muthmaina | yourastro.space</title>
+    <meta name="description" content="Jessica Syafaq Muthmaina, astrophysics and cosmology student from Garut, Indonesia. Research, data work, organising, a manifesto, open course notes and a terminal. In English, Indonesian and Italian.">
     <meta property="og:title" content="Jessica Syafaq Muthmaina">
-    <meta property="og:description" content="your BRAT astrophysicist">
+    <meta property="og:description" content="Astrophysics and cosmology student from Garut, Indonesia. Research and organising work, essays, videos, and course notes free for anyone to read.">
     <meta property="og:url" content="https://www.yourastro.space/">
     <link rel="canonical" href="https://www.yourastro.space/">
     <meta name="twitter:card" content="summary">
     <meta property="og:image" content="https://www.yourastro.space/img/jessica-portrait.jpg">
     <meta property="og:image:alt" content="Illustrated portrait of Jessica with teal and pink hair, holding a book in front of a telescope">
     <meta property="og:type" content="website">
-    <meta name="theme-color" content="#0b1a2e">
-    <link rel="icon" type="image/png" href="img/favicon.png">
-    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-    <link rel="stylesheet" href="index.css">
+    <meta name="theme-color" content="#f2f2f2">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@200;400;600&family=Inter+Tight:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/home.css?v=3">
 </head>
 <body>
-    <main class="content">
-        <div class="terminal" id="terminal">
-<pre class="banner" aria-hidden="true"> .    '                   .  "   '
-            .  .  .                 '      '
-    "`       .   .
-                                     '     '
-  .    '      _______________
-          ==c(___(o(______(_()
-                  \=\
-                   )=\
-                  //|\\
-                 //|| \\
-                // ||  \\
-               //  ||   \\
-              //         \\</pre>
-            <h1 class="sr-only">Jessica Syafaq Muthmaina, terminal portfolio</h1>
-            <p class="version">yourastro.space v2.2.0 · a BRAT astrophysicist</p>
-            <br>
+    <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 
-            <div id="iterm" role="log" aria-live="polite"></div>
-
-            <form class="inputArea" id="inputForm" autocomplete="off">
-                <label class="inputLine" id="promptLabel" for="textAreaID">visitor<span class="atSymbol">@</span>yourastro.space:~$</label>
-                <input type="text" id="textAreaID" placeholder="enter input here"
-                       autocapitalize="off" autocorrect="off" spellcheck="false" autofocus>
-            </form>
-        </div>
-    </main>
-
-    <!-- AstroNotes viewer: the second brain, opened inside the terminal once the quiz is passed -->
-    <section class="viewer" id="viewer" hidden aria-label="AstroNotes viewer">
-        <header class="viewerBar">
-            <span class="viewerPath" id="viewerPath">~/second-brain</span>
-            <span class="viewerActions">
-                <a id="viewerExternal" href="#" target="_blank" rel="noopener">[new tab]</a>
-                <button type="button" id="viewerClose">[close · esc]</button>
-            </span>
+    <!-- framed first screen -->
+    <div class="frame">
+        <header class="top">
+            <nav class="nav-l" aria-label="Sections">
+                <a href="#about" data-i18n="n.about">about</a>
+                <a href="#work" data-i18n="n.work">work</a>
+            </nav>
+            <a class="mark" href="/" aria-label="yourastro.space, home"><span>your</span><span>astro</span></a>
+            <div class="nav-r">
+                <nav aria-label="More sections">
+                    <a href="#notes" data-i18n="n.notes">notes</a>
+                    <a href="#manifesto">manifesto</a>
+                </nav>
+                <div class="lang" role="group" aria-label="Language / Bahasa / Lingua">
+                    <button type="button" data-lang="en" aria-pressed="true" title="English">EN</button>
+                    <button type="button" data-lang="id" aria-pressed="false" title="Bahasa Indonesia">ID</button>
+                    <button type="button" data-lang="it" aria-pressed="false" title="Italiano">IT</button>
+                </div>
+            </div>
         </header>
-        <iframe id="viewerFrame" title="Your AstroNotes" referrerpolicy="no-referrer"></iframe>
-    </section>
 
-    <noscript>
-        <div class="terminal">
-            <p>This portfolio is an interactive terminal and needs JavaScript.</p>
-            <p>Jessica Syafaq Muthmaina, M.Sc. student in Astrophysics and Cosmology, University of Padova.</p>
-            <p><a href="https://github.com/yourastrophysicist">GitHub</a> ·
-               <a href="https://www.linkedin.com/in/syafaqmuth/">LinkedIn</a> ·
-               <a href="https://arxiv.org/abs/2401.12325">arXiv:2401.12325</a></p>
+        <!-- command bar: opens the jump palette -->
+        <button class="cmdbar" type="button" aria-haspopup="dialog" aria-controls="cmdk">
+            <span class="cmd-glyph" aria-hidden="true">&gt;_</span>
+            <span class="cmd-text"><b>yourastro</b> : <span data-i18n="k.bar">jump to a section</span></span>
+            <span class="cmd-keys"><span data-i18n="k.open">open</span> <kbd class="k-mod">Ctrl</kbd><kbd>K</kbd></span>
+        </button>
+
+        <main id="main">
+            <section class="hero">
+                <p class="eyebrow" data-i18n="h.eye">M.Sc. astrophysics and cosmology · Università di Padova</p>
+                <h1>Jessica Syafaq Muthmaina</h1>
+                <p class="lede" data-i18n="h.lede">M.Sc. student in astrophysics and cosmology, year two. From Garut, Indonesia. I write essays, make videos, and keep my course notes free for anyone to read.</p>
+                <ul class="creds" aria-label="In short">
+                    <li data-i18n="h.c1">Published VLBI research</li>
+                    <li data-i18n="h.c2">Speaker, DevFest Milano 2026</li>
+                    <li data-i18n="h.c3">Founder of Sadar Setara</li>
+                    <li data-i18n="h.c4">Vice chair, PPI Triveneto</li>
+                </ul>
+                <div class="btns">
+                    <a class="btn btn-grey" href="/notes/" data-i18n="h.b2">my notes</a>
+                    <a class="btn" href="#work" data-i18n="h.b1">see my work</a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- dithered strip of my own photos -->
+    <figure class="strip">
+        <div class="strip-row">
+            <img src="/img/dither/obs-01.png" alt="A road lined with trees leading to an observatory dome, in blue halftone" width="720" height="900">
+            <img src="/img/dither/obs-06.png" alt="A large reflecting telescope under the open dome, in blue halftone" width="720" height="900" loading="lazy">
+            <img src="/img/dither/obs-12.png" alt="The observatory dome against the evening sky, in blue halftone" width="720" height="900" loading="lazy">
+            <img src="/img/dither/gate.png" alt="Jessica at the gate of the Osservatorio Astronomico, in blue halftone" width="900" height="1200" loading="lazy">
         </div>
-    </noscript>
+        <figcaption data-i18n="h.cap">observatory days · photos by me</figcaption>
+    </figure>
 
-    <script src="index.js"></script>
+    <div class="page">
+        <!-- about -->
+        <section id="about" class="sec about">
+            <div class="about-text">
+                <p class="eyebrow left" data-i18n="a.label">00 · about</p>
+                <h2 class="mid" data-i18n="a.h">Hey, I'm Jessica. Nice to meet you!</h2>
+                <p data-i18n="a.p1">Most of my time in Padova is not spent looking at the night sky through a romantic telescope. It is spent at a desk, wrestling with Einstein's field equations, taking apart radiative transfer integrals, and tidying Christoffel symbols on scratch paper.</p>
+                <p data-i18n="a.p2">Before Padova I studied Physics at Universitas Gadjah Mada. My published research follows 33 years of VLBI observations of the quasar 4C31.61, to test how stable it is as an anchor of the celestial reference frame (<a href="https://arxiv.org/abs/2401.12325">arXiv:2401.12325</a>).</p>
+                <p data-i18n="a.p3">My favourite planet is WASP-12b. Its whole year lasts about a day, and its star is slowly swallowing it. This year I watch it dip in front of that star, in the lab and in my own code.</p>
+                <p data-i18n="a.p4">Outside the lab I write essays on <a href="https://yourastrophysicist.substack.com">Substack</a>, mostly in Indonesian, and I make videos as <a href="https://www.youtube.com/@obspeaking">Observationally Speaking</a>.</p>
+            </div>
+            <figure class="carousel duo" aria-roledescription="carousel" aria-label="Photos from a day at the observatory">
+                <ul class="track" tabindex="0">
+                    <li class="slide" role="group" aria-roledescription="slide" aria-label="1 of 12"><img src="/img/ig/observatory/01.jpg" alt="A road lined with bare trees leading to an observatory dome on a misty day" width="720" height="960" loading="lazy"></li>
+                    <li class="slide" role="group" aria-roledescription="slide" aria-label="2 of 12"><img src="/img/ig/observatory/02.jpg" alt="Cows grazing on a brown autumn meadow below a pine forest" width="720" height="960" loading="lazy"></li>
+                    <li class="slide" role="group" aria-roledescription="slide" aria-label="3 of 12"><img src="/img/ig/observatory/03.jpg" alt="A small open window in a dark wall framing the observatory dome outside" width="720" height="960" loading="lazy"></li>
+                    <li class="slide" role="group" aria-roledescription="slide" aria-label="4 of 12"><img src="/img/ig/observatory/04.jpg" alt="Jessica in a white puffer jacket and red scarf looking up at the observatory dome" width="720" height="960" loading="lazy"></li>
+                    <li class="slide" role="group" aria-roledescription="slide" aria-label="5 of 12"><img src="/img/ig/observatory/05.jpg" alt="Autumn trees seen through a tall green-framed window" width="720" height="960" loading="lazy"></li>
+                    <li class="slide" role="group" aria-roledescription="slide" aria-label="6 of 12"><img src="/img/ig/observatory/06.jpg" alt="A large white reflecting telescope under the open dome" width="720" height="960" loading="lazy"></li>
+                    <li class="slide" role="group" aria-roledescription="slide" aria-label="7 of 12"><img src="/img/ig/observatory/07.jpg" alt="The open instrument box of the telescope, full of cables and green panels" width="720" height="960" loading="lazy"></li>
+                    <li class="slide" role="group" aria-roledescription="slide" aria-label="8 of 12"><img src="/img/ig/observatory/08.jpg" alt="Jessica in a beanie and red scarf smiling outside the dome, with autumn hills behind" width="720" height="960" loading="lazy"></li>
+                    <li class="slide" role="group" aria-roledescription="slide" aria-label="9 of 12"><img src="/img/ig/observatory/09.jpg" alt="A small telescope in a wooden dome in front of a projector screen" width="720" height="960" loading="lazy"></li>
+                    <li class="slide" role="group" aria-roledescription="slide" aria-label="10 of 12"><img src="/img/ig/observatory/10.jpg" alt="A doorway with a warning sign for suspended loads, opening onto the dome balcony" width="720" height="960" loading="lazy"></li>
+                    <li class="slide" role="group" aria-roledescription="slide" aria-label="11 of 12"><img src="/img/ig/observatory/11.jpg" alt="Hands holding an old bound volume of observatory publications" width="720" height="960" loading="lazy"></li>
+                    <li class="slide" role="group" aria-roledescription="slide" aria-label="12 of 12"><img src="/img/ig/observatory/12.jpg" alt="The observatory dome against a dark blue evening sky" width="720" height="960" loading="lazy"></li>
+                </ul>
+                <figcaption><button class="car-btn" type="button" data-dir="-1" aria-label="Previous photo">&larr;</button><span class="car-cap"><span data-i18n="a.car">observatory day</span> <span class="car-count" aria-live="polite">1 / 12</span></span><button class="car-btn" type="button" data-dir="1" aria-label="Next photo">&rarr;</button></figcaption>
+            </figure>
+        </section>
+
+        <!-- spec sheet + now.txt -->
+        <section class="pair" aria-label="At a glance">
+            <div class="panel spec">
+                <div class="panel-bar"><span>spec_sheet</span><span>ID WASP-12b</span></div>
+                <div class="spec-body">
+                    <div class="duo spec-photo"><img src="/img/jessica-portrait.jpg" alt="Illustrated portrait of Jessica with teal and pink hair" width="640" height="640"></div>
+                    <dl>
+                        <div><dt data-i18n="id.name">Name</dt><dd>Jessica S. Muthmaina</dd></div>
+                        <div><dt data-i18n="id.based">Based in</dt><dd data-i18n="id.italy">Italy</dd></div>
+                        <div><dt data-i18n="id.from">From</dt><dd>Garut, Indonesia</dd></div>
+                        <div><dt data-i18n="id.spec">Specialty</dt><dd data-i18n="id.astro">astro data</dd></div>
+                        <div><dt data-i18n="id.study">Study</dt><dd>UNIPD · M.Sc. · yr 2</dd></div>
+                    </dl>
+                </div>
+                <p class="spec-motto" data-i18n="id.motto">Motto: a result nobody can rerun is not knowledge yet</p>
+            </div>
+            <div class="panel now" role="region" aria-labelledby="now-title">
+                <div class="panel-bar"><span id="now-title">now.txt</span><span>November 2026</span></div>
+                <ul>
+                    <li data-i18n="now.1"><strong>Courses.</strong> Exoplanetary Astrophysics, Astro-Statistics and Cosmology, Astrophysics Laboratory 2, Computational Astrophysics.</li>
+                    <li data-i18n="now.2"><strong>Lab.</strong> Transit photometry of WASP-12b with the Copernico 1.82 m telescope in Asiago.</li>
+                    <li data-i18n="now.3"><strong>Code.</strong> <a href="https://github.com/doddamre/HIPPO-C">HIPPO-C</a>, a group project for Computational Astrophysics: a transit model of HIP 67522 c, and machine learning that looks for transits in TESS data.</li>
+                    <li data-i18n="now.4"><strong>Last talk.</strong> <a href="https://github.com/yourastrophysicist/gdg-devfest-milano-2026">AI Wrote It, You Pushed It, Who Checks It?</a> at DevFest Milano.</li>
+                    <li data-i18n="now.5"><strong>This weekend.</strong> NASA Space Apps Milano, 14 and 15 November.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- experience -->
+        <section id="work" class="sec">
+            <p class="eyebrow" data-i18n="w.label">01 · what I have done so far</p>
+            <h2 class="giant" data-i18n="w.h">Work</h2>
+            <p class="sub" data-i18n="w.sub">Research, data work, writing and organising, from Yogyakarta and Garut to Padova.</p>
+
+            <div class="cv">
+                <div class="panel">
+                    <div class="panel-bar"><span>research_and_data.txt</span><span>05</span></div>
+                    <ol class="roles">
+                        <li>
+                            <h3 data-i18n="r1.h">Research intern and bachelor thesis, <a href="https://www.brin.go.id/">BRIN</a></h3>
+                            <p class="meta" data-i18n="r1.m">National Research and Innovation Agency, Indonesia</p>
+                            <p data-i18n="r1.d">Quasar position stability from VLBI time series, measured with the Allan standard deviation in a Python pipeline. Published in the Journal of Physics: Conference Series.</p>
+                        </li>
+                        <li>
+                            <h3 data-i18n="r2.h">Data analyst, <a href="https://www.equityinitiative.org/">The Equity Initiative</a></h3>
+                            <p class="meta">Indonesia</p>
+                            <p data-i18n="r2.d">Analysed stunting reduction programmes in East Nusa Tenggara and West Java.</p>
+                        </li>
+                        <li>
+                            <h3 data-i18n="r3.h">Head of research and development, <a href="https://balairungpress.com/">BPPM Balairung UGM</a></h3>
+                            <p class="meta">Yogyakarta · 2020</p>
+                            <p data-i18n="r3.d">The student press of Universitas Gadjah Mada, founded in 1985. My division ran polls, surveys and media analysis for students. I was also a reporter and editor at balairungpress.com and wrote for Jurnal Balairung.</p>
+                        </li>
+                        <li>
+                            <h3 data-i18n="r4.h">Speaker, <a href="https://2026.devfestmilano.it/it/speakers/jessica-syafaq-muthmaina/">Google DevFest Milano 2026</a></h3>
+                            <p class="meta">Milano · 2026</p>
+                            <p data-i18n="r4.d">Lightning talk <a href="https://github.com/yourastrophysicist/gdg-devfest-milano-2026">AI Wrote It, You Pushed It, Who Checks It?</a>, on who owes the checking when AI produces the work.</p>
+                        </li>
+                        <li>
+                            <h3 data-i18n="r5.h">Writer</h3>
+                            <p class="meta" data-i18n="r5.m">since 2020</p>
+                            <p data-i18n="r5.d">Essays on astrophysics, data and society on <a href="https://yourastrophysicist.substack.com/">Substack</a>, <a href="https://syafaqmuth.medium.com/">Medium</a> and <a href="https://omong-omong.com/user/yourastrophysicist/">Omong-Omong</a>, mostly in Indonesian.</p>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-bar"><span>organising.txt</span><span>04</span></div>
+                    <ol class="roles">
+                        <li>
+                            <h3 data-i18n="o1.h">Vice chair, PPI Triveneto</h3>
+                            <p class="meta">Veneto · 2026</p>
+                            <p data-i18n="o1.d">We ran the Indonesian student association of the region on one vision, responsive and solution-minded, and three missions: administrative information, keeping in touch, and members' voices. We chose the board by what people had already done, and put administrative information first.</p>
+                        </li>
+                        <li>
+                            <h3 data-i18n="o2.h">Italy coordinator, <a href="https://www.instagram.com/italiabergerak/">Italia Bergerak</a></h3>
+                            <p class="meta" data-i18n="o2.m">Italy · 2026</p>
+                            <p data-i18n="o2.d">Part of Indonesia Bergerak, a network of Indonesian students and diaspora. On 29 June 2026, with Monday Screen and Greenpeace Padova, we screened the documentary <i>Pesta Babi</i> (Pig Feast) at Teatro Ruzante, Padova, followed by a discussion with the director Cypri Dale.</p>
+                        </li>
+                        <li>
+                            <h3 data-i18n="o3.h">Founder, <a href="https://www.instagram.com/sadarsetara/">Sadar Setara</a></h3>
+                            <p class="meta" data-i18n="o3.m">Garut · since 2025</p>
+                            <p data-i18n="o3.d">A movement born from gender issues in Garut. Its manifesto is out in Indonesian, English, Italian and French. On 27 March 2025 we started the first Aksi Kamisan in Garut, against the revision of the TNI law and for civilian supremacy. We also write about safe spaces and sexual violence, with contacts of services for survivors.</p>
+                        </li>
+                        <li>
+                            <h3 data-i18n="o4.h">Co-founder, <a href="https://www.instagram.com/ruang_postulat/">Ruang Postulat</a></h3>
+                            <p class="meta" data-i18n="o4.m">since 2024</p>
+                            <p data-i18n="o4.d">A theoretical physics club. I make its posts, which have reached more than 23,000 views.</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="split">
+                <div>
+                    <h3 class="small-head" data-i18n="p.h">published research</h3>
+                    <ul class="pubs">
+                        <li>
+                            <p class="pub-title">Implementation of Allan Standard Deviation Technique in Stability Analysis of 4C31.61 Quasar Position</p>
+                            <p class="meta">Muthmaina, Huda, Palupi · Journal of Physics: Conference Series 2773, 012007 (2024)</p>
+                            <p class="pub-links"><a class="btn btn-grey btn-sm" href="https://iopscience.iop.org/article/10.1088/1742-6596/2773/1/012007/meta">DOI</a><a class="btn btn-grey btn-sm" href="https://arxiv.org/abs/2401.12325">arXiv:2401.12325</a></p>
+                        </li>
+                        <li>
+                            <p class="pub-title">The Femininomenon of Inequality: A Data-Driven Analysis and Cluster Profiling in Indonesia</p>
+                            <p class="meta" data-i18n="p2.m">Muthmaina · personal project, preprint</p>
+                            <p class="pub-links"><a class="btn btn-grey btn-sm" href="https://arxiv.org/abs/2412.00012">arXiv:2412.00012</a></p>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="small-head" data-i18n="q.h">what people say</h3>
+                    <div class="quotes">
+                        <figure>
+                            <blockquote data-i18n="q1">"During her internship and bachelor thesis under my supervision, Jessica conducted research on quasar position stability using Allan standard deviation for VLBI observations. She demonstrated strong analytical thinking, the ability to adapt quickly to new methods, and a high level of independence."</blockquote>
+                            <figcaption><b>Dr. Ibnu Nurul Huda</b> <span data-i18n="q1.c">research supervisor, BRIN</span></figcaption>
+                        </figure>
+                        <figure>
+                            <blockquote data-i18n="q2">"Her problem-solving skills and dedication helped her navigate the complex technical and organisational demands of the MinerbaOne project for the Ministry of Energy and Mineral Resources."</blockquote>
+                            <figcaption><b>Bachtiar Rifai</b> <span data-i18n="q2.c">CEO, Volantis Technology</span></figcaption>
+                        </figure>
+                        <figure>
+                            <blockquote data-i18n="q3">"Over the years, I have seen her grow in confidence, resilience, and responsibility. She is deeply committed to her goals, open to guidance, and willing to put in the hard work needed to pursue her dreams."</blockquote>
+                            <figcaption><b>Elida Lailiya Istiqomah</b> <span data-i18n="q3.c">lecturer and mentor, Universitas Gadjah Mada</span></figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- manifesto -->
+        <section id="manifesto" class="sec">
+            <p class="eyebrow" data-i18n="m.label">02 · what I hold myself to</p>
+            <h2 class="giant">Manifesto</h2>
+            <div class="papers">
+                <div class="panel">
+                    <div class="panel-bar"><span data-i18n="m.s">as a scientist</span><span>06</span></div>
+                    <ol class="tenets">
+                        <li><p data-i18n="m1">A result nobody can rerun is not knowledge yet.</p><cite data-i18n="m1.c">from my talk <a href="https://github.com/yourastrophysicist/gdg-devfest-milano-2026">AI Wrote It, You Pushed It, Who Checks It?</a></cite></li>
+                        <li><p data-i18n="m2">Whoever publishes the work owes the checking.</p><cite data-i18n="m2.c">same talk, DevFest Milano 2026</cite></li>
+                        <li><p data-i18n="m3">No result without a calculation or a source, step by step, with me reading.</p><cite data-i18n="m3.c">from <a href="https://yourastrophysicist.substack.com/p/the-telescope-also-has-a-selection">The Telescope Also Has a Selection Function</a></cite></li>
+                        <li><p data-i18n="m4">Know the instrument. A telescope has a selection function that decides in advance what you will never see, or the picture lies to you very politely.</p><cite data-i18n="m.same">same essay</cite></li>
+                        <li><p data-i18n="m5">Rederive the things everybody assumes are finished. That is where the old cracks are found.</p><cite data-i18n="m.same">same essay</cite></li>
+                        <li><p data-i18n="m6">The studying stays mine. A machine can help, but I stay the person in charge of it.</p><cite data-i18n="m.same">same essay</cite></li>
+                    </ol>
+                </div>
+                <div class="panel">
+                    <div class="panel-bar"><span data-i18n="m.p">as a human being</span><span>06</span></div>
+                    <ol class="tenets">
+                        <li><p data-i18n="h1">Learning the universe is not a race.</p><cite data-i18n="h1.c">from <a lang="id" href="https://yourastrophysicist.substack.com/p/belajar-alam-semesta-bukan-lomba">Belajar Alam Semesta Bukan Lomba Lari</a>, translated</cite></li>
+                        <li><p data-i18n="h2">Knowledge about this vast universe was never meant to make us feel smarter or higher than other people. It should make us kinder to each other.</p><cite data-i18n="h2.c">from <a lang="id" href="https://yourastrophysicist.substack.com/p/melepaskan-ribuan-catatan-ke-ruang">Melepaskan Ribuan Catatan ke Ruang Terbuka</a>, translated</cite></li>
+                        <li><p data-i18n="h3">What I learn here is a debt I carry home, and nobody at home is waiting for a number.</p><cite data-i18n="h3.c">from <a href="https://yourastrophysicist.substack.com/p/why-am-i-even-learning-this">why am i even learning this?</a></cite></li>
+                        <li><p data-i18n="h4">Scientific logic is not a luxury good. It belongs to everyone.</p><cite data-i18n="h4.c">from <a lang="id" href="https://yourastrophysicist.substack.com/p/logika-saintifik-bukan-barang-mewah">Logika Saintifik Bukan Barang Mewah</a>, translated</cite></li>
+                        <li><p data-i18n="h5">Keeping knowledge locked in a drawer is a selfish kind of pride, so my notes stay open.</p><cite data-i18n="h5.c">from <span lang="id">Melepaskan Ribuan Catatan ke Ruang Terbuka</span>, translated</cite></li>
+                        <li><p data-i18n="h6">I love what I study, and I love home. I carry both.</p><cite data-i18n="h6.c">from why am i even learning this?</cite></li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- values -->
+        <section id="values" class="sec">
+            <p class="eyebrow" data-i18n="v.label">03 · five words I come back to</p>
+            <h2 class="giant" data-i18n="v.h">Values</h2>
+            <dl class="values">
+                <div><dt data-i18n="v1">Checking</dt><dd data-i18n="v1.d">I would rather publish less and be able to show how I got it.</dd></div>
+                <div><dt data-i18n="v2">Openness</dt><dd data-i18n="v2.d">Notes, code and slides go public when they can, so someone else can find my mistakes.</dd></div>
+                <div><dt data-i18n="v3">Patience</dt><dd data-i18n="v3.d">A tiny dip in starlight can tell you a whole world is there. You only see it if you wait.</dd></div>
+                <div><dt data-i18n="v4">Home</dt><dd data-i18n="v4.d">I write in Indonesian too, so what I learn can travel back.</dd></div>
+                <div><dt data-i18n="v5">Equality</dt><dd data-i18n="v5.d">I founded Sadar Setara for gender equality and human rights in Garut, and I still mean it.</dd></div>
+            </dl>
+        </section>
+
+        <!-- notes -->
+        <section id="notes" class="sec">
+            <p class="eyebrow" data-i18n="nt.label">04 · my second brain, on ten disks</p>
+            <h2 class="giant" data-i18n="nt.h">Notes</h2>
+            <p class="sub" data-i18n="nt.sub">Year one of the Padova M.Sc. as more than 1,100 linked notes, one map for each course, and derivations written so that no step is skipped. Pick a disk.</p>
+            <ul class="disks">
+                <li><a href="/notes/04_Atlas/Fundamentals_Astrophysics_Cosmology_MOC.html"><span class="thumb" style="--g:15%"><b>01</b></span><span class="tag">S1</span><strong>Fundamentals of Astrophysics and Cosmology</strong><small>Bartolo, Rodighiero</small></a></li>
+                <li><a href="/notes/04_Atlas/Observational_Astrophysics_MOC.html"><span class="thumb" style="--g:55%"><b>02</b></span><span class="tag">S1</span><strong>Observational Astrophysics</strong><small>Cassata</small></a></li>
+                <li><a href="/notes/04_Atlas/General_Relativity_MOC.html"><span class="thumb" style="--g:35%"><b>03</b></span><span class="tag">S1</span><strong>General Relativity for Astrophysics and Cosmology</strong><small>D'Eramo</small></a></li>
+                <li><a href="/notes/04_Atlas/Mathematical_Numerical_Methods_MOC.html"><span class="thumb" style="--g:80%"><b>04</b></span><span class="tag">S1</span><strong>Mathematical and Numerical Methods</strong><small>Mapelli</small></a></li>
+                <li><a href="/notes/04_Atlas/Lab_High-Energy_MOC.html"><span class="thumb" style="--g:25%"><b>05</b></span><span class="tag">S1</span><strong>Astrophysics Laboratory 1, High Energy</strong><small>Ciroi</small></a></li>
+                <li><a href="/notes/04_Atlas/Astrophysics_of_Galaxies_MOC.html"><span class="thumb" style="--g:65%"><b>06</b></span><span class="tag">S2</span><strong>Astrophysics of Galaxies</strong><small>Pizzella</small></a></li>
+                <li><a href="/notes/04_Atlas/Stellar_Astrophysics_MOC.html"><span class="thumb" style="--g:40%"><b>07</b></span><span class="tag">S2</span><strong>Stellar Astrophysics</strong><small>Milone</small></a></li>
+                <li><a href="/notes/04_Atlas/Astronomical_Interferometry_MOC.html"><span class="thumb" style="--g:90%"><b>08</b></span><span class="tag">S2</span><strong>Astronomical Interferometry</strong><small>D'Onofrio</small></a></li>
+                <li><a href="/notes/04_Atlas/Observational_Cosmology_MOC.html"><span class="thumb" style="--g:5%"><b>09</b></span><span class="tag">S2</span><strong>Observational Cosmology</strong><small>Rodighiero, Cassata</small></a></li>
+                <li><a href="/notes/04_Atlas/Astronomical_Spectroscopy_MOC.html"><span class="thumb" style="--g:50%"><b>10</b></span><span class="tag">S2</span><strong>Astronomical Spectroscopy</strong><small>Ciroi</small></a></li>
+            </ul>
+            <p class="center"><a class="btn" href="/notes/" data-i18n="nt.b">open Your AstroNotes</a></p>
+        </section>
+
+        <!-- terminal -->
+        <section id="terminal" class="sec">
+            <p class="eyebrow" data-i18n="tm.label">05 · or ask the terminal</p>
+            <h2 class="giant">Terminal</h2>
+            <p class="sub" data-i18n="tm.sub">The same site as a shell. Click inside, type <code>home</code>, and the commands are clickable too. <code>notes</code> unlocks my second brain after a small astronomy quiz.</p>
+            <div class="panel term">
+                <div class="panel-bar"><span>~/yourastro.space</span><a href="/terminal/" data-i18n="tm.b">full screen</a></div>
+                <iframe src="/terminal/" title="Interactive terminal portfolio" loading="lazy"></iframe>
+            </div>
+        </section>
+
+        <!-- faq -->
+        <section id="faq" class="sec">
+            <p class="eyebrow" data-i18n="fq.label">06 · questions people ask me</p>
+            <h2 class="giant" data-i18n="fq.h">FAQ</h2>
+            <div class="faq">
+                <details>
+                    <summary data-i18n="fq1">What do you actually work on?</summary>
+                    <p data-i18n="fq1.a">Observational astrophysics and cosmology. Right now that means exoplanet transits, Bayesian statistics and atmospheric retrievals. Before that it was quasar positions measured with VLBI.</p>
+                </details>
+                <details>
+                    <summary data-i18n="fq2">What is Your AstroNotes?</summary>
+                    <p data-i18n="fq2.a">My second brain from the first year of the Padova M.Sc.: more than 1,100 linked notes, a map for each of the ten courses, and cosmology derivations written so that no step is skipped. It lives at <a href="/notes/">yourastro.space/notes</a>.</p>
+                </details>
+                <details>
+                    <summary data-i18n="fq3">Why is there a quiz in front of the notes?</summary>
+                    <p data-i18n="fq3.a">It is a game, not a lock. The quiz only lives in the terminal. The notes are public at <a href="/notes/">/notes</a> for anyone.</p>
+                </details>
+                <details>
+                    <summary data-i18n="fq4">Can I use your notes for my own studying?</summary>
+                    <p data-i18n="fq4.a">Please do, that is why they are open. If you want to reuse them somewhere else, write to me first.</p>
+                </details>
+                <details>
+                    <summary data-i18n="fq5">Do you use AI?</summary>
+                    <p data-i18n="fq5.a">Yes, every day. Claude Code turns my lecture transcripts into notes and checks them against the slides. The rules are strict: anything the lecturer did not say is labelled as an addition, unsure numbers are marked to verify, and there is no result without a calculation or a source. The studying stays mine. I wrote about it in <a href="https://yourastrophysicist.substack.com/p/the-telescope-also-has-a-selection">The Telescope Also Has a Selection Function</a>.</p>
+                </details>
+                <details>
+                    <summary data-i18n="fq6">Why do you write in Indonesian?</summary>
+                    <p data-i18n="fq6.a">Because the people at home deserve astrophysics in their own language too. Some essays are in English, most are in Indonesian.</p>
+                </details>
+                <details>
+                    <summary data-i18n="fq7">What does BRAT mean here?</summary>
+                    <p data-i18n="fq7.a">Loud, curious, a little stubborn, and happy to ask the question nobody else in the room asks.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- call to action + every link -->
+        <section id="contact" class="sec cta">
+            <p class="eyebrow" data-i18n="c.label">want me to talk, write or collaborate?</p>
+            <h2 class="giant" data-i18n="c.h">Say hello</h2>
+            <p class="btns"><a class="btn" href="mailto:jessicasyafaq.muthmaina@studenti.unipd.it" data-i18n="c.b">write to me</a></p>
+            <p class="small-head center-text" data-i18n="c.l">or find me here</p>
+            <ul class="elsewhere">
+                <li><a class="btn btn-grey btn-sm" href="https://yourastro.notion.site/" data-i18n="c.notion">portfolio and CV</a></li>
+                <li><a class="btn btn-grey btn-sm" href="https://www.linkedin.com/in/syafaqmuth/">LinkedIn</a></li>
+                <li><a class="btn btn-grey btn-sm" href="https://yourastrophysicist.substack.com/">Substack</a></li>
+                <li><a class="btn btn-grey btn-sm" href="https://syafaqmuth.medium.com/">Medium</a></li>
+                <li><a class="btn btn-grey btn-sm" href="https://omong-omong.com/user/yourastrophysicist/">Omong-Omong</a></li>
+                <li><a class="btn btn-grey btn-sm" href="https://www.youtube.com/@obspeaking">YouTube</a></li>
+                <li><a class="btn btn-grey btn-sm" href="https://www.instagram.com/your.astrophysicist/">Instagram</a></li>
+                <li><a class="btn btn-grey btn-sm" href="https://bsky.app/profile/yourastrophysicist.bsky.social">Bluesky</a></li>
+                <li><a class="btn btn-grey btn-sm" href="https://github.com/yourastrophysicist">GitHub</a></li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <div class="ticker" role="region" aria-label="News">
+            <div class="ticker-track">
+                <span data-i18n="id.motto2">a result nobody can rerun is not knowledge yet</span><i>/</i>
+                <span data-i18n="t1">NASA Space Apps Milano, 14 and 15 November</span><i>/</i>
+                <span data-i18n="t2">my notes are open at /notes</span><i>/</i>
+                <span data-i18n="t3">HIPPO-C is on GitHub</span><i>/</i>
+                <span data-i18n="t4">new essays on Substack</span><i>/</i>
+                <span aria-hidden="true"><span data-i18n="id.motto2">a result nobody can rerun is not knowledge yet</span><i>/</i>
+                <span data-i18n="t1">NASA Space Apps Milano, 14 and 15 November</span><i>/</i>
+                <span data-i18n="t2">my notes are open at /notes</span><i>/</i>
+                <span data-i18n="t3">HIPPO-C is on GitHub</span><i>/</i>
+                <span data-i18n="t4">new essays on Substack</span><i>/</i></span>
+            </div>
+        </div>
+        <div class="foot-row">
+            <a class="mark" href="/" aria-label="yourastro.space, home"><span>your</span><span>astro</span></a>
+            <nav aria-label="Footer">
+                <a href="#about" data-i18n="n.about">about</a><a href="#work" data-i18n="n.work">work</a><a href="#manifesto">manifesto</a><a href="#notes" data-i18n="n.notes">notes</a><a href="#terminal">terminal</a><a href="#faq" data-i18n="n.faq">faqs</a>
+            </nav>
+            <ul class="icons" aria-label="Elsewhere">
+                <li><a href="https://github.com/yourastrophysicist" aria-label="GitHub" title="GitHub" style="--icon: url(/img/icons/github.svg)"></a></li>
+                <li><a href="https://yourastrophysicist.substack.com" aria-label="Substack" title="Substack" style="--icon: url(/img/icons/substack.svg)"></a></li>
+                <li><a href="https://www.youtube.com/@obspeaking" aria-label="YouTube" title="YouTube" style="--icon: url(/img/icons/youtube.svg)"></a></li>
+                <li><a href="https://www.instagram.com/your.astrophysicist/" aria-label="Instagram" title="Instagram" style="--icon: url(/img/icons/instagram.svg)"></a></li>
+                <li><a href="https://www.linkedin.com/in/syafaqmuth/" aria-label="LinkedIn" title="LinkedIn" style="--icon: url(/img/icons/linkedin.svg)"></a></li>
+                <li><a href="mailto:jessicasyafaq.muthmaina@studenti.unipd.it" aria-label="Email" title="Email" style="--icon: url(/img/icons/email.svg)"></a></li>
+            </ul>
+        </div>
+        <p data-i18n="foot">Padova, Italy · 45.4° N, 11.9° E · <a href="https://github.com/yourastrophysicist/yourastrophysicist">source</a> · plain HTML, CSS and a few lines of JS</p>
+    </footer>
+
+    <!-- jump palette -->
+    <dialog id="cmdk" class="cmdk" aria-label="Jump to a section">
+        <form method="dialog" class="cmdk-form">
+            <label class="cmdk-label" for="cmdk-input">&gt;_</label>
+            <input id="cmdk-input" type="text" autocomplete="off" spellcheck="false" placeholder="Type a section or a link" data-i18n-ph="k.ph">
+            <button class="cmdk-esc" type="submit" aria-label="Close">esc</button>
+        </form>
+        <ul class="cmdk-list">
+            <li><a href="#about"><span data-i18n="n.about">about</span><small>#about</small></a></li>
+            <li><a href="#work"><span data-i18n="n.work">work</span><small>#work</small></a></li>
+            <li><a href="#manifesto"><span>manifesto</span><small>#manifesto</small></a></li>
+            <li><a href="#values"><span data-i18n="k.values">values</span><small>#values</small></a></li>
+            <li><a href="#notes"><span data-i18n="n.notes">notes</span><small>#notes</small></a></li>
+            <li><a href="#terminal"><span>terminal</span><small>#terminal</small></a></li>
+            <li><a href="#faq"><span data-i18n="n.faq">faqs</span><small>#faq</small></a></li>
+            <li><a href="#contact"><span data-i18n="k.contact">contact</span><small>#contact</small></a></li>
+            <li><a href="/notes/"><span>Your AstroNotes</span><small>/notes</small></a></li>
+            <li><a href="https://yourastro.notion.site/"><span data-i18n="c.notion">portfolio and CV</span><small>notion</small></a></li>
+            <li><a href="https://yourastrophysicist.substack.com/"><span>Substack</span><small>essays</small></a></li>
+            <li><a href="https://github.com/yourastrophysicist"><span>GitHub</span><small>code</small></a></li>
+            <li><a href="mailto:jessicasyafaq.muthmaina@studenti.unipd.it"><span data-i18n="c.b">write to me</span><small>email</small></a></li>
+        </ul>
+    </dialog>
+
+<script src="/i18n.js?v=4"></script>
+<script>
+/* carousel */
+document.querySelectorAll('.carousel').forEach(function (c) {
+    var track = c.querySelector('.track'), slides = track.children, count = c.querySelector('.car-count');
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function idx() { return Math.round(track.scrollLeft / track.clientWidth); }
+    c.querySelectorAll('.car-btn').forEach(function (b) {
+        b.addEventListener('click', function () {
+            var i = (idx() + Number(b.dataset.dir) + slides.length) % slides.length;
+            track.scrollTo({ left: i * track.clientWidth, behavior: still ? 'auto' : 'smooth' });
+        });
+    });
+    track.addEventListener('scroll', function () { count.textContent = (idx() + 1) + ' / ' + slides.length; }, { passive: true });
+    track.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); c.querySelector('.car-btn[data-dir="' + (e.key === 'ArrowRight' ? 1 : -1) + '"]').click(); }
+    });
+});
+
+/* jump palette: Ctrl/Cmd + K or the command bar */
+(function () {
+    var dlg = document.getElementById('cmdk'), input = document.getElementById('cmdk-input');
+    var links = Array.prototype.slice.call(dlg.querySelectorAll('.cmdk-list a'));
+    if (/Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent)) document.querySelectorAll('.k-mod').forEach(function (k) { k.textContent = '⌘'; });
+    function visible() { return links.filter(function (a) { return !a.parentNode.hidden; }); }
+    function open() {
+        if (dlg.open) return;
+        input.value = ''; filter();
+        if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+        input.focus();
+    }
+    function filter() {
+        var q = input.value.trim().toLowerCase();
+        links.forEach(function (a) { a.parentNode.hidden = q && a.textContent.toLowerCase().indexOf(q) === -1; });
+        links.forEach(function (a) { a.classList.remove('on'); });
+        var v = visible(); if (v[0]) v[0].classList.add('on');
+    }
+    document.querySelector('.cmdbar').addEventListener('click', open);
+    document.addEventListener('keydown', function (e) {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); dlg.open ? dlg.close() : open(); }
+    });
+    input.addEventListener('input', filter);
+    input.addEventListener('keydown', function (e) {
+        var v = visible(), i = v.findIndex(function (a) { return a.classList.contains('on'); });
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            e.preventDefault(); if (!v.length) return;
+            if (i > -1) v[i].classList.remove('on');
+            i = (i + (e.key === 'ArrowDown' ? 1 : -1) + v.length) % v.length;
+            v[i].classList.add('on'); v[i].scrollIntoView({ block: 'nearest' });
+        } else if (e.key === 'Enter') {
+            e.preventDefault(); if (i > -1) v[i].click();
+        }
+    });
+    links.forEach(function (a) { a.addEventListener('click', function () { dlg.close(); }); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+    <title>Terminal | yourastro.space</title>
+    <meta name="description" content="your BRAT astrophysicist">
+    <meta property="og:title" content="Jessica Syafaq Muthmaina">
+    <meta property="og:description" content="your BRAT astrophysicist">
+    <meta property="og:url" content="https://www.yourastro.space/terminal/">
+    <link rel="canonical" href="https://www.yourastro.space/terminal/">
+    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://www.yourastro.space/img/jessica-portrait.jpg">
+    <meta property="og:image:alt" content="Illustrated portrait of Jessica with teal and pink hair, holding a book in front of a telescope">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#f2f2f2">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/terminal/terminal.css?v=3">
+</head>
+<body>
+    <main class="content">
+        <div class="terminal" id="terminal">
+<pre class="banner" aria-hidden="true"> .    '                   .  "   '
+            .  .  .                 '      '
+    "`       .   .
+                                     '     '
+  .    '      _______________
+          ==c(___(o(______(_()
+                  \=\
+                   )=\
+                  //|\\
+                 //|| \\
+                // ||  \\
+               //  ||   \\
+              //         \\</pre>
+            <h1 class="sr-only">Jessica Syafaq Muthmaina, terminal portfolio</h1>
+            <p class="version">yourastro.space v2.4.0 · a BRAT astrophysicist</p>
+            <br>
+
+            <div id="iterm" role="log" aria-live="polite"></div>
+
+            <form class="inputArea" id="inputForm" autocomplete="off">
+                <label class="inputLine" id="promptLabel" for="textAreaID">visitor<span class="atSymbol">@</span>yourastro.space:~$</label>
+                <input type="text" id="textAreaID" placeholder="enter input here"
+                       autocapitalize="off" autocorrect="off" spellcheck="false">
+            </form>
+        </div>
+    </main>
+
+    <!-- AstroNotes viewer: the second brain, opened inside the terminal once the quiz is passed -->
+    <section class="viewer" id="viewer" hidden aria-label="AstroNotes viewer">
+        <header class="viewerBar">
+            <span class="viewerPath" id="viewerPath">~/second-brain</span>
+            <span class="viewerActions">
+                <a id="viewerExternal" href="#" target="_blank" rel="noopener">[new tab]</a>
+                <button type="button" id="viewerClose">[close · esc]</button>
+            </span>
+        </header>
+        <iframe id="viewerFrame" title="Your AstroNotes" referrerpolicy="no-referrer"></iframe>
+    </section>
+
+    <noscript>
+        <div class="terminal">
+            <p>This portfolio is an interactive terminal and needs JavaScript.</p>
+            <p>Jessica Syafaq Muthmaina, M.Sc. student in Astrophysics and Cosmology, University of Padova.</p>
+            <p><a href="https://github.com/yourastrophysicist">GitHub</a> ·
+               <a href="https://www.linkedin.com/in/syafaqmuth/">LinkedIn</a> ·
+               <a href="https://arxiv.org/abs/2401.12325">arXiv:2401.12325</a></p>
+        </div>
+    </noscript>
+
+    <script src="/terminal/terminal.js"></script>
+</body>
+</html>

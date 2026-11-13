@@ -22,6 +22,11 @@ const SHELL_PROMPT = promptLabel.innerHTML;
 const QUIZ_PROMPT = 'quiz<span class="atSymbol">@</span>astronotes:?';
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const LINE_DELAY = reducedMotion ? 0 : 25;
+// Inside the iframe on the main page the terminal waits for a click before taking focus,
+// so the page around it does not jump to the prompt.
+const embedded = window.self !== window.top;
+if (embedded) document.documentElement.classList.add('embedded');
+if (!embedded && !touchDevice) input.focus({ preventScroll: true });
 
 
 /* ---------- content helpers ---------- */
@@ -72,6 +77,7 @@ const home = [
     { cls: 'row', html: `${cmd('cv')}<span>- the whole CV in one go</span>` },
     { cls: 'row', html: `${cmd('socials')}<span>- view my socials and contact</span>` },
     { cls: 'row', html: `${cmd('notes')}<span>- my second brain, Your AstroNotes <span class="event">(quiz-locked)</span></span>` },
+    { cls: 'row', html: `${cmd('site')}<span>- back to the main page, yourastro.space</span>` },
     { cls: 'row', html: `${cmd('repo')}<span>- view project source</span>` },
     { cls: 'row', html: `${cmd('system')}<span>- view project information</span>` },
     { cls: 'row', html: `${cmd('clear')}<span>- clear the terminal</span>` },
@@ -79,7 +85,7 @@ const home = [
 ];
 
 const who = [
-    { cls: 'portrait', tag: 'div', html: '<img src="img/jessica-portrait.jpg" alt="Illustrated portrait of Jessica with teal and pink hair, holding a book in front of a telescope" width="160" height="160">' },
+    { cls: 'portrait', tag: 'div', html: '<img src="/img/jessica-portrait.jpg" alt="Illustrated portrait of Jessica with teal and pink hair, holding a book in front of a telescope" width="160" height="160">' },
     head('Jessica Syafaq Muthmaina'),
     { cls: 'dim', html: 'a BRAT astrophysicist' },
     '',
@@ -100,6 +106,7 @@ const now = [
     row('laboratory', 'Astrophysics Laboratory 2. Exoplanet transit photometry with the Copernico 1.82 m telescope (TASTE) and TESS, CCD calibration, aperture extraction and Bayesian MCMC modelling.'),
     row('computing', 'Computational Astrophysics. Forward radiative transfer, atmospheric retrievals with TauREx 3, nested sampling and MPI scaling on CloudVeneto.'),
     row('side quest', 'Archaeoastronomy of Nusantara. Old Javanese inscriptions and wariga dating read as astronomical records.'),
+    row('this weekend', 'NASA Space Apps Challenge, Milano, 14 and 15 November 2026. Looking for faint moving objects in SPHEREx images.'),
     { cls: 'dim', html: `the first year lives in my second brain - ${cmd('notes')}` },
 ];
 
@@ -131,10 +138,10 @@ const figures = [
     head('Figure 1 - overlapping Allan standard deviation, quasar 4C31.61'),
     {
         cls: 'figures', tag: 'div', html: [
-            ['img/vievs-allan-ra.png', '(a) VieVS, α cos δ'],
-            ['img/vievs-allan-dec.png', '(b) VieVS, δ'],
-            ['img/paris-allan-ra.png', '(c) Paris Observatory GVC, α cos δ'],
-            ['img/paris-allan-dec.png', '(d) Paris Observatory GVC, δ'],
+            ['/img/vievs-allan-ra.png', '(a) VieVS, α cos δ'],
+            ['/img/vievs-allan-dec.png', '(b) VieVS, δ'],
+            ['/img/paris-allan-ra.png', '(c) Paris Observatory GVC, α cos δ'],
+            ['/img/paris-allan-dec.png', '(d) Paris Observatory GVC, δ'],
         ].map(([src, caption]) =>
             `<figure><a href="${src}" target="_blank" rel="noopener"><img src="${src}" alt="Allan standard deviation plot ${caption}" loading="lazy"></a><figcaption>${caption}</figcaption></figure>`
         ).join('')
@@ -157,7 +164,10 @@ const experience = [
 const projects = [
     head('Projects'),
     row('astronotes', `Your AstroNotes, my second brain, at ${link('yourastro.space/notes', NOTES_BASE)}. More than 1,100 linked notes from the first year of the Padova M.Sc., a Map of Content for each of the ten courses, and 25 cosmology derivations written so that no step is skipped. Type ${cmd('notes')} to unlock it here.`),
-    row('transit', `${link('transit-authority', 'https://github.com/yourastrophysicist/comp_astro_26')}, computational astrophysics coursework.`),
+    row('spherex', 'NASA Space Apps Challenge 2026, Milano. SPHEREx cutouts of the sky, cross-matched with Gaia DR3, to look for faint things that move. The write-up will live at yourastro.space/SPHEREx.'),
+    row('hippo-c', `${link('HIPPO-C', 'https://github.com/doddamre/HIPPO-C')}. Group project for Computational Astrophysics 2026/27: a transit model of HIP 67522 c, and random forest and decision tree classifiers that look for transits in TESS data.`),
+    row('talk', `${link('AI Wrote It, You Pushed It, Who Checks It?', 'https://github.com/yourastrophysicist/gdg-devfest-milano-2026')}. My lightning talk at GDG DevFest Milano, 10 October 2026, on what astrophysics learned from decades of trusting code.`),
+    row('latex', `${link('substack-inline-LaTeX-firefox', 'https://github.com/yourastrophysicist/substack-inline-LaTeX-firefox')}. Substack had no inline LaTeX in Firefox, so I built it.`),
     row('gender-data', `Data-driven analysis of gender inequality across Indonesian provinces with regression modelling and demographic decomposition. ${link('arXiv 2412.00012', 'https://arxiv.org/abs/2412.00012')}`),
     row('quasar', `VLBI stability analysis of 4C31.61. See ${cmd('research')}.`),
     row('substack', `Essays in Indonesian and English. See ${cmd('writing')}.`),
@@ -177,6 +187,9 @@ const skills = [
 
 // Essays as published on Substack, with my own titles and subtitles.
 const essays = [
+    ['en', 'the-telescope-also-has-a-selection', 'The Telescope Also Has a Selection Function', 'Observational astronomy has lived with the question of what checked means for a long time, because we have one universe and cannot rerun it.'],
+    ['en', 'why-am-i-even-learning-this', 'why am i even learning this?', 'I study other planets while my own country looks like Mars'],
+    ['en', 'ten-years-after-sputnik', 'Ten Years After Sputnik', 'The sky waited a decade for its rules. Artificial intelligence is waiting now.'],
     ['id', 'logika-saintifik-bukan-barang-mewah', 'Logika Saintifik Bukan Barang Mewah', 'Indonesia bersiap menampung lumbung data center raksasa, tetapi tanpa logika saintifik kita cuma menjelma sapi gelonggongan yang mati kekenyangan.'],
     ['id', 'kamu-bukan-kelabang-empat-dimensi', 'Kamu bukan kelabang empat dimensi', 'Indonesia belum siap belajar astrofisika dan kosmologi.'],
     ['id', 'melepaskan-ribuan-catatan-ke-ruang', 'Melepaskan Ribuan Catatan ke Ruang Terbuka', 'rahasia alam semesta terlalu berat jika hanya disimpan sendiri.'],
@@ -204,7 +217,7 @@ const outreach = [
     head('Science communication'),
     row('substack', `${link('your astrophysicist', SUBSTACK)}. Essays in Indonesian and English. See ${cmd('writing')}.`),
     row('youtube', `${link('Observationally Speaking', 'https://www.youtube.com/@obspeaking')}. On stars, softly.`),
-    { cls: 'bannerArt', tag: 'div', html: '<a href="https://www.youtube.com/@obspeaking" target="_blank" rel="noopener"><img src="img/observationally-speaking.jpg" alt="Observationally Speaking banner, a telescope among clouds facing a pale moon, with the line on stars, softly" width="1600" height="264"></a>' },
+    { cls: 'bannerArt', tag: 'div', html: '<a href="https://www.youtube.com/@obspeaking" target="_blank" rel="noopener"><img src="/img/observationally-speaking.jpg" alt="Observationally Speaking banner, a telescope among clouds facing a pale moon, with the line on stars, softly" width="1600" height="264"></a>' },
     row('instagram', `${link('@your.astrophysicist', 'https://www.instagram.com/your.astrophysicist/')}. Research and M.Sc. life in Padua.`),
     row('notes', `Your AstroNotes, an open digital garden of my lecture notes. See ${cmd('notes')}.`),
     row('advocacy', 'Sadar Setara. Gender equality and human rights advocacy in Garut, Indonesia.'),
@@ -220,6 +233,10 @@ const values = [
     { cls: 'indent dim', html: `from ${essay('melepaskan-ribuan-catatan-ke-ruang', 'Melepaskan Ribuan Catatan ke Ruang Terbuka')}` },
     'Ambition without action becomes anxiety.',
     { cls: 'indent dim', html: `from ${essay('it-all-starts-from-an-astronomy-club', 'It All Starts From an Astronomy Club')}` },
+    'AI-made work that nobody can rerun is not knowledge yet, and whoever publishes it owes the checking.',
+    { cls: 'indent dim', html: `from ${essay('the-telescope-also-has-a-selection', 'The Telescope Also Has a Selection Function')}` },
+    'Nobody at home is waiting for a number.',
+    { cls: 'indent dim', html: `from ${essay('why-am-i-even-learning-this', 'why am i even learning this?')}` },
     { cls: 'dim', html: 'the first three are translated from Indonesian' },
 ];
 
@@ -236,7 +253,7 @@ const socials = [
     {
         cls: 'icons',
         tag: 'div',
-        html: socialIcons.map(([name, icon, href]) => `<a class="icon" href="${href}" target="_blank" rel="noopener" aria-label="${name}" title="${name}" style="--icon: url(img/icons/${icon}.svg)"></a>`).join(''),
+        html: socialIcons.map(([name, icon, href]) => `<a class="icon" href="${href}" target="_blank" rel="noopener" aria-label="${name}" title="${name}" style="--icon: url(/img/icons/${icon}.svg)"></a>`).join(''),
     },
 ];
 
@@ -247,8 +264,9 @@ const system = [
     row('framework', 'none, plain HTML, CSS and JavaScript'),
     row('design', `after ${link('Terminal-Portfolio', 'https://github.com/jackb1434/Terminal-Portfolio')} by jackb1434`),
     row('theme', 'midnight blue'),
-    row('version', '2.3.0'),
-    row('updated', '2026-10-16'),
+    row('version', '2.4.0'),
+    row('updated', '2026-11-13'),
+    row('home', link('yourastro.space', '/')),
 ];
 
 const files = {
@@ -585,6 +603,7 @@ const commands = {
     socials: () => { setTitleState('Terminal | My Socials'); return insertNewElement(socials); },
     system: () => { setTitleState('Terminal | System'); return insertNewElement(system); },
     repo: () => openGithubRepository(),
+    site: () => { (embedded ? window.top : window).location.href = '/'; },
     clear: () => { iterm.innerHTML = ''; setTitleState('Terminal | yourastro.space'); },
     cv: async () => {
         setTitleState('Terminal | CV');
@@ -617,7 +636,7 @@ const commands = {
 
 const aliases = {
     cmds: 'home', help: 'home', who: 'whoami', about: 'whoami', paper: 'research', publication: 'research',
-    contact: 'socials', astronotes: 'notes', brain: 'notes', essays: 'writing', substack: 'writing', blog: 'writing', cls: 'clear', exit: 'clear',
+    contact: 'socials', main: 'site', back: 'site', astronotes: 'notes', brain: 'notes', essays: 'writing', substack: 'writing', blog: 'writing', cls: 'clear', exit: 'clear',
 };
 
 function runCommand(line) {
