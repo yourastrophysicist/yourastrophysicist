@@ -35,10 +35,26 @@ Python (Astropy, NumPy, SciPy, Matplotlib) · C · Shell · VieVS · LaTeX
 
 ## Projects
 
+- [yourastro.space](https://www.yourastro.space/), my website. It tells where I come from, what I have worked on, what I hold myself to, and where my notes live, in English, Indonesian and Italian.
 - [Your AstroNotes](https://www.yourastro.space/notes/), my second brain. An open digital garden of first-year lecture notes, more than 1,100 linked notes, a Map of Content for each of the ten courses, and 25 cosmology derivations written out step by step ([source](https://github.com/yourastrophysicist/your_astronotes)).
-- [yourastro.space](https://www.yourastro.space/), my portfolio as a terminal. Type `home` to see the commands and `notes` to unlock the second brain with a small astronomy quiz.
+- [The terminal](https://www.yourastro.space/terminal/), the first version of my website, still here. Type `home` to see the commands and `notes` to unlock the second brain with a small astronomy quiz.
+- [SPHEREx](https://www.yourastro.space/SPHEREx/), coming soon. A small web tool that plays SPHEREx images of any patch of sky like a flipbook, so moving objects stand out. Built at NASA Space Apps Milano 2026 ([source](https://github.com/yourastrophysicist/SPHEREx-site)).
+- [HIPPO-C](https://github.com/doddamre/HIPPO-C), a group project for Computational Astrophysics. A transit model of HIP 67522 c, and machine learning that looks for transits in TESS data.
 - [transit-authority](https://github.com/yourastrophysicist/comp_astro_26), computational astrophysics coursework.
 
 ## About this repository
 
-The portfolio is three plain files, `index.html`, `index.css` and `index.js`, with no build step, plus a `vercel.json` that serves Your AstroNotes under `/notes`. All text lives in the arrays at the top of `index.js`. The design follows [Terminal-Portfolio](https://github.com/jackb1434/Terminal-Portfolio) by jackb1434.
+The site is plain HTML, CSS and a few lines of JavaScript, with no build step. Vercel serves it from the `main` branch.
+
+| path | what it is |
+| --- | --- |
+| `index.html`, `home.css` | the main page |
+| `i18n.js` | the Indonesian and Italian text for the main page. English lives in `index.html` |
+| `theme.js` | the light and dark button, shared by every page on the domain. Light is the default |
+| `ascii.js` | the ASCII star field behind the first screen |
+| `terminal/` | the terminal, after [Terminal-Portfolio](https://github.com/jackb1434/Terminal-Portfolio) by jackb1434 |
+| `PPIItalia/` | my PPI Italia candidacy, with the Indonesian original and English and Italian translations |
+| `img/dither/` | my own observatory photos, turned into blue dots with an ordered dither |
+| `vercel.json` | serves Your AstroNotes under `/notes` and the SPHEREx page under `/SPHEREx` |
+
+The look is one electric blue on light grey, with compressed capitals, small mono labels and flat square shapes, inspired by [nousresearch.com](https://nousresearch.com/). The fonts are Antonio, Inter Tight and JetBrains Mono.
