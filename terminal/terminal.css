@@ -17,7 +17,31 @@
     color-scheme: light;
 }
 
+:root[data-theme="dark"] {
+    --bg: #070b2e; --bg-soft: rgba(138, 146, 255, .3); --fg: #b3b8ff; --gray: #8a90d8;
+    --red: #ff6b81; --green: #c3c7ff; --lime: #c3c7ff; --yellow: #b3b8ff; --blue: #8a92ff; --pink: #a3a9ff;
+    color-scheme: dark;
+}
+
 ::selection { background: var(--fg); color: var(--bg); }
+
+/* top bar with the other pages; hidden when the terminal sits inside the main page */
+.sitebar {
+    flex: none; display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    padding: 10px 20px; border-bottom: 1px solid var(--bg-soft);
+    font: 400 15px/1 'Antonio', 'Arial Narrow', sans-serif; letter-spacing: .07em; text-transform: uppercase;
+}
+.sitebar a { color: var(--blue); text-decoration: none; }
+.sitebar a:hover, .sitebar a[aria-current] { text-decoration: underline; text-underline-offset: 4px; }
+.sitebar .mark { border: 1.5px solid var(--blue); padding: 3px 6px; font-weight: 600; letter-spacing: .02em; }
+.sitebar .spacer { flex: 1; }
+.embedded .sitebar { display: none; }
+.theme-toggle { display: inline-grid; place-items: center; width: 30px; height: 30px; padding: 0; cursor: pointer; background: transparent; color: var(--blue); border: 1px solid var(--blue); }
+.theme-toggle svg { width: 15px; height: 15px; }
+.theme-toggle .t-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .t-sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .t-moon { display: none; }
+@media (max-width: 600px) { .sitebar { padding: 8px 16px; gap: 12px; font-size: 14px; } }
 
 * {
     box-sizing: border-box;
@@ -432,4 +456,27 @@ h1 {
     .viewerBar {
         padding: 10px 16px;
     }
+}
+
+/* ---------- embedded in the main page ----------
+   Sits inside the blue window frame there, so it gets a calmer type size, a smaller banner,
+   and a prompt line that reads like the status bar of that window. */
+.embedded .terminal,
+.embedded .inputArea {
+    font-size: 15px;
+    line-height: 22px;
+}
+.embedded .terminal { padding: 14px 18px 0; }
+.embedded .banner { font-size: 11px; line-height: 13px; opacity: .85; }
+.embedded #iterm p { min-height: 22px; }
+.embedded .inputArea {
+    border-top: 1px solid var(--bg-soft);
+    padding: 10px 0 12px;
+}
+.embedded .inputArea input::placeholder { opacity: .7; }
+@media (max-width: 600px) {
+    .embedded .terminal, .embedded .inputArea { font-size: 13px; line-height: 19px; }
+    .embedded .terminal { padding: 10px 12px 0; }
+    .embedded .banner { font-size: 8px; line-height: 10px; }
+    .embedded .inputArea input { font-size: 16px; }
 }

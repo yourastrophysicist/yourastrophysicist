@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script>try{var t=localStorage.getItem("yas-theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jessica Syafaq Muthmaina | yourastro.space</title>
     <meta name="description" content="Jessica Syafaq Muthmaina, astrophysics and cosmology student from Garut, Indonesia. Research, data work, organising, a manifesto, open course notes and a terminal. In English, Indonesian and Italian.">
@@ -14,33 +15,38 @@
     <meta property="og:image:alt" content="Illustrated portrait of Jessica with teal and pink hair, holding a book in front of a telescope">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#f2f2f2">
-    <link rel="icon" type="image/png" href="/img/favicon.png">
-    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/img/favicon.png?v=2">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png?v=2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@200;400;600&family=Inter+Tight:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/home.css?v=3">
+    <link rel="stylesheet" href="/home.css?v=6">
 </head>
 <body>
     <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 
     <!-- framed first screen -->
     <div class="frame">
+        <pre class="sky" aria-hidden="true"></pre>
         <header class="top">
             <nav class="nav-l" aria-label="Sections">
                 <a href="#about" data-i18n="n.about">about</a>
                 <a href="#work" data-i18n="n.work">work</a>
+                <a href="/notes/" data-i18n="n.notes">notes</a>
             </nav>
             <a class="mark" href="/" aria-label="yourastro.space, home"><span>your</span><span>astro</span></a>
             <div class="nav-r">
-                <nav aria-label="More sections">
-                    <a href="#notes" data-i18n="n.notes">notes</a>
-                    <a href="#manifesto">manifesto</a>
+                <nav aria-label="Pages">
+                    <a href="/terminal/">terminal</a>
+                    <a href="/SPHEREx/">SPHEREx</a>
                 </nav>
+                <div class="tools">
                 <div class="lang" role="group" aria-label="Language / Bahasa / Lingua">
                     <button type="button" data-lang="en" aria-pressed="true" title="English">EN</button>
                     <button type="button" data-lang="id" aria-pressed="false" title="Bahasa Indonesia">ID</button>
                     <button type="button" data-lang="it" aria-pressed="false" title="Italiano">IT</button>
+                </div>
+                <button type="button" class="theme-toggle" aria-label="Switch to dark mode" title="Dark mode"><svg class="t-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="t-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
                 </div>
             </div>
         </header>
@@ -52,11 +58,10 @@
             <span class="cmd-keys"><span data-i18n="k.open">open</span> <kbd class="k-mod">Ctrl</kbd><kbd>K</kbd></span>
         </button>
 
-        <main id="main">
-            <section class="hero">
+        <section class="hero">
                 <p class="eyebrow" data-i18n="h.eye">M.Sc. astrophysics and cosmology · Università di Padova</p>
                 <h1>Jessica Syafaq Muthmaina</h1>
-                <p class="lede" data-i18n="h.lede">M.Sc. student in astrophysics and cosmology, year two. From Garut, Indonesia. I write essays, make videos, and keep my course notes free for anyone to read.</p>
+                <p class="lede" data-i18n="h.lede">I grew up in Garut, a small town in West Java, wanting to become an astrophysicist. Now I am in my second year of the master's in astrophysics and cosmology in Padova. I write essays, make videos, and keep my course notes free for anyone to read.</p>
                 <ul class="creds" aria-label="In short">
                     <li data-i18n="h.c1">Published VLBI research</li>
                     <li data-i18n="h.c2">Speaker, DevFest Milano 2026</li>
@@ -67,22 +72,21 @@
                     <a class="btn btn-grey" href="/notes/" data-i18n="h.b2">my notes</a>
                     <a class="btn" href="#work" data-i18n="h.b1">see my work</a>
                 </div>
-            </section>
-        </main>
+        </section>
+
+        <!-- dithered strip of my own photos, inside the frame -->
+        <figure class="strip">
+            <div class="strip-row">
+                <img src="/img/dither/obs-01.png" alt="A road lined with trees leading to an observatory dome, in blue halftone" width="720" height="900">
+                <img src="/img/dither/obs-06.png" alt="A large reflecting telescope under the open dome, in blue halftone" width="720" height="900" loading="lazy">
+                <img src="/img/dither/obs-12.png" alt="The observatory dome against the evening sky, in blue halftone" width="720" height="900" loading="lazy">
+                <img src="/img/dither/gate.png" alt="Jessica at the gate of the Osservatorio Astronomico, in blue halftone" width="900" height="1200" loading="lazy">
+            </div>
+            <figcaption data-i18n="h.cap">observatory days · photos by me</figcaption>
+        </figure>
     </div>
 
-    <!-- dithered strip of my own photos -->
-    <figure class="strip">
-        <div class="strip-row">
-            <img src="/img/dither/obs-01.png" alt="A road lined with trees leading to an observatory dome, in blue halftone" width="720" height="900">
-            <img src="/img/dither/obs-06.png" alt="A large reflecting telescope under the open dome, in blue halftone" width="720" height="900" loading="lazy">
-            <img src="/img/dither/obs-12.png" alt="The observatory dome against the evening sky, in blue halftone" width="720" height="900" loading="lazy">
-            <img src="/img/dither/gate.png" alt="Jessica at the gate of the Osservatorio Astronomico, in blue halftone" width="900" height="1200" loading="lazy">
-        </div>
-        <figcaption data-i18n="h.cap">observatory days · photos by me</figcaption>
-    </figure>
-
-    <div class="page">
+    <main id="main" class="page">
         <!-- about -->
         <section id="about" class="sec about">
             <div class="about-text">
@@ -126,14 +130,14 @@
                         <div><dt data-i18n="id.study">Study</dt><dd>UNIPD · M.Sc. · yr 2</dd></div>
                     </dl>
                 </div>
-                <p class="spec-motto" data-i18n="id.motto">Motto: a result nobody can rerun is not knowledge yet</p>
+                <p class="spec-motto" data-i18n="id.motto">Motto · a result nobody can rerun is not knowledge yet</p>
             </div>
             <div class="panel now" role="region" aria-labelledby="now-title">
                 <div class="panel-bar"><span id="now-title">now.txt</span><span>November 2026</span></div>
                 <ul>
                     <li data-i18n="now.1"><strong>Courses.</strong> Exoplanetary Astrophysics, Astro-Statistics and Cosmology, Astrophysics Laboratory 2, Computational Astrophysics.</li>
                     <li data-i18n="now.2"><strong>Lab.</strong> Transit photometry of WASP-12b with the Copernico 1.82 m telescope in Asiago.</li>
-                    <li data-i18n="now.3"><strong>Code.</strong> <a href="https://github.com/doddamre/HIPPO-C">HIPPO-C</a>, a group project for Computational Astrophysics: a transit model of HIP 67522 c, and machine learning that looks for transits in TESS data.</li>
+                    <li data-i18n="now.3"><strong>Code.</strong> <a href="https://github.com/doddamre/HIPPO-C">HIPPO-C</a>, a group project for Computational Astrophysics. We model the transit of HIP 67522 c, and train machine learning to find transits in TESS data.</li>
                     <li data-i18n="now.4"><strong>Last talk.</strong> <a href="https://github.com/yourastrophysicist/gdg-devfest-milano-2026">AI Wrote It, You Pushed It, Who Checks It?</a> at DevFest Milano.</li>
                     <li data-i18n="now.5"><strong>This weekend.</strong> NASA Space Apps Milano, 14 and 15 November.</li>
                 </ul>
@@ -144,36 +148,36 @@
         <section id="work" class="sec">
             <p class="eyebrow" data-i18n="w.label">01 · what I have done so far</p>
             <h2 class="giant" data-i18n="w.h">Work</h2>
-            <p class="sub" data-i18n="w.sub">Research, data work, writing and organising, from Yogyakarta and Garut to Padova.</p>
+            <p class="sub" data-i18n="w.sub">The road to Padova went through a student newspaper, a research agency, data on children's health and a movement in my hometown. From all of it I learned one thing. A good organisation is one you can ask, and one you can rely on.</p>
 
             <div class="cv">
                 <div class="panel">
                     <div class="panel-bar"><span>research_and_data.txt</span><span>05</span></div>
                     <ol class="roles">
                         <li>
-                            <h3 data-i18n="r1.h">Research intern and bachelor thesis, <a href="https://www.brin.go.id/">BRIN</a></h3>
-                            <p class="meta" data-i18n="r1.m">National Research and Innovation Agency, Indonesia</p>
-                            <p data-i18n="r1.d">Quasar position stability from VLBI time series, measured with the Allan standard deviation in a Python pipeline. Published in the Journal of Physics: Conference Series.</p>
-                        </li>
-                        <li>
-                            <h3 data-i18n="r2.h">Data analyst, <a href="https://www.equityinitiative.org/">The Equity Initiative</a></h3>
-                            <p class="meta">Indonesia</p>
-                            <p data-i18n="r2.d">Analysed stunting reduction programmes in East Nusa Tenggara and West Java.</p>
-                        </li>
-                        <li>
                             <h3 data-i18n="r3.h">Head of research and development, <a href="https://balairungpress.com/">BPPM Balairung UGM</a></h3>
                             <p class="meta">Yogyakarta · 2020</p>
-                            <p data-i18n="r3.d">The student press of Universitas Gadjah Mada, founded in 1985. My division ran polls, surveys and media analysis for students. I was also a reporter and editor at balairungpress.com and wrote for Jurnal Balairung.</p>
-                        </li>
-                        <li>
-                            <h3 data-i18n="r4.h">Speaker, <a href="https://2026.devfestmilano.it/it/speakers/jessica-syafaq-muthmaina/">Google DevFest Milano 2026</a></h3>
-                            <p class="meta">Milano · 2026</p>
-                            <p data-i18n="r4.d">Lightning talk <a href="https://github.com/yourastrophysicist/gdg-devfest-milano-2026">AI Wrote It, You Pushed It, Who Checks It?</a>, on who owes the checking when AI produces the work.</p>
+                            <p data-i18n="r3.d">My first lessons with data happened at the student press of UGM, founded in 1985. I led the research division, which ran polls, surveys and media analysis for students. I also reported and edited for balairungpress.com and wrote for Jurnal Balairung.</p>
                         </li>
                         <li>
                             <h3 data-i18n="r5.h">Writer</h3>
                             <p class="meta" data-i18n="r5.m">since 2020</p>
-                            <p data-i18n="r5.d">Essays on astrophysics, data and society on <a href="https://yourastrophysicist.substack.com/">Substack</a>, <a href="https://syafaqmuth.medium.com/">Medium</a> and <a href="https://omong-omong.com/user/yourastrophysicist/">Omong-Omong</a>, mostly in Indonesian.</p>
+                            <p data-i18n="r5.d">I started writing on <a href="https://syafaqmuth.medium.com/">Medium</a> in 2020 and never really stopped. Today I write about astrophysics, data and society on <a href="https://yourastrophysicist.substack.com/">Substack</a> and <a href="https://omong-omong.com/user/yourastrophysicist/">Omong-Omong</a>, mostly in Indonesian, so the people at home can read it too.</p>
+                        </li>
+                        <li>
+                            <h3 data-i18n="r1.h">Research intern and bachelor thesis, <a href="https://www.brin.go.id/">BRIN</a></h3>
+                            <p class="meta" data-i18n="r1.m">National Research and Innovation Agency, Indonesia</p>
+                            <p data-i18n="r1.d">For my internship and bachelor thesis I followed one quasar, 4C31.61, through 33 years of VLBI observations. I measured how steady its position stays with the Allan standard deviation, in a Python pipeline I wrote myself. The work was published in the Journal of Physics Conference Series.</p>
+                        </li>
+                        <li>
+                            <h3 data-i18n="r2.h">Data analyst, <a href="https://www.equityinitiative.org/">The Equity Initiative</a></h3>
+                            <p class="meta">Indonesia</p>
+                            <p data-i18n="r2.d">Before Italy I worked as a data analyst on stunting reduction programmes in East Nusa Tenggara and West Java. Every dataset is about the people behind the numbers, and here the people were children.</p>
+                        </li>
+                        <li>
+                            <h3 data-i18n="r4.h">Speaker, <a href="https://2026.devfestmilano.it/it/speakers/jessica-syafaq-muthmaina/">Google DevFest Milano 2026</a></h3>
+                            <p class="meta">Milano · 2026</p>
+                            <p data-i18n="r4.d">In October 2026 I gave a lightning talk called <a href="https://github.com/yourastrophysicist/gdg-devfest-milano-2026">AI Wrote It, You Pushed It, Who Checks It?</a>. My answer fits in one line. Whoever publishes the work owes the checking.</p>
                         </li>
                     </ol>
                 </div>
@@ -182,24 +186,24 @@
                     <div class="panel-bar"><span>organising.txt</span><span>04</span></div>
                     <ol class="roles">
                         <li>
-                            <h3 data-i18n="o1.h">Vice chair, PPI Triveneto</h3>
-                            <p class="meta">Veneto · 2026</p>
-                            <p data-i18n="o1.d">We ran the Indonesian student association of the region on one vision, responsive and solution-minded, and three missions: administrative information, keeping in touch, and members' voices. We chose the board by what people had already done, and put administrative information first.</p>
-                        </li>
-                        <li>
-                            <h3 data-i18n="o2.h">Italy coordinator, <a href="https://www.instagram.com/italiabergerak/">Italia Bergerak</a></h3>
-                            <p class="meta" data-i18n="o2.m">Italy · 2026</p>
-                            <p data-i18n="o2.d">Part of Indonesia Bergerak, a network of Indonesian students and diaspora. On 29 June 2026, with Monday Screen and Greenpeace Padova, we screened the documentary <i>Pesta Babi</i> (Pig Feast) at Teatro Ruzante, Padova, followed by a discussion with the director Cypri Dale.</p>
+                            <h3 data-i18n="o4.h">Co-founder, <a href="https://www.instagram.com/ruang_postulat/">Ruang Postulat</a></h3>
+                            <p class="meta" data-i18n="o4.m">since 2024</p>
+                            <p data-i18n="o4.d">With friends I started a club for theoretical physics, and I made its posts. They have reached more than 23,000 views.</p>
                         </li>
                         <li>
                             <h3 data-i18n="o3.h">Founder, <a href="https://www.instagram.com/sadarsetara/">Sadar Setara</a></h3>
                             <p class="meta" data-i18n="o3.m">Garut · since 2025</p>
-                            <p data-i18n="o3.d">A movement born from gender issues in Garut. Its manifesto is out in Indonesian, English, Italian and French. On 27 March 2025 we started the first Aksi Kamisan in Garut, against the revision of the TNI law and for civilian supremacy. We also write about safe spaces and sexual violence, with contacts of services for survivors.</p>
+                            <p data-i18n="o3.d">Garut is my hometown, and the gender issues there needed a place to be talked about. So I founded Sadar Setara, a space to learn and to speak up. Its manifesto now exists in Indonesian, English, Italian and French. On 27 March 2025 we held the first Aksi Kamisan in Garut, against the revision of the TNI law and for civilian supremacy.</p>
                         </li>
                         <li>
-                            <h3 data-i18n="o4.h">Co-founder, <a href="https://www.instagram.com/ruang_postulat/">Ruang Postulat</a></h3>
-                            <p class="meta" data-i18n="o4.m">since 2024</p>
-                            <p data-i18n="o4.d">A theoretical physics club. I make its posts, which have reached more than 23,000 views.</p>
+                            <h3 data-i18n="o1.h">Vice chair, PPI Triveneto</h3>
+                            <p class="meta">Veneto · 2026</p>
+                            <p data-i18n="o1.d">In Padova I became vice chair of PPI Triveneto. Our vision was simple, responsive and solution-minded. The biggest lesson I took from it is that what helps students most is not an event, but the right and accurate answer.</p>
+                        </li>
+                        <li>
+                            <h3 data-i18n="o2.h">Italy coordinator, <a href="https://www.instagram.com/italiabergerak/">Italia Bergerak</a></h3>
+                            <p class="meta" data-i18n="o2.m">Italy · 2026</p>
+                            <p data-i18n="o2.d">As the Italy contact for Italia Bergerak, I helped bring the documentary <i>Pesta Babi</i> (Pig Feast) to Teatro Ruzante in Padova on 29 June 2026, with Monday Screen and Greenpeace Padova. The film follows the seizure of 2.5 million hectares of customary land for agro-industrial projects. After the screening, the director Cypri Dale talked with the audience.</p>
                         </li>
                     </ol>
                 </div>
@@ -286,21 +290,31 @@
 
         <!-- notes -->
         <section id="notes" class="sec">
-            <p class="eyebrow" data-i18n="nt.label">04 · my second brain, on ten disks</p>
+            <p class="eyebrow" data-i18n="nt.label">04 · my second brain, in ten maps</p>
             <h2 class="giant" data-i18n="nt.h">Notes</h2>
-            <p class="sub" data-i18n="nt.sub">Year one of the Padova M.Sc. as more than 1,100 linked notes, one map for each course, and derivations written so that no step is skipped. Pick a disk.</p>
-            <ul class="disks">
-                <li><a href="/notes/04_Atlas/Fundamentals_Astrophysics_Cosmology_MOC.html"><span class="thumb" style="--g:15%"><b>01</b></span><span class="tag">S1</span><strong>Fundamentals of Astrophysics and Cosmology</strong><small>Bartolo, Rodighiero</small></a></li>
-                <li><a href="/notes/04_Atlas/Observational_Astrophysics_MOC.html"><span class="thumb" style="--g:55%"><b>02</b></span><span class="tag">S1</span><strong>Observational Astrophysics</strong><small>Cassata</small></a></li>
-                <li><a href="/notes/04_Atlas/General_Relativity_MOC.html"><span class="thumb" style="--g:35%"><b>03</b></span><span class="tag">S1</span><strong>General Relativity for Astrophysics and Cosmology</strong><small>D'Eramo</small></a></li>
-                <li><a href="/notes/04_Atlas/Mathematical_Numerical_Methods_MOC.html"><span class="thumb" style="--g:80%"><b>04</b></span><span class="tag">S1</span><strong>Mathematical and Numerical Methods</strong><small>Mapelli</small></a></li>
-                <li><a href="/notes/04_Atlas/Lab_High-Energy_MOC.html"><span class="thumb" style="--g:25%"><b>05</b></span><span class="tag">S1</span><strong>Astrophysics Laboratory 1, High Energy</strong><small>Ciroi</small></a></li>
-                <li><a href="/notes/04_Atlas/Astrophysics_of_Galaxies_MOC.html"><span class="thumb" style="--g:65%"><b>06</b></span><span class="tag">S2</span><strong>Astrophysics of Galaxies</strong><small>Pizzella</small></a></li>
-                <li><a href="/notes/04_Atlas/Stellar_Astrophysics_MOC.html"><span class="thumb" style="--g:40%"><b>07</b></span><span class="tag">S2</span><strong>Stellar Astrophysics</strong><small>Milone</small></a></li>
-                <li><a href="/notes/04_Atlas/Astronomical_Interferometry_MOC.html"><span class="thumb" style="--g:90%"><b>08</b></span><span class="tag">S2</span><strong>Astronomical Interferometry</strong><small>D'Onofrio</small></a></li>
-                <li><a href="/notes/04_Atlas/Observational_Cosmology_MOC.html"><span class="thumb" style="--g:5%"><b>09</b></span><span class="tag">S2</span><strong>Observational Cosmology</strong><small>Rodighiero, Cassata</small></a></li>
-                <li><a href="/notes/04_Atlas/Astronomical_Spectroscopy_MOC.html"><span class="thumb" style="--g:50%"><b>10</b></span><span class="tag">S2</span><strong>Astronomical Spectroscopy</strong><small>Ciroi</small></a></li>
-            </ul>
+            <p class="sub" data-i18n="nt.sub">In my first year in Padova I wrote down everything, and the notes grew into more than 1,100 linked pages. Each course has its own map, and every derivation keeps all of its steps. Pick a course.</p>
+            <div class="courses">
+                <div class="panel">
+                    <div class="panel-bar"><span data-i18n="nt.s1">semester 1</span><span>05</span></div>
+                    <ol class="cindex">
+                    <li><a href="/notes/04_Atlas/Fundamentals_Astrophysics_Cosmology_MOC.html"><span class="ci-n">01</span><span class="ci-t"><strong>Fundamentals of Astrophysics and Cosmology</strong><small>Bartolo, Rodighiero</small></span><span class="ci-go" aria-hidden="true">&#8599;</span></a></li>
+                    <li><a href="/notes/04_Atlas/Observational_Astrophysics_MOC.html"><span class="ci-n">02</span><span class="ci-t"><strong>Observational Astrophysics</strong><small>Cassata</small></span><span class="ci-go" aria-hidden="true">&#8599;</span></a></li>
+                    <li><a href="/notes/04_Atlas/General_Relativity_MOC.html"><span class="ci-n">03</span><span class="ci-t"><strong>General Relativity for Astrophysics and Cosmology</strong><small>D'Eramo</small></span><span class="ci-go" aria-hidden="true">&#8599;</span></a></li>
+                    <li><a href="/notes/04_Atlas/Mathematical_Numerical_Methods_MOC.html"><span class="ci-n">04</span><span class="ci-t"><strong>Mathematical and Numerical Methods</strong><small>Mapelli</small></span><span class="ci-go" aria-hidden="true">&#8599;</span></a></li>
+                    <li><a href="/notes/04_Atlas/Lab_High-Energy_MOC.html"><span class="ci-n">05</span><span class="ci-t"><strong>Astrophysics Laboratory 1, High Energy</strong><small>Ciroi</small></span><span class="ci-go" aria-hidden="true">&#8599;</span></a></li>
+                    </ol>
+                </div>
+                <div class="panel">
+                    <div class="panel-bar"><span data-i18n="nt.s2">semester 2</span><span>05</span></div>
+                    <ol class="cindex">
+                    <li><a href="/notes/04_Atlas/Astrophysics_of_Galaxies_MOC.html"><span class="ci-n">06</span><span class="ci-t"><strong>Astrophysics of Galaxies</strong><small>Pizzella</small></span><span class="ci-go" aria-hidden="true">&#8599;</span></a></li>
+                    <li><a href="/notes/04_Atlas/Stellar_Astrophysics_MOC.html"><span class="ci-n">07</span><span class="ci-t"><strong>Stellar Astrophysics</strong><small>Milone</small></span><span class="ci-go" aria-hidden="true">&#8599;</span></a></li>
+                    <li><a href="/notes/04_Atlas/Astronomical_Interferometry_MOC.html"><span class="ci-n">08</span><span class="ci-t"><strong>Astronomical Interferometry</strong><small>D'Onofrio</small></span><span class="ci-go" aria-hidden="true">&#8599;</span></a></li>
+                    <li><a href="/notes/04_Atlas/Observational_Cosmology_MOC.html"><span class="ci-n">09</span><span class="ci-t"><strong>Observational Cosmology</strong><small>Rodighiero, Cassata</small></span><span class="ci-go" aria-hidden="true">&#8599;</span></a></li>
+                    <li><a href="/notes/04_Atlas/Astronomical_Spectroscopy_MOC.html"><span class="ci-n">10</span><span class="ci-t"><strong>Astronomical Spectroscopy</strong><small>Ciroi</small></span><span class="ci-go" aria-hidden="true">&#8599;</span></a></li>
+                    </ol>
+                </div>
+            </div>
             <p class="center"><a class="btn" href="/notes/" data-i18n="nt.b">open Your AstroNotes</a></p>
         </section>
 
@@ -308,10 +322,15 @@
         <section id="terminal" class="sec">
             <p class="eyebrow" data-i18n="tm.label">05 · or ask the terminal</p>
             <h2 class="giant">Terminal</h2>
-            <p class="sub" data-i18n="tm.sub">The same site as a shell. Click inside, type <code>home</code>, and the commands are clickable too. <code>notes</code> unlocks my second brain after a small astronomy quiz.</p>
-            <div class="panel term">
-                <div class="panel-bar"><span>~/yourastro.space</span><a href="/terminal/" data-i18n="tm.b">full screen</a></div>
+            <p class="sub" data-i18n="tm.sub">Before this page existed, my website was a terminal. It is still here. Click inside and type <code>home</code>, or just click the commands. <code>notes</code> opens my second brain after a small astronomy quiz.</p>
+            <div class="term">
+                <div class="term-bar">
+                    <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="term-title">visitor@yourastro.space : ~</span>
+                    <a class="term-full" href="/terminal/"><span data-i18n="tm.b">full screen</span> &#8599;</a>
+                </div>
                 <iframe src="/terminal/" title="Interactive terminal portfolio" loading="lazy"></iframe>
+                <div class="term-status" aria-hidden="true"><span>shell · en</span><span>try home · cmds · notes · quiz</span></div>
             </div>
         </section>
 
@@ -326,7 +345,7 @@
                 </details>
                 <details>
                     <summary data-i18n="fq2">What is Your AstroNotes?</summary>
-                    <p data-i18n="fq2.a">My second brain from the first year of the Padova M.Sc.: more than 1,100 linked notes, a map for each of the ten courses, and cosmology derivations written so that no step is skipped. It lives at <a href="/notes/">yourastro.space/notes</a>.</p>
+                    <p data-i18n="fq2.a">My second brain from the first year of the Padova M.Sc. It has more than 1,100 linked notes, a map for each of the ten courses, and cosmology derivations written so that no step is skipped. It lives at <a href="/notes/">yourastro.space/notes</a>.</p>
                 </details>
                 <details>
                     <summary data-i18n="fq3">Why is there a quiz in front of the notes?</summary>
@@ -338,7 +357,7 @@
                 </details>
                 <details>
                     <summary data-i18n="fq5">Do you use AI?</summary>
-                    <p data-i18n="fq5.a">Yes, every day. Claude Code turns my lecture transcripts into notes and checks them against the slides. The rules are strict: anything the lecturer did not say is labelled as an addition, unsure numbers are marked to verify, and there is no result without a calculation or a source. The studying stays mine. I wrote about it in <a href="https://yourastrophysicist.substack.com/p/the-telescope-also-has-a-selection">The Telescope Also Has a Selection Function</a>.</p>
+                    <p data-i18n="fq5.a">Yes, every day. Claude Code turns my lecture transcripts into notes and checks them against the slides. The rules are strict. Anything the lecturer did not say is labelled as an addition, unsure numbers are marked to verify, and there is no result without a calculation or a source. The studying stays mine. I wrote about it in <a href="https://yourastrophysicist.substack.com/p/the-telescope-also-has-a-selection">The Telescope Also Has a Selection Function</a>.</p>
                 </details>
                 <details>
                     <summary data-i18n="fq6">Why do you write in Indonesian?</summary>
@@ -353,6 +372,19 @@
 
         <!-- call to action + every link -->
         <section id="contact" class="sec cta">
+<pre class="pc" aria-hidden="true">
+ .------------------------.
+ |  .------------------.  |
+ |  | &gt; hello_         |  |
+ |  |                  |  |
+ |  |    (^_^)   &lt;3    |  |
+ |  |                  |  |
+ |  '------------------'  |
+ |   [==]   o o o   ___   |
+ '------------------------'
+        __|______|__
+       /____________\
+</pre>
             <p class="eyebrow" data-i18n="c.label">want me to talk, write or collaborate?</p>
             <h2 class="giant" data-i18n="c.h">Say hello</h2>
             <p class="btns"><a class="btn" href="mailto:jessicasyafaq.muthmaina@studenti.unipd.it" data-i18n="c.b">write to me</a></p>
@@ -369,7 +401,7 @@
                 <li><a class="btn btn-grey btn-sm" href="https://github.com/yourastrophysicist">GitHub</a></li>
             </ul>
         </section>
-    </div>
+    </main>
 
     <footer>
         <div class="ticker" role="region" aria-label="News">
@@ -389,7 +421,7 @@
         <div class="foot-row">
             <a class="mark" href="/" aria-label="yourastro.space, home"><span>your</span><span>astro</span></a>
             <nav aria-label="Footer">
-                <a href="#about" data-i18n="n.about">about</a><a href="#work" data-i18n="n.work">work</a><a href="#manifesto">manifesto</a><a href="#notes" data-i18n="n.notes">notes</a><a href="#terminal">terminal</a><a href="#faq" data-i18n="n.faq">faqs</a>
+                <a href="#about" data-i18n="n.about">about</a><a href="#work" data-i18n="n.work">work</a><a href="#manifesto">manifesto</a><a href="/notes/" data-i18n="n.notes">notes</a><a href="/terminal/">terminal</a><a href="/SPHEREx/">SPHEREx</a><a href="#faq" data-i18n="n.faq">faqs</a>
             </nav>
             <ul class="icons" aria-label="Elsewhere">
                 <li><a href="https://github.com/yourastrophysicist" aria-label="GitHub" title="GitHub" style="--icon: url(/img/icons/github.svg)"></a></li>
@@ -402,6 +434,12 @@
         </div>
         <p data-i18n="foot">Padova, Italy · 45.4° N, 11.9° E · <a href="https://github.com/yourastrophysicist/yourastrophysicist">source</a> · plain HTML, CSS and a few lines of JS</p>
     </footer>
+
+    <button class="cmdbar cmdfloat" type="button" aria-haspopup="dialog" aria-controls="cmdk" tabindex="-1">
+        <span class="cmd-glyph" aria-hidden="true">&gt;_</span>
+        <span class="cmd-text"><b>yourastro</b> : <span data-i18n="k.bar">jump to a section</span></span>
+        <span class="cmd-keys"><kbd class="k-mod">Ctrl</kbd><kbd>K</kbd></span>
+    </button>
 
     <!-- jump palette -->
     <dialog id="cmdk" class="cmdk" aria-label="Jump to a section">
@@ -420,6 +458,8 @@
             <li><a href="#faq"><span data-i18n="n.faq">faqs</span><small>#faq</small></a></li>
             <li><a href="#contact"><span data-i18n="k.contact">contact</span><small>#contact</small></a></li>
             <li><a href="/notes/"><span>Your AstroNotes</span><small>/notes</small></a></li>
+            <li><a href="/terminal/"><span>Terminal</span><small>/terminal</small></a></li>
+            <li><a href="/SPHEREx/"><span>SPHEREx</span><small>/SPHEREx</small></a></li>
             <li><a href="https://yourastro.notion.site/"><span data-i18n="c.notion">portfolio and CV</span><small>notion</small></a></li>
             <li><a href="https://yourastrophysicist.substack.com/"><span>Substack</span><small>essays</small></a></li>
             <li><a href="https://github.com/yourastrophysicist"><span>GitHub</span><small>code</small></a></li>
@@ -428,6 +468,8 @@
     </dialog>
 
 <script src="/i18n.js?v=4"></script>
+<script src="/theme.js?v=2"></script>
+<script src="/ascii.js?v=2"></script>
 <script>
 /* carousel */
 document.querySelectorAll('.carousel').forEach(function (c) {
@@ -464,7 +506,11 @@ document.querySelectorAll('.carousel').forEach(function (c) {
         links.forEach(function (a) { a.classList.remove('on'); });
         var v = visible(); if (v[0]) v[0].classList.add('on');
     }
-    document.querySelector('.cmdbar').addEventListener('click', open);
+    document.querySelectorAll('.cmdbar').forEach(function (b) { b.addEventListener('click', open); });
+    var frame = document.querySelector('.frame'), flo = document.querySelector('.cmdfloat');
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) {
+        var away = !es[0].isIntersecting; flo.classList.toggle('show', away); flo.tabIndex = away ? 0 : -1;
+    }, { threshold: 0.05 }).observe(frame);
     document.addEventListener('keydown', function (e) {
         if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); dlg.open ? dlg.close() : open(); }
     });

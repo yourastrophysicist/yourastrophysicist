@@ -10,6 +10,56 @@
       "source": "/terminal",
       "destination": "/terminal/",
       "permanent": true
+    },
+    {
+      "source": "/SPHEREx",
+      "destination": "/SPHEREx/",
+      "permanent": true
+    },
+    {
+      "source": "/spherex",
+      "destination": "/SPHEREx/",
+      "permanent": true
+    },
+    {
+      "source": "/spherex/",
+      "destination": "/SPHEREx/",
+      "permanent": true
+    },
+    {
+      "source": "/PPIItalia",
+      "destination": "/PPIItalia/",
+      "permanent": true
+    },
+    {
+      "source": "/ppiitalia",
+      "destination": "/PPIItalia/",
+      "permanent": true
+    },
+    {
+      "source": "/ppiitalia/",
+      "destination": "/PPIItalia/",
+      "permanent": true
+    },
+    {
+      "source": "/PPIitalia",
+      "destination": "/PPIItalia/",
+      "permanent": true
+    },
+    {
+      "source": "/PPIitalia/",
+      "destination": "/PPIItalia/",
+      "permanent": true
+    },
+    {
+      "source": "/ppi-italia",
+      "destination": "/PPIItalia/",
+      "permanent": true
+    },
+    {
+      "source": "/ppi",
+      "destination": "/PPIItalia/",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -20,6 +70,14 @@
     {
       "source": "/notes/:path*",
       "destination": "https://yourastrophysicist.github.io/your_astronotes/:path*"
+    },
+    {
+      "source": "/SPHEREx/",
+      "destination": "https://yourastrophysicist.github.io/SPHEREx-site/"
+    },
+    {
+      "source": "/SPHEREx/:path*",
+      "destination": "https://yourastrophysicist.github.io/SPHEREx-site/:path*"
     },
     {
       "source": "/(.*)",
