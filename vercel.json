@@ -92,5 +92,10 @@
       "source": "/(.*)",
       "destination": "/$1"
     }
-  ]
+  ],
+  "functions": {
+    "api/spherex.js": {
+      "maxDuration": 60
+    }
+  }
 }
