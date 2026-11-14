@@ -1,3 +1,5 @@
+// AI disclosure: written with Claude (Anthropic) during NASA Space Apps Milano 2026, from the team's instructions,
+// and checked by the team. See SPHEREx-site README, "AI use".
 // SPHEREx relay for yourastro.space/SPHEREx: any sky position, not only the five targets.
 // NASA/IPAC IRSA does not send CORS headers, so the browser cannot read SPHEREx cutouts itself.
 // This function asks IRSA for them, cuts each one onto the page's fixed north-up grid, and hands back
