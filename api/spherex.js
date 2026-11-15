@@ -8,8 +8,10 @@
 //   GET /api/spherex?op=find&ra=..&dec=..&band=D1          every DR1 exposure covering the point (IRSA SIA)
 //   GET /api/spherex?op=frame&uri=..&cra=..&cdec=..&size=..&gra=..&gdec=..&npix=..&tra=..&tdec=..&mask=0|1
 //   GET /api/spherex?op=cat&kind=gaia|catwise&ra=..&dec=..&r=..   catalogue sources for the overlays (IRSA TAP)
+//   GET /api/spherex?op=exo&q=TRAPPIST                     exoplanets and hosts by name (NASA Exoplanet Archive)
 //
-// It only ever fetches from irsa.ipac.caltech.edu, and only SPHEREx file paths, so it is not an open proxy.
+// It only fetches SPHEREx file paths from irsa.ipac.caltech.edu, a fixed Gaia query from ESA, and a fixed
+// planet query from the NASA Exoplanet Archive (which also sends no CORS headers), so it is not an open proxy.
 "use strict";
 
 const IRSA = "https://irsa.ipac.caltech.edu";
@@ -258,6 +260,23 @@ async function cat(q) {
   return ask(`${IRSA}/TAP/sync`, query, 3, 30000);
 }
 
+// ---------- exoplanet hosts by name, from the NASA Exoplanet Archive (Planetary Systems Composite table) ----------
+// Its positions are Gaia DR2 at epoch 2015.5 (Barnard's star checks out to the mas), so the page sets that epoch.
+const EXO_TAP = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync";
+async function exo(q) {
+  const term = String(q.q || "").trim().toUpperCase();
+  if (term.length < 2 || term.length > 40 || !/^[A-Z0-9 .+\-_'()]+$/.test(term)) throw new RangeError("q must be 2 to 40 letters, digits, spaces or . + - _ ' ( )");
+  const like = term.replace(/'/g, "''");
+  const adql = "SELECT TOP 40 pl_name, hostname, ra, dec, sy_pmra, sy_pmdec, sy_dist, sy_kmag, disc_year, discoverymethod FROM pscomppars " +
+    `WHERE UPPER(pl_name) LIKE '%${like}%' OR UPPER(hostname) LIKE '%${like}%' ORDER BY hostname, pl_name`;
+  const r = await fetchRetry(`${EXO_TAP}?${new URLSearchParams({ query: adql, format: "json" })}`, {}, 3, 25000);
+  const f = (v) => (v === null || v === undefined || v === "" ? null : +v);
+  return (await r.json()).map((x) => ({
+    name: x.pl_name, host: x.hostname, ra: f(x.ra), dec: f(x.dec), pmra: f(x.sy_pmra), pmdec: f(x.sy_pmdec),
+    dist: f(x.sy_dist), kmag: f(x.sy_kmag), year: f(x.disc_year), method: x.discoverymethod || "",
+  })).filter((x) => x.ra !== null && x.dec !== null);
+}
+
 module.exports = async function handler(req, res) {
   const q = Object.fromEntries(new URL(req.url, "http://x").searchParams);
   const send = (code, obj, cache) => {
@@ -270,10 +289,12 @@ module.exports = async function handler(req, res) {
     if (q.op === "find") return send(200, { rows: await find(q) }, "public, s-maxage=86400");
     if (q.op === "frame") return send(200, await frame(q), "public, s-maxage=2592000, immutable");
     if (q.op === "cat") return send(200, { rows: await cat(q) }, "public, s-maxage=604800");
-    return send(400, { error: "op must be find, frame or cat" });
+    if (q.op === "exo") return send(200, { rows: await exo(q) }, "public, s-maxage=86400");
+    return send(400, { error: "op must be find, frame, cat or exo" });
   } catch (e) {
     return send(e instanceof RangeError ? 400 : 502, { error: e.message || String(e) });
   }
 };
 module.exports.cutToGrid = cutToGrid;
 module.exports.votable = votable;
+module.exports.exo = exo;
