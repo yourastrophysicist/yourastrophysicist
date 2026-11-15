@@ -27,6 +27,11 @@
       "permanent": true
     },
     {
+      "source": "/SPHEREx/presentation",
+      "destination": "/SPHEREx/presentation/",
+      "permanent": true
+    },
+    {
       "source": "/spherex/",
       "destination": "/SPHEREx/",
       "permanent": true
