@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.6 -1.6 3.2 3.2">
+  <!-- salam tiga jari, the same drawing as \tanda in the PPI carousels (gaya_web.tex), y flipped for SVG -->
+  <circle cx="0" cy="0" r="1.42" fill="#F2F2F2" stroke="#141EF0" stroke-width="0.12"/>
+  <g transform="translate(0 -0.12)" stroke-linecap="round" fill="none">
+    <rect x="-0.5" y="0.05" width="1" height="0.95" rx="0.14" fill="#141EF0"/>
+    <path d="M-0.33 -0.05V-0.78" stroke="#009646" stroke-width="0.25"/>
+    <path d="M0 -0.05V-0.92" stroke="#005FC8" stroke-width="0.25"/>
+    <path d="M0.33 -0.05V-0.8" stroke="#E12328" stroke-width="0.25"/>
+    <path d="M0.42 0.12V0.3" stroke="#141EF0" stroke-width="0.22"/>
+    <path d="M-0.62 0.75L-0.68 0.42L0.18 0.32" stroke="#454ABE" stroke-width="0.22" stroke-linejoin="round"/>
+  </g>
+</svg>
