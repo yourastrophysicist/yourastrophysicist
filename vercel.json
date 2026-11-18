@@ -37,6 +37,41 @@
       "permanent": true
     },
     {
+      "source": "/PPIItalia/saran",
+      "destination": "/PPIItalia/saran/",
+      "permanent": true
+    },
+    {
+      "source": "/ppiitalia/saran",
+      "destination": "/PPIItalia/saran/",
+      "permanent": true
+    },
+    {
+      "source": "/ppiitalia/saran/",
+      "destination": "/PPIItalia/saran/",
+      "permanent": true
+    },
+    {
+      "source": "/ppi/saran",
+      "destination": "/PPIItalia/saran/",
+      "permanent": true
+    },
+    {
+      "source": "/saran",
+      "destination": "/PPIItalia/saran/",
+      "permanent": true
+    },
+    {
+      "source": "/PPIItalia/tanya",
+      "destination": "/PPIItalia/saran/",
+      "permanent": true
+    },
+    {
+      "source": "/tanya",
+      "destination": "/PPIItalia/saran/",
+      "permanent": true
+    },
+    {
       "source": "/PPIItalia",
       "destination": "/PPIItalia/",
       "permanent": true
@@ -101,6 +136,9 @@
   "functions": {
     "api/spherex.js": {
       "maxDuration": 60
+    },
+    "api/saran.js": {
+      "maxDuration": 10
     }
   }
 }

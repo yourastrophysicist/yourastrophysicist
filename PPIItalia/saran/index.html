@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <script>try{var t=localStorage.getItem("yas-theme");if(t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruang Tanya PPI Italia</title>
+    <meta name="description" content="Ruang tanya tanpa nama untuk pelajar Indonesia di Italia. Tulis keresahan, pertanyaan, kritik, atau saran untuk PPI Italia, dukung pertanyaan orang lain, dan ikut menjawab secara anonim.">
+    <meta property="og:title" content="Ruang Tanya PPI Italia">
+    <meta property="og:description" content="Tanya apa saja tanpa nama. Pertanyaan yang paling banyak didukung dijawab lebih dulu.">
+    <meta property="og:url" content="https://www.yourastro.space/PPIItalia/saran/">
+    <meta property="og:image" content="https://www.yourastro.space/img/jessica-portrait.jpg">
+    <link rel="canonical" href="https://www.yourastro.space/PPIItalia/saran/">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#f2f2f2">
+    <link rel="icon" type="image/png" href="/img/favicon.png?v=2">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png?v=2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@200;300;400;600&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/home.css?v=6">
+    <link rel="stylesheet" href="/PPIItalia/ppi.css?v=8">
+    <style>
+    /* the question box only; frame, header, buttons, footer and colours come from home.css and ppi.css */
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .s-wrap { color: var(--ink); }
+    .s-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; margin: 0 0 56px; }
+    .s-stats div { background: var(--panel); box-shadow: 0 0 0 1px var(--blue-line); padding: 16px 18px; color: var(--blue); }
+    .s-stats b { display: block; font: 200 clamp(44px, 6vw, 72px)/0.9 var(--display); }
+    .s-stats span { font: 400 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+
+    .s-h { font: 200 clamp(48px, 7vw, 96px)/0.9 var(--display); text-transform: uppercase; color: var(--blue); margin: 0 0 20px; }
+    .s-sub { font-size: 17px; line-height: 1.6; max-width: 60ch; margin: 0 0 24px; }
+    .s-label { display: block; margin: 0 0 8px; font: 600 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--blue); }
+
+    /* composer */
+    .ask { background: var(--panel); box-shadow: 0 0 0 1px var(--blue-line); padding: 22px; margin: 0 0 72px; }
+    .ask textarea, .reply-form textarea, .ans-form textarea, .s-search {
+        width: 100%; box-sizing: border-box; border: 0; border-radius: 0; background: var(--surface); color: var(--ink);
+        box-shadow: inset 0 0 0 1px var(--blue-line); padding: 14px; font: 400 17px/1.5 var(--text); resize: vertical; }
+    .ask textarea { min-height: 130px; }
+    .ask textarea:focus, .reply-form textarea:focus, .ans-form textarea:focus, .s-search:focus, .cats-pick label:focus-within { outline: 2px solid var(--blue); outline-offset: 1px; }
+    .count { display: flex; justify-content: space-between; gap: 12px; margin: 8px 0 18px; font: 400 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--blue); opacity: .8; }
+    .count.over { opacity: 1; color: #d0302b; }
+    .cats-pick { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 20px; border: 0; padding: 0; }
+    .cats-pick legend { padding: 0; }
+    .cats-pick label { cursor: pointer; }
+    .cats-pick input { position: absolute; opacity: 0; pointer-events: none; }
+    .cats-pick span, .chip { display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; background: var(--grey-btn); color: var(--blue);
+        font: 400 15px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; }
+    .cats-pick input:checked + span { background: var(--blue); color: var(--bg); }
+    .agree { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; margin: 0 0 18px; font-size: 15px; line-height: 1.5; cursor: pointer; }
+    .agree input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--blue); }
+    .agree a { color: var(--blue); }
+    .ask-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .ask-row .btn { border: 0; cursor: pointer; }
+    .ask-row .btn[disabled] { opacity: .45; cursor: not-allowed; }
+    .msg { font: 400 12px/1.5 var(--mono); text-transform: uppercase; letter-spacing: .04em; color: var(--blue); margin: 0; }
+    .msg.err { color: #d0302b; }
+    .hp { position: absolute; left: -9999px; }
+
+    /* toolbar */
+    .bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; justify-content: space-between; margin: 0 0 14px; }
+    .sorts { display: flex; flex-wrap: wrap; gap: 1px; }
+    .sorts button { cursor: pointer; border: 0; min-height: 40px; padding: 0 14px; background: var(--panel); box-shadow: 0 0 0 1px var(--blue-line); color: var(--blue);
+        font: 400 17px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; }
+    .sorts button[aria-pressed="true"] { background: var(--blue); color: var(--bg); }
+    .sorts button:focus-visible, .filters button:focus-visible, .up:focus-visible, .lnk:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+    .s-search { width: min(320px, 100%); padding: 10px 12px; font-size: 15px; resize: none; }
+    .filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 24px; }
+    .filters button { cursor: pointer; border: 0; }
+    .filters button[aria-pressed="true"] { background: var(--blue); color: var(--bg); }
+
+    /* question cards */
+    .qs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+    .q { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 16px; background: var(--panel); box-shadow: 0 0 0 1px var(--blue-line); padding: 18px 20px 18px 14px; }
+    .q.pinned { box-shadow: 0 0 0 2px var(--blue); }
+    .q.is-hidden, li.is-hidden { opacity: .55; }
+    .up { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; width: 56px; min-height: 64px; align-self: start;
+        cursor: pointer; border: 0; background: var(--grey-btn); color: var(--blue); transition: background .15s, color .15s, transform .12s; }
+    .up svg { width: 20px; height: 20px; }
+    .up b { font: 400 22px/1 var(--display); }
+    .up:hover { background: var(--grey-btn-hover); }
+    .up[aria-pressed="true"] { background: var(--blue); color: var(--bg); }
+    .up.pop { transform: scale(1.08); }
+    .up.sm { flex-direction: row; width: auto; min-height: 32px; padding: 0 10px; gap: 6px; }
+    .up.sm svg { width: 14px; height: 14px; }
+    .up.sm b { font-size: 16px; }
+    .q-meta { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; margin: 0 0 10px; font: 400 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--blue); }
+    .tag { padding: 3px 7px; background: var(--blue-soft); }
+    .tag.done { background: var(--blue); color: var(--bg); }
+    .tag.warn { background: #d0302b; color: #fff; }
+    .q-text { margin: 0 0 12px; font-size: 18px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .q-foot { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; }
+    .lnk { cursor: pointer; border: 0; background: none; padding: 6px 0; color: var(--blue); font: 400 12px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .05em; text-decoration: underline; text-underline-offset: 3px; }
+    .lnk.quiet { opacity: .65; }
+    .lnk.danger { color: #d0302b; }
+
+    .answer { margin: 14px 0 4px; padding: 16px 18px; background: var(--blue); color: var(--bg); }
+    .answer .who { margin: 0 0 8px; font: 600 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+    .answer .who span { font-weight: 400; opacity: .8; margin-left: 8px; }
+    .answer p.a-text { margin: 0; font-size: 17px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+    .thread { margin: 14px 0 0; padding: 0 0 0 16px; border-left: 2px solid var(--blue-line); }
+    .thread[hidden] { display: none; }
+    .replies { list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+    .r-head { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin: 0 0 4px; font: 400 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .05em; color: var(--blue); }
+    .r-head b { font-weight: 600; }
+    .r-text { margin: 0 0 6px; font-size: 16px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .r-foot { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: center; }
+    .reply-form textarea, .ans-form textarea { min-height: 76px; font-size: 16px; }
+    .ans-form { margin-top: 12px; }
+    .reply-form .ask-row, .ans-form .ask-row { margin-top: 8px; }
+    .empty { padding: 28px 20px; background: var(--panel); box-shadow: 0 0 0 1px var(--blue-line); color: var(--blue); font: 400 13px/1.6 var(--mono); text-transform: uppercase; letter-spacing: .04em; }
+    .more { margin: 18px 0 0; }
+    .more .btn { border: 0; cursor: pointer; }
+
+    /* rules */
+    .rules { margin: 96px 0 0; scroll-margin-top: 80px; }
+    .rules ol { list-style: none; margin: 0; padding: 0; counter-reset: r; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; }
+    .rules li { counter-increment: r; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; padding: 18px; background: var(--panel); box-shadow: 0 0 0 1px var(--blue-line); font-size: 16px; line-height: 1.55; }
+    .rules li::before { content: counter(r, decimal-leading-zero); font: 200 34px/0.9 var(--display); color: var(--blue); }
+    .rules li strong { display: block; font: 400 19px/1.15 var(--display); text-transform: uppercase; letter-spacing: .02em; color: var(--blue); margin: 0 0 6px; }
+    .rules .note { margin: 18px 0 0; font: 400 12px/1.6 var(--mono); color: var(--blue); }
+
+    .admin-bar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;
+        padding: 10px 16px; background: var(--blue); color: var(--bg); font: 400 12px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .05em; }
+    .admin-bar button { cursor: pointer; border: 1px solid currentColor; background: none; color: inherit; padding: 6px 10px; font: inherit; }
+    .admin-bar[hidden] { display: none; }
+
+    @media (max-width: 760px) {
+        .rules ol { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+        .s-stats { margin-bottom: 40px; }
+        .s-stats div { padding: 12px; }
+        .ask { padding: 16px; margin-bottom: 56px; }
+        .q { grid-template-columns: 48px minmax(0, 1fr); gap: 12px; padding: 14px 14px 14px 10px; }
+        .up { width: 46px; min-height: 56px; }
+        .q-text { font-size: 17px; }
+        .thread { padding-left: 10px; }
+        .bar { flex-direction: column; align-items: stretch; }
+        .sorts button { flex: 1 1 auto; padding: 0 10px; font-size: 15px; }
+        .s-search { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) { .up, .up.pop { transition: none; transform: none; } }
+    </style>
+</head>
+<body id="top">
+    <a class="skip" href="#main" data-t="skip">Langsung ke isi</a>
+    <div class="admin-bar" id="adminBar" hidden>
+        <span data-t="adminOn">mode admin, jawabanmu tampil sebagai Jessica</span>
+        <button type="button" id="adminOff" data-t="adminOff">keluar</button>
+    </div>
+
+    <div class="frame">
+        <pre class="sky" aria-hidden="true"></pre>
+        <header class="top">
+            <nav class="nav-l" aria-label="Pages">
+                <a href="/" data-t="home">beranda</a>
+                <a href="/PPIItalia/">PPI Italia</a>
+                <a href="/notes/" data-t="notes">catatan</a>
+            </nav>
+            <a class="mark" href="/" aria-label="yourastro.space, home"><span>your</span><span>astro</span></a>
+            <div class="nav-r">
+                <nav aria-label="More pages">
+                    <a href="/terminal/">terminal</a>
+                    <a href="/SPHEREx/">SPHEREx</a>
+                </nav>
+                <div class="tools">
+                    <div class="lang" role="group" aria-label="Bahasa / Language / Lingua">
+                        <button type="button" data-lang="id" aria-pressed="true" title="Bahasa Indonesia">ID</button>
+                        <button type="button" data-lang="en" aria-pressed="false" title="English">EN</button>
+                        <button type="button" data-lang="it" aria-pressed="false" title="Italiano">IT</button>
+                    </div>
+                    <button type="button" class="theme-toggle" aria-label="Switch to dark mode" title="Dark mode"><svg class="t-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="t-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+                </div>
+            </div>
+        </header>
+
+        <button class="cmdbar" type="button" aria-haspopup="dialog" aria-controls="cmdk">
+            <span class="cmd-glyph" aria-hidden="true">&gt;_</span>
+            <span class="cmd-text"><b>yourastro</b> : <span data-t="bar">lompat ke bagian</span></span>
+            <span class="cmd-keys"><span data-t="open">buka</span> <kbd class="k-mod">Ctrl</kbd><kbd>K</kbd></span>
+        </button>
+
+        <section class="hero ppi-hero">
+            <p class="eyebrow" data-t="eyebrow">PPI Italia · ruang tanya</p>
+            <h1 data-t="h1">Tanya apa saja, tanpa nama</h1>
+            <p class="lede" data-t="lede">Tempat menampung keresahan pelajar Indonesia di Italia. Tulis pertanyaan, kritik, atau saran tanpa menyebut nama, dukung pertanyaan orang lain, dan ikut menjawab kalau kamu tahu jawabannya.</p>
+            <ul class="creds" aria-label="In short">
+                <li data-t="c1">tanpa akun, tanpa nama</li>
+                <li data-t="c2">yang paling didukung dijawab lebih dulu</li>
+                <li data-t="c3">siapa pun boleh ikut menjawab</li>
+            </ul>
+            <div class="btns">
+                <a class="btn" href="#tulis" data-t="b0">tulis pertanyaan</a>
+                <a class="btn btn-grey" href="#daftar" data-t="b1">lihat pertanyaan</a>
+                <a class="btn btn-grey" href="#syarat" data-t="b2">syarat dan ketentuan</a>
+            </div>
+            <p class="motto" data-t="motto">Menjawab, Mendengar, dan Berdiri Setara</p>
+        </section>
+    </div>
+
+    <main id="main" class="page s-wrap">
+        <div class="s-stats" aria-live="polite">
+            <div><b id="stTotal">0</b><span data-t="stTotal">pertanyaan masuk</span></div>
+            <div><b id="stAns">0</b><span data-t="stAns">sudah dijawab</span></div>
+            <div><b id="stVotes">0</b><span data-t="stVotes">dukungan</span></div>
+        </div>
+
+        <section id="tulis" aria-labelledby="h-tulis">
+            <p class="q-eyebrow" data-t="e1">[ tulis ]</p>
+            <h2 class="s-h" id="h-tulis" data-t="h2a">Apa yang bikin kamu resah?</h2>
+            <p class="s-sub" data-t="sub1">Soal kuliah, dokumen, uang, kerja, tempat tinggal, kesehatan, atau soal PPI Italia dan saya sendiri. Semua boleh, selama mengikuti syarat di bawah. Kamu tidak perlu menulis nama, dan sebaiknya memang jangan.</p>
+            <form class="ask" id="askForm" novalidate>
+                <label class="s-label" for="askText" data-t="lbl">pertanyaan atau keresahanmu</label>
+                <textarea id="askText" maxlength="1300" required data-tp="ph1" placeholder="Contoh, gimana caranya cari kerja part time yang legal buat pelajar di Italia?"></textarea>
+                <div class="count" id="askCount"><span data-t="hint1">tanpa tautan, email, atau nomor telepon</span><span><span id="askN">0</span> / 1200</span></div>
+                <fieldset class="cats-pick" id="askCats">
+                    <legend class="s-label" data-t="lblCat">topik</legend>
+                </fieldset>
+                <input class="hp" type="text" name="website" id="askHp" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <label class="agree"><input type="checkbox" id="askAgree"><span><span data-t="agree">Saya sudah membaca dan setuju dengan</span> <a href="#syarat" data-t="agreeLink">syarat dan ketentuan</a>.</span></label>
+                <div class="ask-row">
+                    <button class="btn" type="submit" id="askBtn" disabled data-t="send">kirim tanpa nama</button>
+                    <p class="msg" id="askMsg" role="status"></p>
+                </div>
+            </form>
+        </section>
+
+        <section id="daftar" aria-labelledby="h-daftar">
+            <p class="q-eyebrow" data-t="e2">[ pertanyaan ]</p>
+            <h2 class="s-h" id="h-daftar" data-t="h2b">Yang sudah masuk</h2>
+            <div class="bar">
+                <div class="sorts" role="group" aria-label="Urutkan" id="sorts">
+                    <button type="button" data-sort="top" aria-pressed="true" data-t="sTop">terpopuler</button>
+                    <button type="button" data-sort="new" aria-pressed="false" data-t="sNew">terbaru</button>
+                    <button type="button" data-sort="open" aria-pressed="false" data-t="sOpen">belum dijawab</button>
+                    <button type="button" data-sort="done" aria-pressed="false" data-t="sDone">sudah dijawab</button>
+                </div>
+                <label class="sr" for="search" data-t="search">cari</label>
+                <input class="s-search" id="search" type="search" autocomplete="off" data-tp="phSearch" placeholder="cari kata">
+            </div>
+            <div class="filters" id="filters" role="group" aria-label="Topik"></div>
+            <ol class="qs" id="qs" aria-live="polite"></ol>
+            <div class="more" id="more" hidden><button class="btn btn-grey" type="button" id="moreBtn" data-t="more">tampilkan lebih banyak</button></div>
+        </section>
+
+        <section class="rules" id="syarat" aria-labelledby="h-syarat">
+            <p class="q-eyebrow" data-t="e3">[ syarat dan ketentuan ]</p>
+            <h2 class="s-h" id="h-syarat" data-t="h2c">Bebas, dengan beberapa syarat</h2>
+            <ol id="rulesList"></ol>
+            <p class="note" data-t="rulesNote">Dengan mengirim pertanyaan, balasan, atau dukungan, kamu dianggap setuju dengan syarat ini. Syarat bisa diperbarui, dan perubahannya akan ditulis di halaman ini.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="ticker" role="region" aria-label="PPI Italia">
+            <div class="ticker-track">
+                <span data-t="m1">menjawab, mendengar, dan berdiri setara</span><i>/</i>
+                <span data-t="m2">ruang tanya tanpa nama</span><i>/</i>
+                <span data-t="m3">janji yang bisa dicek</span><i>/</i>
+                <span aria-hidden="true"><span data-t="m1">menjawab, mendengar, dan berdiri setara</span><i>/</i>
+                <span data-t="m2">ruang tanya tanpa nama</span><i>/</i>
+                <span data-t="m3">janji yang bisa dicek</span><i>/</i></span>
+            </div>
+        </div>
+        <div class="foot-row">
+            <a class="mark" href="/" aria-label="yourastro.space, home"><span>your</span><span>astro</span></a>
+            <nav aria-label="Footer">
+                <a href="/" data-t="home">beranda</a><a href="/PPIItalia/">PPI Italia</a><a href="/notes/" data-t="notes">catatan</a><a href="#top" data-t="top">ke atas</a>
+            </nav>
+            <ul class="icons" aria-label="Elsewhere">
+                <li><a href="https://www.instagram.com/your.astrophysicist/" aria-label="Instagram" title="Instagram" style="--icon: url(/img/icons/instagram.svg)"></a></li>
+                <li><a href="https://yourastrophysicist.substack.com" aria-label="Substack" title="Substack" style="--icon: url(/img/icons/substack.svg)"></a></li>
+                <li><a href="https://www.linkedin.com/in/syafaqmuth/" aria-label="LinkedIn" title="LinkedIn" style="--icon: url(/img/icons/linkedin.svg)"></a></li>
+            </ul>
+        </div>
+        <p><span data-t="foot">bagian dari</span> <a href="/">yourastro.space</a> · Padova, Italia · 45.4° N, 11.9° E</p>
+    </footer>
+
+    <button class="cmdbar cmdfloat" type="button" aria-haspopup="dialog" aria-controls="cmdk" tabindex="-1">
+        <span class="cmd-glyph" aria-hidden="true">&gt;_</span>
+        <span class="cmd-text"><b>yourastro</b> : <span data-t="bar">lompat ke bagian</span></span>
+        <span class="cmd-keys"><kbd class="k-mod">Ctrl</kbd><kbd>K</kbd></span>
+    </button>
+
+    <dialog id="cmdk" class="cmdk" aria-label="Jump to a section">
+        <form method="dialog" class="cmdk-form">
+            <label class="cmdk-label" for="cmdk-input">&gt;_</label>
+            <input id="cmdk-input" type="text" autocomplete="off" spellcheck="false" placeholder="Ketik nama bagian atau tautan">
+            <button class="cmdk-esc" type="submit" aria-label="Close">esc</button>
+        </form>
+        <ul class="cmdk-list"></ul>
+    </dialog>
+
+<script>
+/* words on the page, ID first; EN and IT follow the same keys */
+var UI = {
+    id: { skip: 'Langsung ke isi', home: 'beranda', notes: 'catatan', top: 'ke atas', bar: 'lompat ke bagian', open: 'buka', ph: 'Ketik nama bagian atau tautan', foot: 'bagian dari',
+        eyebrow: 'PPI Italia · ruang tanya', h1: 'Tanya apa saja, tanpa nama',
+        lede: 'Tempat menampung keresahan pelajar Indonesia di Italia. Tulis pertanyaan, kritik, atau saran tanpa menyebut nama, dukung pertanyaan orang lain, dan ikut menjawab kalau kamu tahu jawabannya.',
+        c1: 'tanpa akun, tanpa nama', c2: 'yang paling didukung dijawab lebih dulu', c3: 'siapa pun boleh ikut menjawab',
+        b0: 'tulis pertanyaan', b1: 'lihat pertanyaan', b2: 'syarat dan ketentuan', motto: 'Menjawab, Mendengar, dan Berdiri Setara',
+        m1: 'menjawab, mendengar, dan berdiri setara', m2: 'ruang tanya tanpa nama', m3: 'janji yang bisa dicek',
+        stTotal: 'pertanyaan masuk', stAns: 'sudah dijawab', stVotes: 'dukungan',
+        e1: '[ tulis ]', h2a: 'Apa yang bikin kamu resah?',
+        sub1: 'Soal kuliah, dokumen, uang, kerja, tempat tinggal, kesehatan, atau soal PPI Italia dan saya sendiri. Semua boleh, selama mengikuti syarat di bawah. Kamu tidak perlu menulis nama, dan sebaiknya memang jangan.',
+        lbl: 'pertanyaan atau keresahanmu', ph1: 'Contoh, gimana caranya cari kerja part time yang legal buat pelajar di Italia?',
+        hint1: 'tanpa tautan, email, atau nomor telepon', lblCat: 'topik', agree: 'Saya sudah membaca dan setuju dengan', agreeLink: 'syarat dan ketentuan',
+        send: 'kirim tanpa nama', sending: 'mengirim', sent: 'terkirim, terima kasih. Pertanyaanmu sudah ada di daftar.',
+        e2: '[ pertanyaan ]', h2b: 'Yang sudah masuk', sTop: 'terpopuler', sNew: 'terbaru', sOpen: 'belum dijawab', sDone: 'sudah dijawab',
+        search: 'cari', phSearch: 'cari kata', all: 'semua', more: 'tampilkan lebih banyak',
+        e3: '[ syarat dan ketentuan ]', h2c: 'Bebas, dengan beberapa syarat',
+        rulesNote: 'Dengan mengirim pertanyaan, balasan, atau dukungan, kamu dianggap setuju dengan syarat ini. Syarat bisa diperbarui, dan perubahannya akan ditulis di halaman ini.',
+        up: 'dukung', upOn: 'batal dukung', answered: 'dijawab', pinned: 'disematkan', mine: 'punyamu', hiddenTag: 'disembunyikan', heldTag: 'dilaporkan',
+        jess: 'jawaban Jessica', edited: 'diperbarui', replies: function (n) { return n ? n + ' balasan' : 'balas'; }, hideThread: 'tutup balasan',
+        replyPh: 'Tulis balasan tanpa nama. Kalau kamu pernah mengalami hal yang sama, ceritakan yang berhasil.',
+        replySend: 'balas tanpa nama', asker: 'penanya', report: 'laporkan', reported: 'sudah dilaporkan', reportAsk: 'Laporkan kiriman ini karena melanggar syarat? Kiriman yang dilaporkan tiga orang disembunyikan sampai diperiksa.',
+        empty: 'Belum ada pertanyaan di sini. Jadilah yang pertama.', emptyFilter: 'Tidak ada yang cocok dengan pilihan ini.', loading: 'memuat',
+        offline: 'Ruang tanya belum tersambung ke penyimpanan. Coba lagi nanti.',
+        adminOn: 'mode admin, jawabanmu tampil sebagai Jessica', adminOff: 'keluar', adminKey: 'Kunci admin',
+        ansPh: 'Tulis jawabanmu sebagai Jessica', ansSave: 'simpan jawaban', ansDel: 'hapus jawaban', hide: 'sembunyikan', unhide: 'tampilkan', pin: 'sematkan', unpin: 'lepas', del: 'hapus', delAsk: 'Hapus permanen?',
+        err: { too_short: 'Terlalu pendek, tulis sedikit lebih jelas.', too_long: 'Terlalu panjang.', no_links: 'Tautan tidak boleh, hapus dulu tautannya.', no_email: 'Jangan tulis alamat email, demi anonimitasmu.',
+            no_phone: 'Jangan tulis nomor telepon, demi anonimitasmu.', agree_first: 'Centang dulu persetujuan syarat dan ketentuan.', slow_down: 'Terlalu banyak kiriman dalam satu jam, coba lagi nanti.',
+            not_found: 'Kiriman ini sudah tidak ada.', no_store: 'Penyimpanan belum siap, coba lagi nanti.', not_allowed: 'Kunci admin salah.', net: 'Gagal tersambung, periksa internetmu.', server: 'Ada yang salah di server, coba lagi.' } },
+    en: { skip: 'Skip to content', home: 'home', notes: 'notes', top: 'back to top', bar: 'jump to a section', open: 'open', ph: 'Type a section or a link', foot: 'part of',
+        eyebrow: 'PPI Italia · question box', h1: 'Ask anything, no names',
+        lede: 'A place for the worries of Indonesian students in Italy. Write a question, a criticism or a suggestion without giving your name, back other people’s questions, and answer when you know the answer.',
+        c1: 'no account, no name', c2: 'the most backed get answered first', c3: 'anyone can answer',
+        b0: 'write a question', b1: 'see the questions', b2: 'terms and conditions', motto: 'Answering, Listening, and Standing as Equals',
+        m1: 'answering, listening, and standing as equals', m2: 'a question box with no names', m3: 'a promise that can be checked',
+        stTotal: 'questions in', stAns: 'answered', stVotes: 'backings',
+        e1: '[ write ]', h2a: 'What is worrying you?',
+        sub1: 'University, documents, money, work, housing, health, or PPI Italia and me. Anything goes, as long as it follows the terms below. You do not need to give your name, and it is better that you do not.',
+        lbl: 'your question or worry', ph1: 'For example, how do I find a legal part time job as a student in Italy?',
+        hint1: 'no links, emails or phone numbers', lblCat: 'topic', agree: 'I have read and agree to the', agreeLink: 'terms and conditions',
+        send: 'send without a name', sending: 'sending', sent: 'sent, thank you. Your question is on the list.',
+        e2: '[ questions ]', h2b: 'What came in', sTop: 'most backed', sNew: 'newest', sOpen: 'unanswered', sDone: 'answered',
+        search: 'search', phSearch: 'search a word', all: 'all', more: 'show more',
+        e3: '[ terms and conditions ]', h2c: 'Free, with a few terms',
+        rulesNote: 'By sending a question, a reply or a backing you agree to these terms. They may be updated, and any change will be written on this page.',
+        up: 'back this', upOn: 'remove backing', answered: 'answered', pinned: 'pinned', mine: 'yours', hiddenTag: 'hidden', heldTag: 'reported',
+        jess: 'Jessica’s answer', edited: 'updated', replies: function (n) { return n ? n + (n === 1 ? ' reply' : ' replies') : 'reply'; }, hideThread: 'close replies',
+        replyPh: 'Write a reply without a name. If the same happened to you, say what worked.',
+        replySend: 'reply without a name', asker: 'asker', report: 'report', reported: 'reported', reportAsk: 'Report this post for breaking the terms? Posts reported by three people are hidden until checked.',
+        empty: 'No questions here yet. Be the first.', emptyFilter: 'Nothing matches this choice.', loading: 'loading',
+        offline: 'The question box is not connected to its storage yet. Try again later.',
+        adminOn: 'admin mode, your answers show as Jessica', adminOff: 'leave', adminKey: 'Admin key',
+        ansPh: 'Write your answer as Jessica', ansSave: 'save answer', ansDel: 'remove answer', hide: 'hide', unhide: 'show', pin: 'pin', unpin: 'unpin', del: 'delete', delAsk: 'Delete for good?',
+        err: { too_short: 'Too short, write a little more.', too_long: 'Too long.', no_links: 'Links are not allowed, please remove it.', no_email: 'Please leave out email addresses, for your anonymity.',
+            no_phone: 'Please leave out phone numbers, for your anonymity.', agree_first: 'Tick the box to agree to the terms first.', slow_down: 'Too many posts in one hour, try again later.',
+            not_found: 'This post is gone.', no_store: 'Storage is not ready, try again later.', not_allowed: 'Wrong admin key.', net: 'Could not connect, check your internet.', server: 'Something went wrong on the server, try again.' } },
+    it: { skip: 'Vai al contenuto', home: 'home', notes: 'appunti', top: 'torna su', bar: 'vai a una sezione', open: 'apri', ph: 'Scrivi una sezione o un link', foot: 'parte di',
+        eyebrow: 'PPI Italia · domande', h1: 'Chiedi tutto, senza nome',
+        lede: 'Uno spazio per le preoccupazioni degli studenti indonesiani in Italia. Scrivi una domanda, una critica o un suggerimento senza firmarti, sostieni le domande degli altri e rispondi quando sai la risposta.',
+        c1: 'senza account, senza nome', c2: 'le più sostenute hanno risposta per prime', c3: 'chiunque può rispondere',
+        b0: 'scrivi una domanda', b1: 'leggi le domande', b2: 'termini e condizioni', motto: 'Rispondere, ascoltare e stare alla pari',
+        m1: 'rispondere, ascoltare e stare alla pari', m2: 'domande senza nome', m3: 'una promessa verificabile',
+        stTotal: 'domande arrivate', stAns: 'con risposta', stVotes: 'sostegni',
+        e1: '[ scrivi ]', h2a: 'Cosa ti preoccupa?',
+        sub1: 'Università, documenti, soldi, lavoro, casa, salute, oppure PPI Italia e me. Va bene tutto, se rispetta i termini qui sotto. Non serve scrivere il tuo nome, ed è meglio non farlo.',
+        lbl: 'la tua domanda o preoccupazione', ph1: 'Per esempio, come trovo un lavoro part time in regola da studente in Italia?',
+        hint1: 'niente link, email o numeri di telefono', lblCat: 'argomento', agree: 'Ho letto e accetto i', agreeLink: 'termini e condizioni',
+        send: 'invia senza nome', sending: 'invio', sent: 'inviata, grazie. La tua domanda è nella lista.',
+        e2: '[ domande ]', h2b: 'Quelle arrivate', sTop: 'più sostenute', sNew: 'più recenti', sOpen: 'senza risposta', sDone: 'con risposta',
+        search: 'cerca', phSearch: 'cerca una parola', all: 'tutte', more: 'mostra altre',
+        e3: '[ termini e condizioni ]', h2c: 'Libero, con alcune regole',
+        rulesNote: 'Inviando una domanda, una risposta o un sostegno accetti questi termini. Possono essere aggiornati, e ogni modifica sarà scritta in questa pagina.',
+        up: 'sostieni', upOn: 'togli sostegno', answered: 'risposta', pinned: 'in evidenza', mine: 'tua', hiddenTag: 'nascosta', heldTag: 'segnalata',
+        jess: 'la risposta di Jessica', edited: 'aggiornata', replies: function (n) { return n ? n + (n === 1 ? ' risposta' : ' risposte') : 'rispondi'; }, hideThread: 'chiudi risposte',
+        replyPh: 'Scrivi una risposta senza nome. Se ti è successa la stessa cosa, racconta cosa ha funzionato.',
+        replySend: 'rispondi senza nome', asker: 'chi ha chiesto', report: 'segnala', reported: 'segnalata', reportAsk: 'Segnalare questo post perché viola i termini? I post segnalati da tre persone vengono nascosti fino a un controllo.',
+        empty: 'Ancora nessuna domanda. Sii la prima persona.', emptyFilter: 'Niente corrisponde a questa scelta.', loading: 'caricamento',
+        offline: 'Lo spazio domande non è ancora collegato al suo archivio. Riprova più tardi.',
+        adminOn: 'modalità admin, le tue risposte appaiono come Jessica', adminOff: 'esci', adminKey: 'Chiave admin',
+        ansPh: 'Scrivi la tua risposta come Jessica', ansSave: 'salva risposta', ansDel: 'togli risposta', hide: 'nascondi', unhide: 'mostra', pin: 'metti in evidenza', unpin: 'togli', del: 'elimina', delAsk: 'Eliminare per sempre?',
+        err: { too_short: 'Troppo breve, scrivi qualcosa in più.', too_long: 'Troppo lunga.', no_links: 'I link non sono ammessi, toglilo.', no_email: 'Non scrivere indirizzi email, per il tuo anonimato.',
+            no_phone: 'Non scrivere numeri di telefono, per il tuo anonimato.', agree_first: 'Prima spunta l’accettazione dei termini.', slow_down: 'Troppi invii in un’ora, riprova più tardi.',
+            not_found: 'Questo post non c’è più.', no_store: 'L’archivio non è pronto, riprova più tardi.', not_allowed: 'Chiave admin sbagliata.', net: 'Connessione non riuscita, controlla internet.', server: 'Errore sul server, riprova.' } }
+};
+
+var CATS = {
+    id: { akademik: 'kuliah', dokumen: 'dokumen dan izin tinggal', keuangan: 'uang dan beasiswa', kerja: 'kerja', hidup: 'rumah dan hidup sehari-hari', kesehatan: 'kesehatan dan kesehatan mental', ppi: 'PPI Italia', lainnya: 'lainnya' },
+    en: { akademik: 'university', dokumen: 'documents and residence', keuangan: 'money and scholarships', kerja: 'work', hidup: 'housing and daily life', kesehatan: 'health and mental health', ppi: 'PPI Italia', lainnya: 'other' },
+    it: { akademik: 'università', dokumen: 'documenti e soggiorno', keuangan: 'soldi e borse di studio', kerja: 'lavoro', hidup: 'casa e vita quotidiana', kesehatan: 'salute e salute mentale', ppi: 'PPI Italia', lainnya: 'altro' }
+};
+
+var RULES = {
+    id: [
+        ['Benar-benar tanpa nama', 'Tidak ada akun, nama, atau email yang diminta. Alamat IP tidak disimpan. Yang tersimpan hanya kode acak yang sudah diacak ulang, untuk mencegah spam dan dukungan ganda.'],
+        ['Boleh tanya apa saja', 'Tentang hidup sebagai pelajar di Italia, tentang PPI Italia, dan tentang saya sebagai ketua, termasuk kritik yang keras. Kritik bukan pelanggaran.'],
+        ['Masalahnya, bukan orangnya', 'Jangan menyebut nama, akun, kampus dan jurusan sekaligus, atau ciri lain yang membuat orang tertentu bisa dikenali. Ceritakan kejadiannya tanpa menunjuk orang.'],
+        ['Lindungi dirimu sendiri', 'Jangan menulis nomor telepon, email, alamat, atau nomor dokumen. Sistem menolak tautan, email, dan nomor telepon secara otomatis.'],
+        ['Tanpa kebencian', 'Tidak boleh ada ujaran kebencian soal suku, agama, ras, gender, atau orientasi, juga pelecehan, ancaman, fitnah, dan konten seksual.'],
+        ['Bukan tempat jualan', 'Tidak boleh ada iklan, promosi, atau ajakan ke grup lain.'],
+        ['Darurat jangan menunggu', 'Kalau ada keadaan darurat, hubungi 112 di Italia atau perwakilan RI terdekat, yaitu KBRI Roma atau KJRI Milan. Halaman ini tidak dipantau setiap saat.'],
+        ['Kasus yang perlu ditangani pribadi', 'Untuk kekerasan, pelecehan, atau hal yang butuh tindak lanjut tanpa dibaca publik, hubungi saya langsung lewat DM Instagram, tautannya ada di bagian bawah halaman. Saya akan menjaga kerahasiaannya.'],
+        ['Yang melanggar akan diturunkan', 'Saya bisa menyembunyikan atau menghapus kiriman yang melanggar syarat. Kiriman yang dilaporkan tiga orang otomatis disembunyikan sampai saya periksa.'],
+        ['Jawaban saya dan jawaban kalian', 'Saya mendahulukan pertanyaan yang paling banyak didukung, tetapi tidak semua bisa langsung dijawab. Balasan dari sesama anggota bukan informasi resmi, jadi untuk urusan hukum dan dokumen tetap cek sumber resmi.'],
+        ['Semua kiriman bersifat publik', 'Pertanyaan dan balasan bisa dibaca siapa saja yang membuka halaman ini. Tulis hanya yang kamu rela dibaca orang lain.']
+    ],
+    en: [
+        ['Truly anonymous', 'No account, name or email is asked for. IP addresses are not stored. Only a scrambled random code is kept, to stop spam and double backing.'],
+        ['Ask anything', 'About student life in Italy, about PPI Italia, and about me as chair, including harsh criticism. Criticism is not a violation.'],
+        ['The problem, not the person', 'Do not name anyone, their account, their university and course together, or anything else that makes a specific person recognisable. Tell what happened without pointing at people.'],
+        ['Protect yourself', 'Do not write phone numbers, emails, addresses or document numbers. The system refuses links, emails and phone numbers automatically.'],
+        ['No hate', 'No hate speech about ethnicity, religion, race, gender or orientation, and no harassment, threats, defamation or sexual content.'],
+        ['Not a market', 'No ads, promotion, or invitations to other groups.'],
+        ['Emergencies cannot wait', 'In an emergency call 112 in Italy, or the nearest Indonesian mission, the Embassy in Rome or the Consulate General in Milan. This page is not watched at all hours.'],
+        ['Cases that need privacy', 'For violence, harassment, or anything that needs follow up without a public audience, contact me directly by Instagram DM, linked at the bottom of the page. I will keep it confidential.'],
+        ['Breaking the terms gets it removed', 'I can hide or delete posts that break these terms. Posts reported by three people are hidden automatically until I check them.'],
+        ['My answers and yours', 'I answer the most backed questions first, but not all can be answered at once. Replies from other members are not official information, so for legal matters and documents always check official sources.'],
+        ['Everything is public', 'Questions and replies can be read by anyone who opens this page. Write only what you are fine with others reading.']
+    ],
+    it: [
+        ['Davvero anonimo', 'Non chiediamo account, nome o email. Gli indirizzi IP non vengono salvati. Resta solo un codice casuale rimescolato, per fermare lo spam e i sostegni doppi.'],
+        ['Chiedi tutto', 'Sulla vita da studente in Italia, su PPI Italia e su di me come presidente, anche critiche dure. Criticare non è una violazione.'],
+        ['Il problema, non la persona', 'Non scrivere nomi, account, università e corso insieme, o altro che renda riconoscibile una persona. Racconta cosa è successo senza indicare nessuno.'],
+        ['Proteggi te stesso', 'Non scrivere numeri di telefono, email, indirizzi o numeri di documenti. Il sistema rifiuta in automatico link, email e numeri di telefono.'],
+        ['Niente odio', 'Niente discorsi d’odio su etnia, religione, razza, genere o orientamento, e niente molestie, minacce, diffamazione o contenuti sessuali.'],
+        ['Non è un mercato', 'Niente pubblicità, promozioni o inviti ad altri gruppi.'],
+        ['Le emergenze non aspettano', 'In caso di emergenza chiama il 112 in Italia, oppure la rappresentanza indonesiana più vicina, l’Ambasciata a Roma o il Consolato Generale a Milano. Questa pagina non è seguita a ogni ora.'],
+        ['Casi da trattare in privato', 'Per violenze, molestie o cose che richiedono un seguito senza pubblico, scrivimi direttamente in DM su Instagram, il link è in fondo alla pagina. Manterrò la riservatezza.'],
+        ['Chi viola i termini viene rimosso', 'Posso nascondere o eliminare i post che violano i termini. I post segnalati da tre persone vengono nascosti in automatico finché non li controllo.'],
+        ['Le mie risposte e le vostre', 'Rispondo prima alle domande più sostenute, ma non tutte possono avere risposta subito. Le risposte degli altri membri non sono informazioni ufficiali, quindi per questioni legali e documenti controlla sempre le fonti ufficiali.'],
+        ['Tutto è pubblico', 'Domande e risposte possono essere lette da chiunque apra questa pagina. Scrivi solo ciò che ti va bene far leggere.']
+    ]
+};
+</script>
+<script>
+/* language, palette, theme: the same behaviour as /PPIItalia */
+var LANG = 'id';
+(function () {
+    var KEY = 'yas-lang', root = document.documentElement, buttons = document.querySelectorAll('.lang button');
+    var list = document.querySelector('.cmdk-list'), input = document.getElementById('cmdk-input');
+    function palette(lang) {
+        var u = UI[lang], rows = [[u.b0, '#tulis'], [u.b1, '#daftar'], [u.b2, '#syarat'], ['PPI Italia', '/PPIItalia/'], ['yourastro.space', '/'], ['Your AstroNotes', '/notes/']];
+        list.innerHTML = rows.map(function (r) { return '<li><a href="' + r[1] + '"><span>' + r[0] + '</span><small>' + r[1] + '</small></a></li>'; }).join('');
+    }
+    function apply(lang) {
+        LANG = lang;
+        var u = UI[lang];
+        document.querySelectorAll('[data-t]').forEach(function (n) { var v = u[n.dataset.t]; if (typeof v === 'string') n.textContent = v; });
+        document.querySelectorAll('[data-tp]').forEach(function (n) { n.placeholder = u[n.dataset.tp]; });
+        input.placeholder = u.ph;
+        buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.lang === lang)); });
+        root.lang = lang;
+        palette(lang);
+        window.dispatchEvent(new Event('langchange'));
+    }
+    var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
+    LANG = saved === 'en' || saved === 'it' ? saved : 'id';
+    window.applyLang = apply;
+    buttons.forEach(function (b) { b.addEventListener('click', function () { apply(b.dataset.lang); try { localStorage.setItem(KEY, b.dataset.lang); } catch (e) {} }); });
+})();
+
+(function () {
+    var dlg = document.getElementById('cmdk'), input = document.getElementById('cmdk-input');
+    function links() { return Array.prototype.slice.call(dlg.querySelectorAll('.cmdk-list a')); }
+    if (/Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent)) document.querySelectorAll('.k-mod').forEach(function (k) { k.textContent = '⌘'; });
+    function visible() { return links().filter(function (a) { return !a.parentNode.hidden; }); }
+    function filter() {
+        var q = input.value.trim().toLowerCase();
+        links().forEach(function (a) { a.parentNode.hidden = q && a.textContent.toLowerCase().indexOf(q) === -1; a.classList.remove('on'); });
+        var v = visible(); if (v[0]) v[0].classList.add('on');
+    }
+    function open() { if (dlg.open) return; input.value = ''; filter(); if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); input.focus(); }
+    document.querySelectorAll('.cmdbar').forEach(function (b) { b.addEventListener('click', open); });
+    document.addEventListener('keydown', function (e) { if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); dlg.open ? dlg.close() : open(); } });
+    input.addEventListener('input', filter);
+    input.addEventListener('keydown', function (e) {
+        var v = visible(), i = v.findIndex(function (a) { return a.classList.contains('on'); });
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            e.preventDefault(); if (!v.length) return; if (i > -1) v[i].classList.remove('on');
+            i = (i + (e.key === 'ArrowDown' ? 1 : -1) + v.length) % v.length; v[i].classList.add('on'); v[i].scrollIntoView({ block: 'nearest' });
+        } else if (e.key === 'Enter') { e.preventDefault(); if (i > -1) v[i].click(); }
+    });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg || e.target.closest('.cmdk-list a')) dlg.close(); });
+    var frame = document.querySelector('.frame'), flo = document.querySelector('.cmdfloat');
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) {
+        var away = !es[0].isIntersecting; flo.classList.toggle('show', away); flo.tabIndex = away ? 0 : -1;
+    }, { threshold: 0.05 }).observe(frame);
+})();
+</script>
+<script src="/theme.js?v=2"></script>
+<script src="/ascii.js?v=3"></script>
+<script>
+/* the question box */
+(function () {
+    var API = '/api/saran', PAGE = 15;
+    var $ = function (id) { return document.getElementById(id); };
+    function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+    function sess(k, v) { try { if (v === undefined) return sessionStorage.getItem(k); if (v === null) sessionStorage.removeItem(k); else sessionStorage.setItem(k, v); } catch (e) { return null; } }
+
+    // a random browser id, so a backing can be taken back and the asker's replies can be marked; the server only keeps a salted hash of it
+    var voter = store('saran-voter');
+    if (!voter || !/^[a-z0-9]{16,64}$/.test(voter)) {
+        var a = new Uint8Array(16); (window.crypto || window.msCrypto).getRandomValues(a);
+        voter = Array.prototype.map.call(a, function (x) { return ('0' + x.toString(16)).slice(-2); }).join('');
+        store('saran-voter', voter);
+    }
+    var voted = {}; try { voted = JSON.parse(store('saran-votes') || '{}') || {}; } catch (e) {}
+    var reported = {}; try { reported = JSON.parse(store('saran-reported') || '{}') || {}; } catch (e) {}
+    var adminKey = sess('saran-admin');
+
+    var state = { qs: [], sort: 'top', cat: '', q: '', shown: PAGE, open: {}, admin: false, ok: false, loaded: false };
+    var u = function () { return UI[LANG]; };
+
+    function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function ago(t) {
+        var s = (t - Date.now()) / 1000, f = new Intl.RelativeTimeFormat(LANG, { numeric: 'auto' });
+        var steps = [[60, 'second'], [60, 'minute'], [24, 'hour'], [7, 'day'], [4.35, 'week'], [12, 'month'], [Infinity, 'year']];
+        for (var i = 0; i < steps.length; i++) { if (Math.abs(s) < steps[i][0]) return f.format(Math.round(s), steps[i][1]); s /= steps[i][0]; }
+    }
+    var ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+
+    function call(method, body) {
+        var h = { 'Content-Type': 'application/json', 'X-Voter': voter };
+        if (adminKey) h['X-Admin-Key'] = adminKey;
+        return fetch(API + (method === 'GET' ? '?voter=' + voter : ''), { method: method, headers: h, body: body ? JSON.stringify(Object.assign({ voter: voter }, body)) : undefined })
+            .catch(function () { throw { code: 'net' }; })
+            .then(function (r) { return r.json().catch(function () { return { error: 'server' }; }).then(function (j) { if (!r.ok || j.error) throw { code: j.error || 'server' }; return j; }); });
+    }
+    function errText(e) { return u().err[e && e.code] || u().err.server; }
+
+    // ---------- composer ----------
+    var askText = $('askText'), askAgree = $('askAgree'), askBtn = $('askBtn'), askMsg = $('askMsg');
+    function catPicker() {
+        var cur = (document.querySelector('input[name="cat"]:checked') || {}).value || 'lainnya';
+        var html = '<legend class="s-label">' + esc(u().lblCat) + '</legend>';
+        Object.keys(CATS.id).forEach(function (k) {
+            html += '<label><input type="radio" name="cat" value="' + k + '"' + (k === cur ? ' checked' : '') + '><span>' + esc(CATS[LANG][k]) + '</span></label>';
+        });
+        $('askCats').innerHTML = html;
+    }
+    function localCheck(t) {
+        if (/(https?:\/\/|www\.)\S+/i.test(t)) return 'no_links';
+        if (/[\w.+-]+@[\w-]+\.[\w.]+/.test(t)) return 'no_email';
+        if (/(\+?\d[\d .-]{8,}\d)/.test(t.replace(/\b(19|20)\d\d\b/g, ''))) return 'no_phone';
+        return '';
+    }
+    function askState() {
+        var t = askText.value.trim(), n = t.length, bad = localCheck(t);
+        $('askN').textContent = n;
+        $('askCount').classList.toggle('over', n > 1200 || !!bad);
+        if (bad) { askMsg.className = 'msg err'; askMsg.textContent = u().err[bad]; askMsg.dataset.kind = 'warn'; }
+        else if (askMsg.dataset.kind === 'warn') { askMsg.className = 'msg'; askMsg.textContent = ''; askMsg.dataset.kind = ''; }
+        askBtn.disabled = !askAgree.checked || n < 10 || n > 1200 || !!bad;
+    }
+    askText.addEventListener('input', askState);
+    askAgree.addEventListener('change', askState);
+    $('askForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (askBtn.disabled) return;
+        askBtn.disabled = true; askBtn.textContent = u().sending; askMsg.className = 'msg'; askMsg.textContent = '';
+        var cat = (document.querySelector('input[name="cat"]:checked') || {}).value || 'lainnya';
+        call('POST', { op: 'ask', text: askText.value, cat: cat, agree: askAgree.checked, website: $('askHp').value })
+            .then(function () {
+                askText.value = ''; askMsg.textContent = u().sent;
+                state.sort = 'new'; state.cat = ''; state.q = ''; $('search').value = '';
+                return load();
+            })
+            .catch(function (er) { askMsg.className = 'msg err'; askMsg.textContent = errText(er); })
+            .then(function () { askBtn.textContent = u().send; askState(); });
+    });
+
+    // ---------- toolbar ----------
+    function filtersBar() {
+        var html = '<button type="button" class="chip" data-cat="" aria-pressed="' + (state.cat === '') + '">' + esc(u().all) + '</button>';
+        Object.keys(CATS.id).forEach(function (k) {
+            var n = state.qs.filter(function (q) { return q.cat === k; }).length;
+            if (!n && state.cat !== k) return;
+            html += '<button type="button" class="chip" data-cat="' + k + '" aria-pressed="' + (state.cat === k) + '">' + esc(CATS[LANG][k]) + ' · ' + n + '</button>';
+        });
+        $('filters').innerHTML = html;
+    }
+    $('filters').addEventListener('click', function (e) {
+        var b = e.target.closest('[data-cat]'); if (!b) return;
+        state.cat = b.dataset.cat; state.shown = PAGE; render();
+    });
+    $('sorts').addEventListener('click', function (e) {
+        var b = e.target.closest('[data-sort]'); if (!b) return;
+        state.sort = b.dataset.sort; state.shown = PAGE; render();
+    });
+    $('search').addEventListener('input', function () { state.q = this.value.trim().toLowerCase(); state.shown = PAGE; render(); });
+    $('moreBtn').addEventListener('click', function () { state.shown += PAGE; render(); });
+
+    // ---------- list ----------
+    // "terpopuler" weighs backings against age, so a new question can still rise; "belum dijawab" puts the most backed first
+    function hot(q) { var h = (Date.now() - q.t) / 36e5; return (q.votes + q.replies.length * 0.5 + 1) / Math.pow(h + 2, 0.6); }
+    function view() {
+        var out = state.qs.filter(function (q) {
+            if (state.cat && q.cat !== state.cat) return false;
+            if (state.sort === 'open' && q.answer) return false;
+            if (state.sort === 'done' && !q.answer) return false;
+            if (state.q) {
+                var hay = (q.text + ' ' + (q.answer ? q.answer.text : '') + ' ' + q.replies.map(function (r) { return r.text; }).join(' ')).toLowerCase();
+                if (hay.indexOf(state.q) === -1) return false;
+            }
+            return true;
+        });
+        out.sort(function (a, b) {
+            if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
+            if (state.sort === 'new') return b.t - a.t;
+            if (state.sort === 'done') return (b.answer.t || 0) - (a.answer.t || 0);
+            if (state.sort === 'top') return hot(b) - hot(a);
+            return b.votes - a.votes || a.t - b.t;
+        });
+        return out;
+    }
+    function upBtn(id, n, small) {
+        var on = !!voted[id];
+        return '<button type="button" class="up' + (small ? ' sm' : '') + '" data-vote="' + id + '" aria-pressed="' + on + '" aria-label="' + esc((on ? u().upOn : u().up) + ', ' + n) + '" title="' + esc(on ? u().upOn : u().up) + '">' + ARROW + '<b>' + n + '</b></button>';
+    }
+    function adminTools(id, hidden, pinned) {
+        if (!state.admin) return '';
+        return '<button type="button" class="lnk" data-adm="hide" data-id="' + id + '" data-on="' + !hidden + '">' + esc(hidden ? u().unhide : u().hide) + '</button>' +
+            (id[0] === 'q' ? '<button type="button" class="lnk" data-adm="pin" data-id="' + id + '" data-on="' + !pinned + '">' + esc(pinned ? u().unpin : u().pin) + '</button>' : '') +
+            '<button type="button" class="lnk danger" data-adm="delete" data-id="' + id + '">' + esc(u().del) + '</button>';
+    }
+    function repBtn(id, mine) {
+        if (mine || state.admin) return '';
+        return reported[id] ? '<span class="lnk quiet" aria-disabled="true">' + esc(u().reported) + '</span>' : '<button type="button" class="lnk quiet" data-report="' + id + '">' + esc(u().report) + '</button>';
+    }
+    function card(q) {
+        var cls = 'q' + (q.pinned ? ' pinned' : '') + (q.hidden ? ' is-hidden' : '');
+        var tags = '<span class="tag">' + esc(CATS[LANG][q.cat] || q.cat) + '</span>' +
+            (q.answer ? '<span class="tag done">' + esc(u().answered) + '</span>' : '') +
+            (q.pinned ? '<span class="tag">' + esc(u().pinned) + '</span>' : '') +
+            (q.mine ? '<span class="tag">' + esc(u().mine) + '</span>' : '') +
+            (q.hidden ? '<span class="tag warn">' + esc(q.held ? u().heldTag : u().hiddenTag) + '</span>' : '') +
+            '<span>' + esc(ago(q.t)) + '</span>';
+        var ans = '';
+        if (q.answer) ans = '<div class="answer"><p class="who">' + esc(u().jess) + '<span>' + esc(ago(q.answer.t)) + (q.answer.edited ? ' · ' + esc(u().edited) : '') + '</span></p><p class="a-text">' + esc(q.answer.text) + '</p></div>';
+        if (state.admin) ans += '<form class="ans-form" data-ans="' + q.id + '"><textarea placeholder="' + esc(u().ansPh) + '">' + esc(q.answer ? q.answer.text : '') + '</textarea><div class="ask-row"><button class="btn btn-sm" type="submit">' + esc(u().ansSave) + '</button>' +
+            (q.answer ? '<button class="lnk danger" type="button" data-clear="' + q.id + '">' + esc(u().ansDel) + '</button>' : '') + '</div></form>';
+        var open = !!state.open[q.id];
+        var reps = q.replies.map(function (r) {
+            return '<li class="' + (r.hidden ? 'is-hidden' : '') + '"><p class="r-head"><b>' + esc(r.alias) + '</b>' + (r.asker ? '<span class="tag">' + esc(u().asker) + '</span>' : '') +
+                (r.mine ? '<span class="tag">' + esc(u().mine) + '</span>' : '') + (r.hidden ? '<span class="tag warn">' + esc(r.held ? u().heldTag : u().hiddenTag) + '</span>' : '') +
+                '<span>' + esc(ago(r.t)) + '</span></p><p class="r-text">' + esc(r.text) + '</p><div class="r-foot">' + upBtn(r.id, r.votes, true) + repBtn(r.id, r.mine) + adminTools(r.id, r.hidden) + '</div></li>';
+        }).join('');
+        var thread = '<div class="thread" id="th-' + q.id + '"' + (open ? '' : ' hidden') + '>' + (reps ? '<ol class="replies">' + reps + '</ol>' : '') +
+            '<form class="reply-form" data-reply="' + q.id + '"><label class="sr" for="rt-' + q.id + '">' + esc(u().replySend) + '</label><textarea id="rt-' + q.id + '" maxlength="1100" placeholder="' + esc(u().replyPh) + '"></textarea>' +
+            '<div class="ask-row"><button class="btn btn-sm" type="submit">' + esc(u().replySend) + '</button><p class="msg" role="status"></p></div></form></div>';
+        return '<li class="' + cls + '" id="' + q.id + '">' + upBtn(q.id, q.votes) + '<div><p class="q-meta">' + tags + '</p><p class="q-text">' + esc(q.text) + '</p>' + ans +
+            '<div class="q-foot"><button type="button" class="lnk" data-thread="' + q.id + '" aria-expanded="' + open + '" aria-controls="th-' + q.id + '">' + esc(open ? u().hideThread : u().replies(q.replies.length)) + '</button>' +
+            repBtn(q.id, q.mine) + adminTools(q.id, q.hidden, q.pinned) + '</div>' + thread + '</div></li>';
+    }
+
+    function render() {
+        document.querySelectorAll('#sorts button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.sort === state.sort)); });
+        filtersBar();
+        var vis = state.qs.filter(function (q) { return !q.hidden; });
+        $('stTotal').textContent = vis.length;
+        $('stAns').textContent = vis.filter(function (q) { return q.answer; }).length;
+        $('stVotes').textContent = vis.reduce(function (s, q) { return s + q.votes + q.replies.reduce(function (t, r) { return t + r.votes; }, 0); }, 0);
+        var list = view(), box = $('qs');
+        if (!state.loaded) box.innerHTML = '<li class="empty">' + esc(u().loading) + '</li>';
+        else if (!state.ok) box.innerHTML = '<li class="empty">' + esc(u().offline) + '</li>';
+        else if (!list.length) box.innerHTML = '<li class="empty">' + esc(state.qs.length ? u().emptyFilter : u().empty) + '</li>';
+        else box.innerHTML = list.slice(0, state.shown).map(card).join('');
+        $('more').hidden = list.length <= state.shown;
+    }
+
+    function busy() {
+        // do not redraw under someone who is typing a reply or an answer
+        var a = document.activeElement;
+        if (a && a.closest && a.closest('#qs') && a.tagName === 'TEXTAREA') return true;
+        return Array.prototype.some.call(document.querySelectorAll('#qs .reply-form textarea'), function (t) { return t.value.trim(); });
+    }
+    function load(quiet) {
+        return call('GET').then(function (j) {
+            state.qs = j.questions; state.admin = !!j.admin; state.ok = true; state.loaded = true;
+            if (adminKey && !j.admin) { sess('saran-admin', null); adminKey = null; alert(u().err.not_allowed); }
+            $('adminBar').hidden = !state.admin;
+            if (!(quiet && busy())) render();
+        }).catch(function () {
+            state.loaded = true;
+            if (!state.qs.length) { state.ok = false; render(); }
+        });
+    }
+    function find(id) {
+        for (var i = 0; i < state.qs.length; i++) {
+            var q = state.qs[i]; if (q.id === id) return q;
+            for (var k = 0; k < q.replies.length; k++) if (q.replies[k].id === id) return q.replies[k];
+        }
+    }
+
+    // ---------- actions on the list ----------
+    $('qs').addEventListener('click', function (e) {
+        var t = e.target.closest('button'); if (!t) return;
+        if (t.dataset.vote) {
+            var id = t.dataset.vote, x = find(id), on = !voted[id];
+            if (!x) return;
+            x.votes = Math.max(0, x.votes + (on ? 1 : -1));
+            if (on) voted[id] = 1; else delete voted[id];
+            store('saran-votes', JSON.stringify(voted));
+            t.setAttribute('aria-pressed', String(on)); t.title = on ? u().upOn : u().up; t.querySelector('b').textContent = x.votes;
+            t.classList.add('pop'); setTimeout(function () { t.classList.remove('pop'); }, 140);
+            $('stVotes').textContent = Math.max(0, Number($('stVotes').textContent) + (on ? 1 : -1));
+            call('POST', { op: 'vote', id: id, on: on }).then(function (j) { x.votes = j.votes; t.querySelector('b').textContent = j.votes; })
+                .catch(function () { x.votes = Math.max(0, x.votes + (on ? -1 : 1)); if (on) delete voted[id]; else voted[id] = 1; store('saran-votes', JSON.stringify(voted)); render(); });
+        } else if (t.dataset.thread) {
+            var qid = t.dataset.thread, q = find(qid);
+            state.open[qid] = !state.open[qid];
+            var th = $('th-' + qid); th.hidden = !state.open[qid];
+            t.setAttribute('aria-expanded', String(!!state.open[qid]));
+            t.textContent = state.open[qid] ? u().hideThread : u().replies(q.replies.length);
+            if (state.open[qid]) th.querySelector('textarea').focus({ preventScroll: true });
+        } else if (t.dataset.report) {
+            if (!confirm(u().reportAsk)) return;
+            var rid = t.dataset.report;
+            call('POST', { op: 'report', id: rid }).then(function () { reported[rid] = 1; store('saran-reported', JSON.stringify(reported)); render(); }).catch(function (er) { alert(errText(er)); });
+        } else if (t.dataset.adm) {
+            if (t.dataset.adm === 'delete' && !confirm(u().delAsk)) return;
+            call('POST', { op: t.dataset.adm, id: t.dataset.id, on: t.dataset.on === 'true' }).then(function () { return load(); }).catch(function (er) { alert(errText(er)); });
+        } else if (t.dataset.clear) {
+            call('POST', { op: 'answer', id: t.dataset.clear, text: '' }).then(function () { return load(); }).catch(function (er) { alert(errText(er)); });
+        }
+    });
+    $('qs').addEventListener('submit', function (e) {
+        var f = e.target; e.preventDefault();
+        var ta = f.querySelector('textarea'), btn = f.querySelector('button[type="submit"]'), msg = f.querySelector('.msg');
+        if (f.dataset.ans) {
+            btn.disabled = true;
+            call('POST', { op: 'answer', id: f.dataset.ans, text: ta.value }).then(function () { return load(); }).catch(function (er) { alert(errText(er)); btn.disabled = false; });
+            return;
+        }
+        var bad = localCheck(ta.value);
+        if (bad || ta.value.trim().length < 2) { msg.className = 'msg err'; msg.textContent = u().err[bad || 'too_short']; return; }
+        btn.disabled = true; msg.className = 'msg'; msg.textContent = u().sending;
+        call('POST', { op: 'reply', id: f.dataset.reply, text: ta.value }).then(function () { ta.value = ''; ta.blur(); state.open[f.dataset.reply] = true; return load(); })
+            .catch(function (er) { msg.className = 'msg err'; msg.textContent = errText(er); btn.disabled = false; });
+    });
+
+    // ---------- admin: open the page with #admin at the end of the address ----------
+    function adminLogin() {
+        if (location.hash !== '#admin') return;
+        var k = prompt(u().adminKey);
+        history.replaceState(null, '', location.pathname + location.search);
+        if (k) { adminKey = k.trim(); sess('saran-admin', adminKey); load(); }
+    }
+    $('adminOff').addEventListener('click', function () { sess('saran-admin', null); adminKey = null; state.admin = false; $('adminBar').hidden = true; load(); });
+    window.addEventListener('hashchange', adminLogin);
+
+    function rules() {
+        $('rulesList').innerHTML = RULES[LANG].map(function (r) { return '<li><div><strong>' + esc(r[0]) + '</strong>' + esc(r[1]) + '</div></li>'; }).join('');
+    }
+    window.addEventListener('langchange', function () { catPicker(); rules(); askState(); if (!busy()) render(); });
+
+    applyLang(LANG);
+    load().then(adminLogin);
+    setInterval(function () { if (!document.hidden) load(true); }, 45000);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) load(true); });
+})();
+</script>
+</body>
+</html>
